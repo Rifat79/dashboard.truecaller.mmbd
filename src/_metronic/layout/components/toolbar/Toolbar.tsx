@@ -1,17 +1,63 @@
-import React from 'react'
-import {useLayout} from '../../core/LayoutProvider'
-import {Toolbar1} from './Toolbar1'
-
-const Toolbar = () => {
-  const {config} = useLayout()
-
-  switch (config.toolbar.layout) {
-    case 'toolbar1':
-      return <Toolbar1 />
-
-    default:
-      return <Toolbar1 />
-  }
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import clsx from 'clsx'
+import { FC } from 'react'
+import { Link } from 'react-router-dom'
+import { PageLink, useLayout } from '../../core'
+type Props = {
+  children?: any
+  breadcrumbs?: Array<PageLink>
 }
 
-export {Toolbar}
+const Toolbar: FC<Props> = ({ children, breadcrumbs }) => {
+  const { classes } = useLayout();
+
+  return (
+    <>
+      <div className='toolbar' id='kt_toolbar'>
+        {/* begin::Container */}
+        <div
+          id='kt_toolbar_container'
+          className={clsx(classes.toolbarContainer.join(' '), 'd-flex flex-stack')}
+        >
+          <div
+            className={clsx('page-title d-flex', classes.pageTitle.join(' '))}
+          >
+            {breadcrumbs &&
+              breadcrumbs.length > 0 && (
+                <>
+                  <ul className='breadcrumb breadcrumb-separatorless fw-bold fs-7 my-1'>
+                    {Array.from(breadcrumbs).map((item, index) => (
+                      <li
+                        className={clsx('breadcrumb-item', {
+                          'text-dark': !item.isSeparator && item.isActive,
+                          'text-muted': !item.isSeparator && !item.isActive,
+                        })}
+                        key={`${item.path}${index}`}
+                      >
+                        {!item.isSeparator ? (
+                          <Link className='text-muted text-hover-primary' to={item.path}>
+                            {item.title}
+                          </Link>
+                        ) : (
+                          <span className='bullet bg-gray-200 w-5px h-2px'></span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+          </div>
+
+          {/* begin::Actions */}
+          <div className='d-flex align-items-center py-1'>
+            {children}
+          </div>
+          {/* end::Actions */}
+        </div>
+        {/* end::Container */}
+      </div>
+    </>
+  )
+}
+
+export { Toolbar }

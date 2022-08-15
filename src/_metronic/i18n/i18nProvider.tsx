@@ -15,6 +15,7 @@ import esMessages from './messages/es.json'
 import frMessages from './messages/fr.json'
 import jaMessages from './messages/ja.json'
 import zhMessages from './messages/zh.json'
+import { WithChildren } from '../helpers'
 
 const allMessages = {
   de: deMessages,
@@ -25,7 +26,7 @@ const allMessages = {
   zh: zhMessages,
 }
 
-const I18nProvider: FC = ({children}) => {
+const I18nProvider: FC<WithChildren> = ({children}) => {
   const locale = useLang()
   const messages = allMessages[locale]
 

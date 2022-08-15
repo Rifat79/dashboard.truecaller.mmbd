@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import clsx from 'clsx'
 import React from 'react'
-import {Link} from 'react-router-dom'
-import {KTSVG, toAbsoluteUrl} from '../../../helpers'
-import {useLayout} from '../../core'
-import {Header} from './Header'
-import {DefaultTitle} from './page-title/DefaultTitle'
-import {Topbar} from './Topbar'
+import { Link } from 'react-router-dom'
+import { KTSVG, toAbsoluteUrl } from '../../../helpers'
+import { useLayout, usePageData } from '../../core'
+import { Header } from './Header'
+import { Topbar } from './Topbar'
 
 export function HeaderWrapper() {
-  const {config, classes, attributes} = useLayout()
-  const {header, aside} = config
+  const { config, classes, attributes } = useLayout()
+  const {pageTitle, pageDescription} = usePageData()
+  const { header, aside } = config
 
   return (
     <div
@@ -40,7 +40,7 @@ export function HeaderWrapper() {
         {!aside.display && (
           <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
             <Link to='/dashboard' className='d-lg-none'>
-              <img alt='Logo' src={toAbsoluteUrl('/media/logos/logo-2.svg')} className='h-30px' />
+              <img alt='Logo' src={toAbsoluteUrl('/media/logos/default-small.svg')} className='h-30px' />
             </Link>
           </div>
         )}
@@ -49,7 +49,7 @@ export function HeaderWrapper() {
         {aside.display && (
           <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
             <Link to='/' className='d-lg-none'>
-              <img alt='Logo' src={toAbsoluteUrl('/media/logos/logo-2.svg')} className='h-30px' />
+              <img alt='Logo' src={toAbsoluteUrl('/media/logos/default-small.svg')} className='h-30px' />
             </Link>
           </div>
         )}
@@ -65,7 +65,17 @@ export function HeaderWrapper() {
 
           {header.left === 'page-title' && (
             <div className='d-flex align-items-center' id='kt_header_nav'>
-              <DefaultTitle />
+              {/* <DefaultTitle />
+               */}
+              <h1 className='d-flex align-items-center text-dark fw-bolder my-1 fs-3'>
+                {pageTitle}
+                {pageDescription && (
+                  <>
+                    <span className='h-20px border-gray-200 border-start ms-3 mx-2'></span>
+                    <small className='text-muted fs-7 fw-bold my-1 ms-1'>{pageDescription}</small>
+                  </>
+                )}
+              </h1>
             </div>
           )}
 

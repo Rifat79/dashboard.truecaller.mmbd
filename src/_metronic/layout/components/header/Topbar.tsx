@@ -1,32 +1,29 @@
 import clsx from 'clsx'
 import React, {FC} from 'react'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
-import {HeaderUserMenu} from '../../../partials'
+import {
+  HeaderUserMenu,
+  ThemeModeSwitcher,
+} from '../../../partials'
 import {useLayout} from '../../core'
 
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
   toolbarButtonHeightClass = 'w-30px h-30px w-md-40px h-md-40px',
-  toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px',
-  toolbarButtonIconSizeClass = 'svg-icon-1'
+  toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px'
 
 const Topbar: FC = () => {
   const {config} = useLayout()
 
   return (
     <div className='d-flex align-items-stretch flex-shrink-0'>
-
-      {/* Quick links */}
+      
+      {/* begin::Theme mode */}
       <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
-        {/* begin::Menu wrapper */}
-        <div
-          className={clsx(
-            'btn btn-icon btn-active-light-primary btn-custom'
-          )}
-          id="dark_mode_toggle"
-        >
-          <i className="bi bi-moon-stars-fill fs-2"></i>
-        </div>
+        <ThemeModeSwitcher
+          toggleBtnClass={clsx('btn-active-light-primary btn-custom', toolbarButtonHeightClass)}
+        />
       </div>
+      {/* end::Theme mode */}
 
       {/* begin::User */}
       <div

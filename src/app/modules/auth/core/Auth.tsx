@@ -12,6 +12,7 @@ import {LayoutSplashScreen} from '../../../../_metronic/layout/core'
 import {AuthModel, UserModel} from './_models'
 import * as authHelper from './AuthHelpers'
 import {getUserByToken} from './_requests'
+import {WithChildren} from '../../../../_metronic/helpers'
 
 type AuthContextProps = {
   auth: AuthModel | undefined
@@ -35,7 +36,7 @@ const useAuth = () => {
   return useContext(AuthContext)
 }
 
-const AuthProvider: FC = ({children}) => {
+const AuthProvider: FC<WithChildren> = ({children}) => {
   const [auth, setAuth] = useState<AuthModel | undefined>(authHelper.getAuth())
   const [currentUser, setCurrentUser] = useState<UserModel | undefined>()
   const saveAuth = (auth: AuthModel | undefined) => {
@@ -59,7 +60,7 @@ const AuthProvider: FC = ({children}) => {
   )
 }
 
-const AuthInit: FC = ({children}) => {
+const AuthInit: FC<WithChildren> = ({children}) => {
   const {auth, logout, setCurrentUser} = useAuth()
   const didRequest = useRef(false)
   const [showSplashScreen, setShowSplashScreen] = useState(true)

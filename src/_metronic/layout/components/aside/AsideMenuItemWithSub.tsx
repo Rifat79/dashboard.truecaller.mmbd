@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 import {useLocation} from 'react-router'
-import {checkIsActive, KTSVG} from '../../../helpers'
+import {checkIsActive, KTSVG, WithChildren} from '../../../helpers'
 import {useLayout} from '../../core'
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
   hasBullet?: boolean
 }
 
-const AsideMenuItemWithSub: React.FC<Props> = ({
+const AsideMenuItemWithSub: React.FC<Props & WithChildren> = ({
   children,
   to,
   title,
@@ -41,7 +41,7 @@ const AsideMenuItemWithSub: React.FC<Props> = ({
             <KTSVG path={icon} className='svg-icon-2' />
           </span>
         )}
-        {fontIcon && aside.menuIcon === 'font' && <i className={clsx('bi fs-3 me-2', fontIcon)}></i>}
+        {fontIcon && aside.menuIcon === 'font' && <i className={clsx('bi fs-3', fontIcon)}></i>}
         <span className='menu-title'>{title}</span>
         <span className='menu-arrow'></span>
       </span>

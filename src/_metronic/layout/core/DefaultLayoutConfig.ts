@@ -16,7 +16,7 @@ export const DefaultLayoutConfig: ILayout = {
   header: {
     display: true, // Set true|false to show or hide Header
     width: 'fluid', // Set fixed|fluid to change width type
-    left: 'menu',
+    left: 'page-title',
     fixed: {
       desktop: true, // Set true|false to set fixed Header for desktop mode
       tabletAndMobile: true, // Set true|false to set fixed Header for tablet and mobile modes
@@ -34,7 +34,7 @@ export const DefaultLayoutConfig: ILayout = {
     minimized: false,
     minimize: true,
     hoverable: true,
-    menuIcon: 'font',
+    menuIcon: 'svg',
   },
   content: {
     width: 'fluid', // Set fixed|fluid to change width
