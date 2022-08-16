@@ -13,12 +13,13 @@ import {AuthModel, UserModel} from './_models'
 import * as authHelper from './AuthHelpers'
 import {getUserByToken} from './_requests'
 import {WithChildren} from '../../../../_metronic/helpers'
+import axios from 'axios'
 
 type AuthContextProps = {
   auth: AuthModel | undefined
   saveAuth: (auth: AuthModel | undefined) => void
   currentUser: UserModel | undefined
-  setCurrentUser: Dispatch<SetStateAction<UserModel | undefined>>
+  setCurrentUser: Dispatch<SetStateAction<any | undefined>>
   logout: () => void
 }
 
@@ -68,12 +69,23 @@ const AuthInit: FC<WithChildren> = ({children}) => {
   useEffect(() => {
     const requestUser = async (apiToken: string) => {
       try {
-        if (!didRequest.current) {
-          const {data} = await getUserByToken(apiToken)
-          if (data) {
-            setCurrentUser(data)
+        const auth = authHelper.getAuth()
+        let data: any = auth;
+
+        if (auth && (auth?.expired < new Date().getTime())) {
+          if (!didRequest.current) {
+            let { data }: any = await getUserByToken(apiToken)
+            if (data) {
+              const d = new Date();
+              d.setSeconds(data.expire_in);
+              auth.user.access_token = data.access_token;
+              auth.user.expired = d.getTime();
+              authHelper.setAuth(auth.user)
+              authHelper.setupAxios(axios, data.access_token)
+            }
           }
         }
+        setCurrentUser(data)
       } catch (error) {
         console.error(error)
         if (!didRequest.current) {
@@ -86,8 +98,8 @@ const AuthInit: FC<WithChildren> = ({children}) => {
       return () => (didRequest.current = true)
     }
 
-    if (auth && auth.api_token) {
-      requestUser(auth.api_token)
+    if (auth && auth?.user?.access_token) {
+      requestUser(auth?.user?.access_token)
     } else {
       logout()
       setShowSplashScreen(false)

@@ -7,6 +7,8 @@ import {useFormik} from 'formik'
 import {getUserByToken, login} from '../core/_requests'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
 import {useAuth} from '../core/Auth'
+import { setupAxios } from '../core/AuthHelpers'
+import axios from 'axios'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -21,8 +23,8 @@ const loginSchema = Yup.object().shape({
 })
 
 const initialValues = {
-  email: 'admin@demo.com',
-  password: 'demo',
+  email: 'test@mail.com',
+  password: 'password',
 }
 
 export function Login() {
@@ -36,9 +38,15 @@ export function Login() {
       setLoading(true)
       try {
         const {data: auth} = await login(values.email, values.password)
-        saveAuth(auth)
-        const {data: user} = await getUserByToken(auth.api_token)
-        setCurrentUser(user)
+        if (auth && auth.user.access_token) {
+          const d = new Date();
+          d.setSeconds(auth.user.expire_in);
+
+          saveAuth({ ...auth, expired: d.getTime() })
+          setCurrentUser(auth)
+          setupAxios(axios, auth.user.access_token);
+          window.location.reload();
+        }
       } catch (error) {
         console.error(error)
         saveAuth(undefined)
