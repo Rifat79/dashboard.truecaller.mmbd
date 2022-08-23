@@ -13,7 +13,6 @@ import {
 import {getUsers} from './_requests'
 import {User} from './_models'
 import {useQueryRequest} from './QueryRequestProvider'
-import { BASE_URL } from '../../../../constants/api.constants'
 
 const QueryResponseContext = createResponseContext<User>(initialQueryResponse)
 const QueryResponseProvider: FC<WithChildren> = ({children}) => {
@@ -32,7 +31,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
     refetch,
     data: response,
   } = useQuery(
-    `${BASE_URL}/partnerapi/user/search-${query}`,
+    `${QUERIES.USERS_LIST}-${query}`,
     () => {
       return getUsers(query)
     },
@@ -49,12 +48,12 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
 const useQueryResponse = () => useContext(QueryResponseContext)
 
 const useQueryResponseData = () => {
-  const {response}: any = useQueryResponse()
+  const {response} = useQueryResponse()
   if (!response) {
     return []
   }
 
-  return response?.userList || []
+  return response?.data || []
 }
 
 const useQueryResponsePagination = () => {

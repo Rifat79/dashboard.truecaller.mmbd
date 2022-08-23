@@ -1,18 +1,18 @@
 import {AuthModel} from './_models'
 
-const AUTH_LOCAL_STORAGE_KEY = 'kt-auth-react-v'
-const getAuth = (): AuthModel | undefined => {
+const AUTH_LOCAL_STORAGE_KEY = 'user'
+const getAuth = (): any | undefined => {
   if (!localStorage) {
     return
   }
 
-  const lsValue: string | null = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY)
+  const lsValue: string | null = localStorage.getItem(AUTH_LOCAL_STORAGE_KEY); 
   if (!lsValue) {
     return
   }
 
   try {
-    const auth: AuthModel = JSON.parse(lsValue) as AuthModel
+    const auth: any = JSON.parse(lsValue);
     if (auth) {
       // You can easily check auth_token expiration also
       return auth
@@ -50,10 +50,10 @@ const removeAuth = () => {
 export function setupAxios(axios: any, token: any) {
   axios.defaults.headers.Accept = 'application/json'
   axios.interceptors.request.use(
-    (config: {headers: {common: any}}) => {
-      const auth = getAuth()
-      if (auth && auth.access_token) {
-        // config.headers.Authorization = `Bearer ${auth.api_token}`
+    (config: {headers: {common: any, Authorization: any}}) => {
+      const auth = getAuth();
+      if (auth && auth.user.access_token) {
+        config.headers.Authorization = `Bearer ${auth.user.access_token || token}`
         config.headers.common["x-access-token"] = `${auth.user.access_token || token}`
       } else {
         config.headers.common["x-access-token"] = ''

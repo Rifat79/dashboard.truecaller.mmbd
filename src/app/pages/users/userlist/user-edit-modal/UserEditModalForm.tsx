@@ -9,6 +9,12 @@ import { createUser, updateUser } from '../core/_requests'
 import { useQueryResponse } from '../core/QueryResponseProvider'
 import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
 import CropperComponents from '../../../../modules/helpers/cropper/CropperComponents'
+import Select from 'react-select'
+
+const options = [
+  { value: 'approved', label: 'Approved' },
+  { value: 'pending', label: 'Pending' },
+]
 
 type Props = {
   isUserLoading: boolean
@@ -157,161 +163,88 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           {/* end::Input group */}
 
           {/* begin::Input group */}
-          <div className='mb-7'>
-            {/* begin::Label */}
-            <label className='required fw-bold fs-6 mb-5'>Role</label>
-            {/* end::Label */}
-            {/* begin::Roles */}
-            {/* begin::Input row */}
-            <div className='d-flex fv-row'>
-              {/* begin::Radio */}
-              <div className='form-check form-check-custom form-check-solid'>
-                {/* begin::Input */}
-                <input
-                  className='form-check-input me-3'
-                  {...formik.getFieldProps('role')}
-                  name='role'
-                  type='radio'
-                  value='Administrator'
-                  id='kt_modal_update_role_option_0'
-                  checked={formik.values.role === 'Administrator'}
-                  disabled={formik.isSubmitting || isUserLoading}
-                />
-
-                {/* end::Input */}
-                {/* begin::Label */}
-                <label className='form-check-label' htmlFor='kt_modal_update_role_option_0'>
-                  <div className='fw-bolder text-gray-800'>Administrator</div>
-                  <div className='text-gray-600'>
-                    Best for business owners and company administrators
-                  </div>
-                </label>
-                {/* end::Label */}
-              </div>
-              {/* end::Radio */}
-            </div>
-            {/* end::Input row */}
-            <div className='separator separator-dashed my-5'></div>
-            {/* begin::Input row */}
-            <div className='d-flex fv-row'>
-              {/* begin::Radio */}
-              <div className='form-check form-check-custom form-check-solid'>
-                {/* begin::Input */}
-                <input
-                  className='form-check-input me-3'
-                  {...formik.getFieldProps('role')}
-                  name='role'
-                  type='radio'
-                  value='Developer'
-                  id='kt_modal_update_role_option_1'
-                  checked={formik.values.role === 'Developer'}
-                  disabled={formik.isSubmitting || isUserLoading}
-                />
-                {/* end::Input */}
-                {/* begin::Label */}
-                <label className='form-check-label' htmlFor='kt_modal_update_role_option_1'>
-                  <div className='fw-bolder text-gray-800'>Developer</div>
-                  <div className='text-gray-600'>
-                    Best for developers or people primarily using the API
-                  </div>
-                </label>
-                {/* end::Label */}
-              </div>
-              {/* end::Radio */}
-            </div>
-            {/* end::Input row */}
-            <div className='separator separator-dashed my-5'></div>
-            {/* begin::Input row */}
-            <div className='d-flex fv-row'>
-              {/* begin::Radio */}
-              <div className='form-check form-check-custom form-check-solid'>
-                {/* begin::Input */}
-                <input
-                  className='form-check-input me-3'
-                  {...formik.getFieldProps('role')}
-                  name='role'
-                  type='radio'
-                  value='Analyst'
-                  id='kt_modal_update_role_option_2'
-                  checked={formik.values.role === 'Analyst'}
-                  disabled={formik.isSubmitting || isUserLoading}
-                />
-
-                {/* end::Input */}
-                {/* begin::Label */}
-                <label className='form-check-label' htmlFor='kt_modal_update_role_option_2'>
-                  <div className='fw-bolder text-gray-800'>Analyst</div>
-                  <div className='text-gray-600'>
-                    Best for people who need full access to analytics data, but don't need to update
-                    business settings
-                  </div>
-                </label>
-                {/* end::Label */}
-              </div>
-              {/* end::Radio */}
-            </div>
-            {/* end::Input row */}
-            <div className='separator separator-dashed my-5'></div>
-            {/* begin::Input row */}
-            <div className='d-flex fv-row'>
-              {/* begin::Radio */}
-              <div className='form-check form-check-custom form-check-solid'>
-                {/* begin::Input */}
-                <input
-                  className='form-check-input me-3'
-                  {...formik.getFieldProps('role')}
-                  name='role'
-                  type='radio'
-                  value='Support'
-                  id='kt_modal_update_role_option_3'
-                  checked={formik.values.role === 'Support'}
-                  disabled={formik.isSubmitting || isUserLoading}
-                />
-                {/* end::Input */}
-                {/* begin::Label */}
-                <label className='form-check-label' htmlFor='kt_modal_update_role_option_3'>
-                  <div className='fw-bolder text-gray-800'>Support</div>
-                  <div className='text-gray-600'>
-                    Best for employees who regularly refund payments and respond to disputes
-                  </div>
-                </label>
-                {/* end::Label */}
-              </div>
-              {/* end::Radio */}
-            </div>
-            {/* end::Input row */}
-            <div className='separator separator-dashed my-5'></div>
-            {/* begin::Input row */}
-            <div className='d-flex fv-row'>
-              {/* begin::Radio */}
-              <div className='form-check form-check-custom form-check-solid'>
-                {/* begin::Input */}
-                <input
-                  className='form-check-input me-3'
-                  {...formik.getFieldProps('role')}
-                  name='role'
-                  type='radio'
-                  id='kt_modal_update_role_option_4'
-                  value='Trial'
-                  checked={formik.values.role === 'Trial'}
-                  disabled={formik.isSubmitting || isUserLoading}
-                />
-                {/* end::Input */}
-                {/* begin::Label */}
-                <label className='form-check-label' htmlFor='kt_modal_update_role_option_4'>
-                  <div className='fw-bolder text-gray-800'>Trial</div>
-                  <div className='text-gray-600'>
-                    Best for people who need to preview content data, but don't need to make any
-                    updates
-                  </div>
-                </label>
-                {/* end::Label */}
-              </div>
-              {/* end::Radio */}
-            </div>
-            {/* end::Input row */}
-            {/* end::Roles */}
+          <div className="fv-row mb-3">
+            <label className="fs-6 fw-bold mb-2">Address</label>
+            <input
+              type="text"
+              className="form-control form-control-solid"
+              placeholder=""
+              name="description"
+            />
           </div>
+
+          <div className="row">
+            <div className="col">
+              <label className="fs-6 fw-bold mb-2">Partner</label>
+              <input
+                type="text"
+                className="form-control form-control-solid"
+                placeholder=""
+                name="description"
+              />
+            </div>
+            <div className="col" data-select2-id="select2-data-5-57fi">
+              <div className="fv-row mb-7">
+                {/*begin::Label*/}
+                <label className="required fs-6 fw-bold form-label mb-2">Role</label>
+                {/*end::Label*/}
+                {/*begin::Input*/}
+                <Select options={options}/>
+                {/*end::Input*/}
+              </div>
+            </div>
+          </div>
+          
+          <div className="separator separator-dashed mb-3 border-dark" />
+          
+          <div className="fv-row mb-3">
+            <div className="row">
+              <div className="col">
+                <label className="required fs-6 fw-bold mb-2">
+                  <span>Phone</span>
+                  <i
+                    className="fas fa-exclamation-circle ms-1 fs-7"
+                    data-bs-toggle="tooltip"
+                    title=""
+                    data-bs-original-title="Email address must be active"
+                    aria-label="Email address must be active"
+                  />
+                </label>
+                <input
+                  type="phone"
+                  className="form-control form-control-solid"
+                  placeholder="01XXXXXXXXX"
+                  name="phone"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="fv-row mb-3">
+            <div className="row">
+              <div className="col">
+                <label className="required fs-6 fw-bold mb-2">Password</label>
+                <input
+                  type="password"
+                  className="form-control form-control-solid"
+                  placeholder=""
+                  name="pass"
+                />
+              </div>
+              <div className="col">
+                <label className="required fs-6 fw-bold mb-2">Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control form-control-solid"
+                  placeholder=""
+                  name="pass"
+                />
+              </div>
+            </div>
+          </div>
+
+
+
           {/* end::Input group */}
         </div>
         {/* end::Scroll */}
