@@ -1,16 +1,17 @@
 import axios from "axios";
+import { UPLOAD_IMAGE_BASE64 } from "../../../constants/api.constants";
 import { URL } from "./action";
 
-export const uploadImageBase64 = async (access_token, uid, image) => {
+export const uploadImageBase64 = async (image) => {
     try {
         const { data: response } = await axios({
             method: 'POST',
-            url: URL.UPLOAD_IMAGE_BASE64,
+            url: UPLOAD_IMAGE_BASE64,
             headers: {
 
             },
             data: {
-                field_name: "product_gallery",
+                "imageType": "OrganizationImage",
                 image
             }
         });

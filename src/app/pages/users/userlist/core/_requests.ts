@@ -1,10 +1,17 @@
 import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../../_metronic/helpers'
+import {BASE_URL} from '../../../../constants/api.constants'
+import {getAuth} from '../../../../modules/auth'
 import {User, UsersQueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
-const USER_URL = `${API_URL}/user`
-const GET_USERS_URL = `${API_URL}/users/query`
+const USER_URL = `${BASE_URL}/partnerapi/user/create`
+const GET_USERS_URL = `${BASE_URL}/partnerapi/user/search`
+const GET_USER_BY_ID = `${BASE_URL}/partnerapi/user/get`
+const UPDATE_USER = `${BASE_URL}/partnerapi/user/update`
+const  DELETE_USER = `${BASE_URL}/partnerapi/user/delete`
+
+const auth = getAuth();
 
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios
@@ -14,27 +21,27 @@ const getUsers = (query: string): Promise<UsersQueryResponse> => {
 
 const getUserById = (id: ID): Promise<User | undefined> => {
   return axios
-    .get(`${USER_URL}/${id}`)
+    .get(`${GET_USER_BY_ID}?id=${id}`)
     .then((response: AxiosResponse<Response<User>>) => response.data)
     .then((response: Response<User>) => response.data)
 }
 
-const createUser = (user: User): Promise<User | undefined> => {
+const createUser = (user: any): Promise<User | undefined> => {
   return axios
-    .put(USER_URL, user)
-    .then((response: AxiosResponse<Response<User>>) => response.data)
-    .then((response: Response<User>) => response.data)
+    .post(USER_URL, user)
+    .then((response: any) => response)
+    .then((response: any) => response)
 }
 
-const updateUser = (user: User): Promise<User | undefined> => {
+const updateUser = (user: any): Promise<User | undefined> => {
   return axios
-    .post(`${USER_URL}/${user.id}`, user)
+    .post(`${UPDATE_USER}`, user)
     .then((response: AxiosResponse<Response<User>>) => response.data)
     .then((response: Response<User>) => response.data)
 }
 
 const deleteUser = (userId: ID): Promise<void> => {
-  return axios.delete(`${USER_URL}/${userId}`).then(() => {})
+  return axios.delete(`${DELETE_USER}?id=${userId}`).then((response: any) => response)
 }
 
 const deleteSelectedUsers = (userIds: Array<ID>): Promise<void> => {

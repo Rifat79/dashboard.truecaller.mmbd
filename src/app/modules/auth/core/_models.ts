@@ -1,7 +1,7 @@
 export interface AuthModel {
-  access_token: string
-  user: any,
-  expired: any,
+  access_token?: string
+  user?: any,
+  expired?: any,
   refresh_token?: string
 }
 

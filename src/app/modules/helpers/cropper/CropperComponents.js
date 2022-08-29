@@ -73,11 +73,11 @@ const CropperComponents = ({ onCroped, width, height, full, className, src, isRe
     };
 
     const uploadFileHandler = async (image) => {
-        const res = await uploadImageBase64('', '', image);
+        const res = await uploadImageBase64(image);
         if (res.status_code === 200) {
             setCropData(image);
-            setCropData(res.uploaded_files);
-            onCroped(res.uploaded_files);
+            setCropData(res.fileUrl);
+            onCroped(res.key);
         } else {
             toast.error(res.message, {
                 position: "bottom-right",
@@ -99,7 +99,7 @@ const CropperComponents = ({ onCroped, width, height, full, className, src, isRe
             <div className={`image-input mb-3 ${isRemove === true ? src === defaultSrc? 'image-input-empty' : '' : 'image-input-empty'} bgi-position-center image-input-outline ${full && 'w-100'}`}>
                 <label className={`cursor-pointer w-100`}>
                     <div className={`image-input-wrapper img-thumb-preview ${className ? className : 'w-150px h-150px'} bgi-position-center`}
-                        style={{ backgroundImage: `url(${src || cropData || defaultSrc})` }}>
+                        style={{ backgroundImage: `url(${cropData })` }}>
                     </div>
                     <div
                         className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"

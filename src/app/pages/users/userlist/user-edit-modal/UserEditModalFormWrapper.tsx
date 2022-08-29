@@ -3,6 +3,7 @@ import {UserEditModalForm} from './UserEditModalForm'
 import {isNotEmpty, QUERIES} from '../../../../../_metronic/helpers'
 import {useListView} from '../core/ListViewProvider'
 import {getUserById} from '../core/_requests'
+import { BASE_URL } from '../../../../constants/api.constants'
 
 const UserEditModalFormWrapper = () => {
   const {itemIdForUpdate, setItemIdForUpdate} = useListView()
@@ -12,7 +13,7 @@ const UserEditModalFormWrapper = () => {
     data: user,
     error,
   } = useQuery(
-    `${QUERIES.USERS_LIST}-user-${itemIdForUpdate}`,
+    `${BASE_URL}/partnerapi/user/get?id=${itemIdForUpdate}`,
     () => {
       return getUserById(itemIdForUpdate)
     },
@@ -24,7 +25,9 @@ const UserEditModalFormWrapper = () => {
         console.error(err)
       },
     }
-  )
+  );
+
+  console.log('user: ', user)
 
   if (!itemIdForUpdate) {
     return <UserEditModalForm isUserLoading={isLoading} user={{id: undefined}} />

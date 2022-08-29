@@ -6,6 +6,7 @@ import {ID, KTSVG, QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
 import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {deleteUser} from '../../core/_requests'
+import swal from 'sweetalert';
 
 type Props = {
   id: ID
@@ -13,7 +14,7 @@ type Props = {
 
 const UserActionsCell: FC<Props> = ({id}) => {
   const {setItemIdForUpdate} = useListView()
-  const {query} = useQueryResponse()
+  const {query, refetch} = useQueryResponse()
   const queryClient = useQueryClient()
 
   useEffect(() => {
@@ -31,6 +32,34 @@ const UserActionsCell: FC<Props> = ({id}) => {
       queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
     },
   })
+
+  const handleDelete = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this user!",
+      icon: "warning",
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        const callAPI = async() => {
+          const response: any = await deleteUser(id);
+          if(response?.data.success) {
+            swal("Poof! User has been deleted!", {
+              icon: "success",
+            });
+            refetch();
+          } else {
+            swal("Poof! User has been deleted!", {
+              icon: "error",
+            });
+          }
+        };
+        callAPI();
+        
+      }
+    });
+  }
 
   return (
     <>
@@ -61,7 +90,7 @@ const UserActionsCell: FC<Props> = ({id}) => {
           <a
             className='menu-link px-3'
             data-kt-users-table-filter='delete_row'
-            onClick={async () => await deleteItem.mutateAsync()}
+            onClick={handleDelete}
           >
             Delete
           </a>

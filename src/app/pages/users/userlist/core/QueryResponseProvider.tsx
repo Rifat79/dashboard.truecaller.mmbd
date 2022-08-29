@@ -13,9 +13,10 @@ import {
 import {getUsers} from './_requests'
 import {User} from './_models'
 import {useQueryRequest} from './QueryRequestProvider'
+import { BASE_URL } from '../../../../constants/api.constants'
 
 const QueryResponseContext = createResponseContext<User>(initialQueryResponse)
-const QueryResponseProvider: FC<WithChildren> = ({children}) => {
+const QueryResponseProvider: FC<WithChildren> = ({children}: any) => {
   const {state} = useQueryRequest()
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
@@ -31,7 +32,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
     refetch,
     data: response,
   } = useQuery(
-    `${QUERIES.USERS_LIST}-${query}`,
+    `${BASE_URL}/partnerapi/user/search-${query}`,
     () => {
       return getUsers(query)
     },
@@ -48,7 +49,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
 const useQueryResponse = () => useContext(QueryResponseContext)
 
 const useQueryResponseData = () => {
-  const {response} = useQueryResponse()
+  const {response}: any = useQueryResponse()
   if (!response) {
     return []
   }
@@ -56,7 +57,7 @@ const useQueryResponseData = () => {
   return response?.data || []
 }
 
-const useQueryResponsePagination = () => {
+const useQueryResponsePagination: any = () => {
   const defaultPaginationState: PaginationState = {
     links: [],
     ...initialQueryState,

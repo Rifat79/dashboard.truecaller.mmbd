@@ -10,7 +10,7 @@ import {UsersListPagination} from '../components/pagination/UsersListPagination'
 import {KTCardBody} from '../../../../../_metronic/helpers'
 
 const UsersTable = () => {
-  const users = useQueryResponseData()
+  const users = useQueryResponseData();
   const isLoading = useQueryResponseLoading()
   const data = useMemo(() => users, [users])
   const columns = useMemo(() => usersColumns, [])

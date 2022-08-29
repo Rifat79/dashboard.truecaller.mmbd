@@ -1,11 +1,21 @@
 import {FC} from 'react'
 
 type Props = {
-  last_login?: string
+  roleList?: []
 }
 
-const UserLastLoginCell: FC<Props> = ({last_login}) => (
-  <div className='badge badge-light fw-bolder'>{last_login}</div>
-)
+const UserLastLoginCell: FC<Props> = ({roleList = []}: any) => {
+  let roles = []; 
+  for(let i = 0; i < roleList.length; i++) {
+    roles.push(roleList[i].roleName);
+  }
+  return (
+    <>
+      {/* {roles?.map((item, indx) => ( */}
+        <div className='badge badge-light fw-bolder' >{roleList.roleName}</div>
+      {/* ))} */}
+    </>
+  )
+}
 
 export {UserLastLoginCell}
