@@ -2,6 +2,11 @@ import {ID, Response} from '../../../../../_metronic/helpers'
 export type User = {
   id?: ID
   name?: string
+  slug?: string
+  roleName?: string
+  modulesList?: []
+  createdAt?: string
+  updatedAt?: string
   avatar?: string
   email?: string
   position?: string

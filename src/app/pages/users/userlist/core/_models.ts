@@ -7,19 +7,21 @@ export type User = {
   address?: string
   image?: string
   roleList?: []
-  organization?: string
+  organization?: any
   createdAt?: string
   last_login?: string
   two_steps?: boolean
   joined_day?: string
   online?: boolean
-  role?: string
+  role?: any
   position?: string
   avatar?: string
   initials?: {
     label: string
     state: string
   }
+  password?: string
+  confirmPass?: string
 }
 
 export type UsersQueryResponse = Response<Array<User>>

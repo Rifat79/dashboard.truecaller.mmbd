@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import { initialUser, User } from '../core/_models'
@@ -10,6 +10,12 @@ import { useQueryResponse } from '../core/QueryResponseProvider'
 import { isNotEmpty, toAbsoluteUrl } from '../../../../../_metronic/helpers'
 import CropperComponents from '../../../../modules/helpers/cropper/CropperComponents'
 import Select from 'react-select'
+import { getQueryRequest } from '../../../../modules/helpers/api'
+import { GET_ORGANIZATION_LIST, GET_ROLE_LIST } from '../../../../constants/api.constants'
+import { reactSelectify } from '../../../../modules/helpers/helper'
+import swal from 'sweetalert'
+
+const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
 
 const options = [
   { value: 'approved', label: 'Approved' },
@@ -31,19 +37,45 @@ const editUserSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Name is required'),
+  mobile: Yup.string()
+    .matches(phoneRegExp, 'Phone number is not valid')
+    .required('Phone no. is required'),
+  password: Yup.string()
+    .min(5, 'Password must be of at least 5 characters')
+    .required('Password is required'),
+  confirmPass: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match')
+    .required('Please confirm the password'),
+  address: Yup.string()
+    .min(3, 'Minimum 3 symbols')
+    .max(500, 'Maximum 50 symbols')
+    .required('Address is required'),
 })
 
 const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
+  const [state, setState] = useState({
+    formData: {
+      org: [{}],
+      role: [{}],
+      selectedOrg: {},
+      selectedRole: {}
+    }
+  });
   const { setItemIdForUpdate } = useListView()
   const { refetch } = useQueryResponse()
 
   const [userForEdit] = useState<User>({
     ...user,
     avatar: user.avatar || initialUser.avatar,
+    address: user.address || initialUser.address,
     role: user.role || initialUser.role,
     position: user.position || initialUser.position,
     name: user.name || initialUser.name,
     email: user.email || initialUser.email,
+    mobile: user.mobile || initialUser.mobile,
+    password: user.password || initialUser.password,
+    confirmPass: user.confirmPass || initialUser.confirmPass,
+    organization: user.organization || initialUser.organization,
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -52,6 +84,16 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     }
     setItemIdForUpdate(undefined)
   }
+
+  const handlePartnerOptionChange = (selectedOption: any) => {
+    formik.setFieldValue('organization', selectedOption);
+    // console.log(`Option selected:`, selectedOption);
+  };
+
+  const handleRoleOptionChange = (selectedOption: any) => {
+    formik.setFieldValue('role', selectedOption);
+    // console.log(`Option selected:`, selectedOption);
+  };
 
   const blankImg = toAbsoluteUrl('/media/svg/avatars/blank.svg')
   const userAvatarImg = toAbsoluteUrl(`/media/${userForEdit.avatar}`)
@@ -63,22 +105,80 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       setSubmitting(true)
       try {
         if (isNotEmpty(values.id)) {
-          await updateUser(values)
+          await updateUser({
+            statusActive: 1,
+            address: values.address,
+            email: values.email,
+            id: values.id,
+            image: values.image,
+            mobile: values.mobile,
+            name: values.name,
+            organizationId: values.organization?.id,
+            // password: values.password,
+            role: values.role
+          })
         } else {
-          await createUser(values)
+          const res: any = await createUser({
+            statusActive: 1,
+            address: values.address,
+            email: values.email,
+            id: values.id,
+            image: values.image,
+            mobile: values.mobile,
+            name: values.name,
+            organizationId: values.organization?.id,
+            password: values.password,
+            role: values.role
+          });
+          if(res?.data?.success) {
+            cancel(true);
+          } else {
+            swal({
+              title: "Sorry!",
+              text: res?.data?.message,
+              icon: "error",
+            });
+          }
         }
       } catch (ex) {
         console.error(ex)
       } finally {
         setSubmitting(true)
-        cancel(true)
+        // cancel(true)
       }
     },
-  })
+  }); 
+
+  useEffect(() => {
+    const callAPI =async () => {
+      const response = await getQueryRequest(GET_ORGANIZATION_LIST);
+      const responseRole = await getQueryRequest(GET_ROLE_LIST);
+
+      const organizationList = reactSelectify(response?.data, 'organizationName');
+      const roleList = reactSelectify(responseRole?.data, 'roleName');
+
+      const selectedOrg = organizationList?.filter(e => e.value == user?.organization); 
+      const selectedRole = roleList?.filter(e => e.value == user?.role?.roleName);
+
+
+      setState({
+        ...state, 
+        formData: {
+          ...state.formData, 
+          org: [...organizationList], 
+          role: [...roleList], 
+      }});
+      formik.setFieldValue('organization', selectedOrg.length ? selectedOrg[0] : {});
+      formik.setFieldValue('role', selectedRole.length ? selectedRole[0] : {});
+      formik.setFieldValue('password', '12345');
+      formik.setFieldValue('confirmPass', '12345')
+    }
+    callAPI();
+  }, []);
 
   return (
     <>
-      <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit} noValidate>
+      <form id='kt_modal_add_user_form' className='form' onSubmit={formik.handleSubmit} >
         {/* begin::Scroll */}
         <div
           className='d-flex flex-column scroll-y'
@@ -98,7 +198,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                   className="w-125px h-125px"
                   full=""
                   height={400} width={400}
-                  onCroped={(img: any) => formik.setFieldValue('account.avatar', img[0])} src={blankImg} />
+                  onCroped={(img: any) => formik.setFieldValue('image', img)} src={user?.image || blankImg} />
               </div>
             </div>
             <div className='col-lg-8'>
@@ -147,7 +247,9 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 />
                 {formik.touched.email && formik.errors.email && (
                   <div className='fv-plugins-message-container'>
-                    <span role='alert'>{formik.errors.email}</span>
+                    <div className='fv-help-block'>
+                        <span role='alert'>{formik.errors.email}</span>
+                      </div>
                   </div>
                 )}
               </div>
@@ -167,21 +269,31 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
             <label className="fs-6 fw-bold mb-2">Address</label>
             <input
               type="text"
-              className="form-control form-control-solid"
+              {...formik.getFieldProps('address')}
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                { 'is-invalid': formik.touched.address && formik.errors.address },
+                {
+                  'is-valid': formik.touched.address && !formik.errors.address,
+                }
+              )}
               placeholder=""
-              name="description"
+              name="address"
+              
             />
+            {formik.touched.address && formik.errors.address && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                        <span role='alert'>{formik.errors.address}</span>
+                      </div>
+                  </div>
+                )}
           </div>
 
           <div className="row">
             <div className="col">
               <label className="fs-6 fw-bold mb-2">Partner</label>
-              <input
-                type="text"
-                className="form-control form-control-solid"
-                placeholder=""
-                name="description"
-              />
+              <Select options={state?.formData?.org}  onChange={handlePartnerOptionChange} value={formik.values.organization} name="organization"/>
             </div>
             <div className="col" data-select2-id="select2-data-5-57fi">
               <div className="fv-row mb-7">
@@ -189,7 +301,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 <label className="required fs-6 fw-bold form-label mb-2">Role</label>
                 {/*end::Label*/}
                 {/*begin::Input*/}
-                <Select options={options}/>
+                <Select options={state.formData.role} onChange={handleRoleOptionChange} value={formik.values.role} name="role"/>
                 {/*end::Input*/}
               </div>
             </div>
@@ -212,10 +324,25 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 </label>
                 <input
                   type="phone"
-                  className="form-control form-control-solid"
+                  {...formik.getFieldProps('mobile')}
+                  className={clsx(
+                    'form-control form-control-solid',
+                    { 'is-invalid': formik.touched.mobile && formik.errors.mobile },
+                    {
+                      'is-valid': formik.touched.mobile && !formik.errors.mobile,
+                    }
+                  )}
                   placeholder="01XXXXXXXXX"
-                  name="phone"
+                  name="mobile"
+                  disabled={formik.isSubmitting || isUserLoading}
                 />
+                {formik.touched.mobile && formik.errors.mobile && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.mobile}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -225,20 +352,36 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
               <div className="col">
                 <label className="required fs-6 fw-bold mb-2">Password</label>
                 <input
+                  {...formik.getFieldProps('password')}
                   type="password"
                   className="form-control form-control-solid"
                   placeholder=""
-                  name="pass"
+                  name="password"
                 />
+                {formik.touched.password && formik.errors.password && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.password}</span>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="col">
                 <label className="required fs-6 fw-bold mb-2">Confirm Password</label>
                 <input
+                  {...formik.getFieldProps('confirmPass')}
                   type="password"
                   className="form-control form-control-solid"
                   placeholder=""
-                  name="pass"
+                  name="confirmPass"
                 />
+                {formik.touched.confirmPass && formik.errors.confirmPass && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                      <span role='alert'>{formik.errors.confirmPass}</span>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

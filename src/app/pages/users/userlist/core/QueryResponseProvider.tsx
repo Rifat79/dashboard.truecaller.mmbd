@@ -16,7 +16,7 @@ import {useQueryRequest} from './QueryRequestProvider'
 import { BASE_URL } from '../../../../constants/api.constants'
 
 const QueryResponseContext = createResponseContext<User>(initialQueryResponse)
-const QueryResponseProvider: FC<WithChildren> = ({children}) => {
+const QueryResponseProvider: FC<WithChildren> = ({children}: any) => {
   const {state} = useQueryRequest()
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
@@ -54,10 +54,10 @@ const useQueryResponseData = () => {
     return []
   }
 
-  return response?.userList || []
+  return response?.data || []
 }
 
-const useQueryResponsePagination = () => {
+const useQueryResponsePagination: any = () => {
   const defaultPaginationState: PaginationState = {
     links: [],
     ...initialQueryState,

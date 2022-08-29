@@ -5,16 +5,15 @@ type Props = {
 }
 
 const UserLastLoginCell: FC<Props> = ({roleList = []}: any) => {
-  let roles = [];
+  let roles = []; 
   for(let i = 0; i < roleList.length; i++) {
     roles.push(roleList[i].roleName);
   }
-  
   return (
     <>
-      {roles?.map((item, indx) => (
-        <div className='badge badge-light fw-bolder' key={indx}>{item}</div>
-      ))}
+      {/* {roles?.map((item, indx) => ( */}
+        <div className='badge badge-light fw-bolder' >{roleList.roleName}</div>
+      {/* ))} */}
     </>
   )
 }

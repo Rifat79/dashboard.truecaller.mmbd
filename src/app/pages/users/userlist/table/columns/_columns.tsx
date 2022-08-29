@@ -36,12 +36,12 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Role' className='min-w-125px' />,
     id: 'Role',
-    Cell: ({...props}) => <UserLastLoginCell roleList={props.data[props.row.index].roleList} />,
+    Cell: ({...props}) => <UserLastLoginCell roleList={props.data[props.row.index].role} />,
   },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Permission' className='min-w-125px' />,
     id: 'Permission',
-    Cell: ({...props}) => <UserPermissionCell roleList={props.data[props.row.index].roleList} />,
+    Cell: ({...props}) => <UserPermissionCell roleList={props.data[props.row.index].role} />,
   },
   // {
   //   Header: (props) => (
