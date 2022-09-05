@@ -54,10 +54,10 @@ const useQueryResponseData = () => {
     return []
   }
 
-  return response?.roleList || []
+  return response?.data || []
 }
 
-const useQueryResponsePagination = () => {
+const useQueryResponsePagination: any = () => {
   const defaultPaginationState: PaginationState = {
     links: [],
     ...initialQueryState,

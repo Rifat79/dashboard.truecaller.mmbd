@@ -2,6 +2,10 @@ import {ID, Response} from '../../../../../_metronic/helpers'
 export type User = {
   id?: ID
   name?: string
+  moduleUrl?: string
+  moduleName?: string
+  method?: any
+  url?: string
   avatar?: string
   email?: string
   position?: string
@@ -14,6 +18,9 @@ export type User = {
     label: string
     state: string
   }
+  createdAt?: string
+  updatedAt?: string
+  status?: any
 }
 
 export type UsersQueryResponse = Response<Array<User>>

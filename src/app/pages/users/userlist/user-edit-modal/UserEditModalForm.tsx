@@ -154,7 +154,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       const response = await getQueryRequest(GET_ORGANIZATION_LIST);
       const responseRole = await getQueryRequest(GET_ROLE_LIST);
 
-      const organizationList = reactSelectify(response?.data, 'organizationName');
+      const organizationList = reactSelectify(response?.data, 'organizationName'); 
       const roleList = reactSelectify(responseRole?.data, 'roleName');
 
       const selectedOrg = organizationList?.filter(e => e.value == user?.organization); 

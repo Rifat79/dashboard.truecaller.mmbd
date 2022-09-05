@@ -23,7 +23,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   // },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Id' className='min-w-125px' />,
-    id: 'role_id',
+    id: 'id',
     accessor: 'id',
   },
   {
@@ -71,13 +71,13 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   //   ),
   //   accessor: 'joined_day',
   // },
-  // {
-  //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
-  //   ),
-  //   id: 'actions',
-  //   Cell: ({...props}) => <UserActionsCell id={props.data[props.row.index].id} />,
-  // },
+  {
+    Header: (props) => (
+      <UserCustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
+    ),
+    id: 'actions',
+    Cell: ({...props}) => <UserActionsCell id={props.data[props.row.index].id} />,
+  },
 ]
 
 export {usersColumns}

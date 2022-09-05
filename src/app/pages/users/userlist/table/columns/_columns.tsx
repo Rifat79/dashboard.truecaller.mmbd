@@ -67,6 +67,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     Header: (props) => (
       <UserCustomHeader tableProps={props} title='Created At' className='min-w-125px' />
     ),
+    id: "created_at",
     accessor: 'createdAt',
   },
   {

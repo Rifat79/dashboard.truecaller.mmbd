@@ -3,8 +3,10 @@ export type User = {
   id?: ID
   name?: string
   slug?: string
+  description?: string
+  roleDescription?: string
   roleName?: string
-  modulesList?: []
+  modulesList?: any
   createdAt?: string
   updatedAt?: string
   avatar?: string

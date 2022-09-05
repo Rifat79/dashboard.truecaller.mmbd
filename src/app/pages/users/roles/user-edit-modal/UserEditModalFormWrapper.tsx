@@ -3,6 +3,8 @@ import {UserEditModalForm} from './UserEditModalForm'
 import {isNotEmpty, QUERIES} from '../../../../../_metronic/helpers'
 import {useListView} from '../core/ListViewProvider'
 import {getUserById} from '../core/_requests'
+import { BASE_URL } from '../../../../constants/api.constants'
+import { reactSelectify } from '../../../../modules/helpers/helper'
 
 const UserEditModalFormWrapper = () => {
   const {itemIdForUpdate, setItemIdForUpdate} = useListView()
@@ -12,7 +14,7 @@ const UserEditModalFormWrapper = () => {
     data: user,
     error,
   } = useQuery(
-    `${QUERIES.USERS_LIST}-user-${itemIdForUpdate}`,
+    `${BASE_URL}/partnerapi/role/get?id=${itemIdForUpdate}`,
     () => {
       return getUserById(itemIdForUpdate)
     },
@@ -31,7 +33,7 @@ const UserEditModalFormWrapper = () => {
   }
 
   if (!isLoading && !error && user) {
-    return <UserEditModalForm isUserLoading={isLoading} user={user} />
+    return <UserEditModalForm isUserLoading={isLoading} user={{...user, modulesList: reactSelectify(user?.modulesList, 'moduleName') || []}} />
   }
 
   return null

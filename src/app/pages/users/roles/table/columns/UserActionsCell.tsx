@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {FC, useEffect} from 'react'
 import {useMutation, useQueryClient} from 'react-query'
+import swal from 'sweetalert'
 import {MenuComponent} from '../../../../../../_metronic/assets/ts/components'
 import {ID, KTSVG, QUERIES} from '../../../../../../_metronic/helpers'
 import {useListView} from '../../core/ListViewProvider'
@@ -13,7 +14,7 @@ type Props = {
 
 const UserActionsCell: FC<Props> = ({id}) => {
   const {setItemIdForUpdate} = useListView()
-  const {query} = useQueryResponse()
+  const {query, refetch} = useQueryResponse()
   const queryClient = useQueryClient()
 
   useEffect(() => {
@@ -31,6 +32,31 @@ const UserActionsCell: FC<Props> = ({id}) => {
       queryClient.invalidateQueries([`${QUERIES.USERS_LIST}-${query}`])
     },
   })
+
+  const handleDelete = () => {
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this user!",
+      icon: "warning",
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        const callAPI = async() => {
+          const response: any = await deleteUser(id);
+          if(response?.data?.success) {
+            refetch();
+          } else {
+            swal(response?.data?.message, {
+              icon: "error",
+            });
+          }
+        };
+        callAPI();
+        
+      }
+    });
+  }
 
   return (
     <>
@@ -61,7 +87,7 @@ const UserActionsCell: FC<Props> = ({id}) => {
           <a
             className='menu-link px-3'
             data-kt-users-table-filter='delete_row'
-            onClick={async () => await deleteItem.mutateAsync()}
+            onClick={handleDelete}
           >
             Delete
           </a>

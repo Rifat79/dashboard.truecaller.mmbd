@@ -18,3 +18,7 @@ export const convertBase64 = (file) => {
       }
     })
 };
+
+export const getVal = (ar = [], accessor = 'value', value = 'value') => {
+  return ar.filter(e => e[accessor] == value)[0];
+};
