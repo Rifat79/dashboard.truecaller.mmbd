@@ -14,6 +14,15 @@ export type User = {
     label: string
     state: string
   }
+  createdAt?: any
+  updatedAt?: any
+  organizationAddress?: any
+  organizationEmail?: any
+  organizationLogo?: any
+  organizationMobile?: any
+  organizationName?: any
+  organizationThumbnail?: any
+  organizationWebsite?: any
 }
 
 export type UsersQueryResponse = Response<Array<User>>

@@ -11,6 +11,7 @@ import {isNotEmpty, toAbsoluteUrl} from '../../../../../_metronic/helpers'
 import CropperComponents from '../../../../modules/helpers/cropper/CropperComponents'
 import Select from 'react-select'
 import swal from 'sweetalert'
+import { methodOptions } from '../../../../constants/constants'
 
 type Props = {
   isUserLoading: boolean
@@ -28,13 +29,6 @@ const editUserSchema = Yup.object().shape({
     .required('URL is required'),
 })
 
-const methodOptions = [
-  {id: 0, label: 'POST', value: 0, },
-  {id: 1, label: 'GET', value: 1},
-  {id: 2, label: 'PUT', value: 2},
-  {id: 3, label: 'DELETE', value: 3}
-]
-
 const statusOptions = [
   {id: 0, label: 'Active', value: 0},
   {id: 1, label: 'Inactive', value: 1}
@@ -44,7 +38,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
   const [state, setState] = useState({
     formData: {
       moduleName: '',
-      method: methodOptions.filter(e => e.label.toLowerCase() == user?.method?.toLowerCase())[0] ||{id: 1, label: 'GET', value: 1},
+      method: methodOptions.filter(e => e.id == user?.method)[0] ||{id: 1, title: 'Admin', slug: 'admin', label: 'Admin', value: 1},
       status: statusOptions.filter(e => e.id == user.status)[0] || {id: 0, label: 'Active', value: 0},
       moduleUrl: ''
     }
@@ -61,7 +55,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
     moduleUrl: user.moduleUrl || initialUser.moduleUrl,
     email: user.email || initialUser.email,
     status: statusOptions.filter(e => e.id == user.status)[0] || state.formData.status,
-    method: methodOptions.filter(e => e.label.toLowerCase() == user?.method?.toLowerCase())[0] || state.formData.method
+    method: methodOptions.filter(e => e.id == user?.method)[0] || state.formData.method
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -94,7 +88,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             moduleName: values.moduleName, 
             moduleUrl: values.moduleUrl,
             status: values?.status?.id,
-            method: values?.method?.label
+            method: values?.method?.id
           });
           if(res?.data?.success) {
             cancel(true);
@@ -110,7 +104,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             moduleName: values.moduleName, 
             moduleUrl: values.moduleUrl,
             status: values?.status?.id,
-            method: values?.method?.label
+            method: values?.method?.id
           }
           const res: any = await createUser(data)
           if(res?.data?.success) {
@@ -167,7 +161,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             </div>
             <div className='fv-row mb-3'>
               <label className='required fs-6 fw-bold mb-2'>Method</label>
-              <Select options={methodOptions} name="method" value={state?.formData?.method} onChange={handleMethodChange} />
+              <Select options={methodOptions} name="method" value={formik.values.method} onChange={handleMethodChange} />
             </div>
             <div className='fv-row mb-3'>
               <label className='required fs-6 fw-bold mb-2'>URL</label>

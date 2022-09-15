@@ -36,6 +36,8 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   const { setItemIdForUpdate } = useListView()
   const { refetch } = useQueryResponse()
 
+  const permissions = user?.modulesList && reactSelectify(user?.modulesList, 'displayName') || [];
+
   const [userForEdit] = useState<User>({
     ...user,
     avatar: user.avatar || initialUser.avatar,
@@ -43,7 +45,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     position: user.position || initialUser.position,
     name: user.roleName || initialUser.roleName,
     email: user.email || initialUser.email,
-    modulesList: user.modulesList || initialUser.modulesList,
+    modulesList: permissions|| initialUser.modulesList,
     description: user.roleDescription || initialUser.roleDescription
   })
 
@@ -112,7 +114,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   useEffect(() => {
     const callAPI = async() => {
       const response = await getQueryRequest(GET_ALL_PERMISSION);
-      const permissions = reactSelectify(response.data, 'moduleName') || []; 
+      const permissions = reactSelectify(response.data, 'displayName') || []; 
       setState({
         ...state, 
         formData: {
@@ -131,15 +133,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       <form className="form" action="#" id="kt_modal_update_customer_form" onSubmit={formik.handleSubmit}>
         <div className="modal-body">
           <div
-            className="d-flex flex-column scroll-y me-n7 pe-7"
-            id="kt_modal_update_customer_scroll"
-            data-kt-scroll="true"
-            data-kt-scroll-activate="{default: false, lg: true}"
-            data-kt-scroll-max-height="auto"
-            data-kt-scroll-dependencies="#kt_modal_update_customer_header"
-            data-kt-scroll-wrappers="#kt_modal_update_customer_scroll"
-            data-kt-scroll-offset="300px"
-            style={{ maxHeight: 661 }}
+            className="d-flex flex-column  me-n7 pe-7"
           >
             <div id="kt_modal_update_customer_user_info" className="show">
               <div className="fv-row mb-3">

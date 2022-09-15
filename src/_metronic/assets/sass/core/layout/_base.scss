@@ -48,3 +48,18 @@ canvas {
 router-outlet {
     display: none;
 }
+
+.daterangepicker.show-ranges {
+    left: auto !important;
+    right: auto !important;
+}
+
+.daterangepicker.show-calendar {
+    min-width: 700px;
+    right: 0 !important;
+}
+
+.single-date .flatpickr-calendar {
+    left: auto !important;
+    position: fixed;
+}

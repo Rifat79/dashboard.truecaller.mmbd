@@ -1,6 +1,7 @@
 import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
 import { PageTitle } from '../../../_metronic/layout/core'
 import { DashboardWrapper } from './dashboard'
+import ReportsPage from './reports'
 
 const ActivationDashboard = () => (
     <Routes>
@@ -11,6 +12,15 @@ const ActivationDashboard = () => (
                     <>
                         <PageTitle>Activation DashBoard</PageTitle>
                         <DashboardWrapper />
+                    </>
+                }
+            />
+            <Route
+                path='reports/*'
+                element={
+                    <>
+                        <PageTitle>Activation DashBoard</PageTitle>
+                        <ReportsPage />
                     </>
                 }
             />

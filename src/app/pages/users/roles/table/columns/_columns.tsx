@@ -31,11 +31,11 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     id: 'role_name',
     accessor: 'roleName',
   },
-  {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Slug' className='min-w-125px' />,
-    id: 'role_slug',
-    accessor: 'slug',
-  },
+  // {
+  //   Header: (props) => <UserCustomHeader tableProps={props} title='Slug' className='min-w-125px' />,
+  //   id: 'role_slug',
+  //   accessor: 'slug',
+  // },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Permissions' className='min-w-125px' />,
     id: 'Permission',

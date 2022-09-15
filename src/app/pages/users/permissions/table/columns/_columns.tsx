@@ -10,11 +10,11 @@ import {UserSelectionHeader} from './UserSelectionHeader'
 import {User} from '../../core/_models'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
-  {
-    Header: (props) => <UserSelectionHeader tableProps={props} />,
-    id: 'selection',
-    Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
-  },
+  // {
+  //   Header: (props) => <UserSelectionHeader tableProps={props} />,
+  //   id: 'selection',
+  //   Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
+  // },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Id' className='min-w-125px' />,
     id: 'id',
@@ -28,7 +28,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Name' className='min-w-125px' />,
     id: 'module_name',
-    accessor: 'moduleName',
+    accessor: 'displayName',
   },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Method' className='min-w-125px' />,
@@ -74,13 +74,13 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     id: "updated_at",
     accessor: 'updatedAt',
   },
-  {
-    Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
-    ),
-    id: 'actions',
-    Cell: ({...props}) => <UserActionsCell id={props.data[props.row.index].id} />,
-  },
+  // {
+  //   Header: (props) => (
+  //     <UserCustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
+  //   ),
+  //   id: 'actions',
+  //   Cell: ({...props}) => <UserActionsCell id={props.data[props.row.index].id} />,
+  // },
 ]
 
 export {usersColumns}

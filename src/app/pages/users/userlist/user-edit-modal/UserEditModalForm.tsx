@@ -105,7 +105,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       setSubmitting(true)
       try {
         if (isNotEmpty(values.id)) {
-          await updateUser({
+          const res: any =  await updateUser({
             statusActive: 1,
             address: values.address,
             email: values.email,
@@ -117,6 +117,15 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
             // password: values.password,
             role: values.role
           })
+          if(res?.data?.success) {
+            cancel(true);
+          } else {
+            swal({
+              title: "Sorry!",
+              text: res?.data?.message,
+              icon: "error",
+            });
+          }
         } else {
           const res: any = await createUser({
             statusActive: 1,

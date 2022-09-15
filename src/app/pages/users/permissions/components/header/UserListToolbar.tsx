@@ -14,10 +14,10 @@ const UsersListToolbar = () => {
       {/* <UsersListFilter /> */}
 
       {/* begin::Add user */}
-      <button type='button' className='btn btn-sm btn-primary' onClick={openAddUserModal}>
+      {/* <button type='button' className='btn btn-sm btn-primary' onClick={openAddUserModal}>
         <KTSVG path='/media/icons/duotune/arrows/arr075.svg' className='svg-icon-2' />
         Add Permission
-      </button>
+      </button> */}
       {/* end::Add user */}
     </div>
   )
