@@ -25,7 +25,10 @@ const UsersListFilter = ({state, setState}: any) => {
   const [model, setModel] = useState<any>(null);
   const [role, setRole] = useState<string | undefined>()
   const [lastLogin, setLastLogin] = useState<string | undefined>()
-  const [date, setDate] = useState<any>()
+  const [date, setDate] = useState<any>({
+    start_date: moment().subtract(29, 'days').format('MM-DD-YYYY'),
+    end_date: moment().format('MM-DD-YYYY'),
+  })
   const auth = getAuth();
 
   useEffect(() => {
@@ -55,7 +58,7 @@ const UsersListFilter = ({state, setState}: any) => {
     })
   }
 
-  console.log('model: ', model)
+  console.log('date: ', date)
 
   useEffect(() => {
     const callAPI = async () => { 

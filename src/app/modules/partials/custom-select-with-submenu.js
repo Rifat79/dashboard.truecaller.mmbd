@@ -12,6 +12,14 @@ export default function SelectSubmenu ({options = [], value = {}, setModel={}}) 
       closeMenuOnSelect={true}
       options={options}
       value={value}
+      tabSelectsValue={false}
+      backspaceRemovesValue={false}
+          // components={{ DropdownIndicator, IndicatorSeparator: null }}
+          // controlShouldRenderValue={false}
+          // hideSelectedOptions={false}
+          // isClearable={false}
+          captureMenuScroll 
+
     />
   )
 }

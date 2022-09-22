@@ -107,18 +107,18 @@ export function AsideMenuMain() {
         </>
       )}
 
-      {(permissions?.pushpull?.items?.length > 0 || permissions?.pushpull?.reports?.length > 0) && (
+      {(permissions?.pushpull_revenue?.items?.length > 0 || permissions?.pushpull_revenue?.reports?.length > 0) && (
         <AsideMenuItemWithSub
         to='/pushpull'
         title='Push-Pull Revenue'
         icon='/media/icons/duotune/communication/com006.svg'
         fontIcon='bi-headset-vr'
       >
-        {permissions?.pushpull?.items?.length > 0 && permissions?.pushpull?.items?.map((item: any, indx: any) => (
+        {permissions?.pushpull_revenue?.items?.length > 0 && permissions?.pushpull_revenue?.items?.map((item: any, indx: any) => (
             <AsideMenuItem to={item?.path} title={item?.title} hasBullet={true} key={indx}/>
         ))}
         <AsideMenuItemWithSub to='/pushpull/reports/index' title='Revenue Reports' hasBullet={true}>
-          {permissions?.pushpull?.reports?.length > 0 && permissions?.pushpull?.reports?.map((item: any, indx: any) => (
+          {permissions?.pushpull_revenue?.reports?.length > 0 && permissions?.pushpull_revenue?.reports?.map((item: any, indx: any) => (
               <AsideMenuItem to={item?.path} title={item?.title} hasBullet={true} key={indx}/>
           ))}
         </AsideMenuItemWithSub>

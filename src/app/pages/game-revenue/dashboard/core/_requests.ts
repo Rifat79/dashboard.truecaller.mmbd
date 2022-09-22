@@ -1,18 +1,20 @@
 import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../../_metronic/helpers'
 import { BASE_URL } from '../../../../constants/api.constants'
+import { getAuth } from '../../../../modules/auth'
 import {User, UsersQueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
 const USER_URL = `${BASE_URL}/partnerapi/organization/create`
-const GET_USERS_URL = `${BASE_URL}/partnerapi/subscriber/subscriberSummary`
+const GET_USERS_URL = `${BASE_URL}/partnerapi/revenue/chart`
 const GET_USER_BY_ID = `${BASE_URL}/partnerapi/organization/get`
 const UPDATE_USER = `${BASE_URL}/partnerapi/organization/update`
 const  DELETE_USER = `${BASE_URL}/partnerapi/organization/delete`
 
+const auth = getAuth();
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios
-    .get(`${GET_USERS_URL}?${query}`)
+    .get(`${GET_USERS_URL}?organization_id=${auth?.user?.organization}&${query}`)
     .then((d: AxiosResponse<UsersQueryResponse>) => d.data)
 }
 

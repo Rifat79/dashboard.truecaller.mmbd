@@ -186,7 +186,7 @@ const DashBoard = () => {
                 className='card-xl-stretch mb-xl-8'
                 chartColor='info'
                 chartHeight='150px'
-                title='Generate Reports'
+                title='Total Active'
                 description='Finance and accounting reports'
                 total={20330}
                 data={data?.chart2[0]}
@@ -195,7 +195,7 @@ const DashBoard = () => {
                 className='card-xl-stretch mb-xl-8'
                 chartColor='info'
                 chartHeight='150px'
-                title='Generate Reports'
+                title='Total Smart Phone'
                 description='Finance and accounting reports'
                 total={20330}
                 data={data?.chart2[1]}
@@ -204,7 +204,7 @@ const DashBoard = () => {
                 className='card-xl-stretch mb-xl-8'
                 chartColor='info'
                 chartHeight='150px'
-                title='Generate Reports'
+                title='Total Feature Phone'
                 description='Finance and accounting reports'
                 total={20330}
                 data={data?.chart2[2]}

@@ -15,6 +15,8 @@ import {getQueryRequest} from '../../../modules/helpers/api'
 import {GET_ACTIVATION_DASHBOARD_DATA, GET_GAME_REVENUE_CHART} from '../../../constants/api.constants'
 import moment from 'moment'
 import { getAuth } from '../../../modules/auth'
+import BarChart from '../../../modules/widgets/BarChart'
+import { ChartsWidget1 } from '../../../../_metronic/partials/widgets/charts/ChartsWidget1'
 
 const DashBoard = () => {
   let bodyStyles = ''
@@ -191,26 +193,64 @@ const DashBoard = () => {
           {isLoading ? (
             <h5 style={{textAlign: 'center'}}>Chart is loading, please wait...</h5>
           ) : Object.keys(data).length > 0 ? (
-            <div className='row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-4'>
-              <MixedWidget10
-                className='card-xl-stretch mb-xl-8'
-                chartColor='info'
-                chartHeight='150px'
-                title='Generate Reports'
-                description='Finance and accounting reports'
-                total={20330}
-                data={data?.chart2[0]}
-              />
-              <MixedWidget10
-                className='card-xl-stretch mb-xl-8'
-                chartColor='info'
-                chartHeight='150px'
-                title='Generate Reports'
-                description='Finance and accounting reports'
-                total={20330}
-                data={data?.chart2[1]}
-              />
-            </div>
+            <>
+              <div className='row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3'>
+                <MixedWidget10
+                  className='card-xl-stretch mb-xl-8'
+                  chartColor='info'
+                  chartHeight='150px'
+                  title='Total Revenue'
+                  description='Finance and accounting reports'
+                  total={20330}
+                  data={data?.chart2[0]}
+                />
+                <MixedWidget10
+                  className='card-xl-stretch mb-xl-8'
+                  chartColor='info'
+                  chartHeight='150px'
+                  title='Total Feature Phone'
+                  description='Finance and accounting reports'
+                  total={20330}
+                  data={data?.chart2[1]}
+                />
+                <MixedWidget10
+                  className='card-xl-stretch mb-xl-8'
+                  chartColor='info'
+                  chartHeight='150px'
+                  title='Total Smart Phone'
+                  description='Finance and accounting reports'
+                  total={20330}
+                  data={data?.chart2[2]}
+                />
+                {/* <BarChart
+                  settings={{
+                    options: {
+                      chart: {
+                        id: 'basic-bar',
+                      },
+                      xaxis: {
+                        categories: data?.chart2[3]?.categories || [],
+                      },
+                    },
+                    series: [
+                      {
+                        name: 'series-1',
+                        data: data?.chart2[3]?.data1 || [],
+                      },
+                    ],
+                  }}
+                  height={250}
+                  width={250}
+                  total_active={data?.chart2[3]?.total_active}
+                  total_field_name="Total Game Revenue"
+                /> */}
+                
+              </div>
+              <div className='row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-1'>
+                <ChartsWidget1 className='' title='Total Game Revenue' data={data?.chart2[3]?.data1 || []} categories={data?.chart2[3]?.categories || []}/>
+              </div>
+              
+            </>
           ) : (
             <h5 style={{textAlign: 'center'}}>No Data Found!</h5>
           )}

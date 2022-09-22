@@ -11,6 +11,7 @@ import ActivationDashboard from '../pages/device-activation'
 import ConfigurationPage from '../pages/configurations'
 import BusinessOrganizationPage from '../pages/business-organization'
 import GameRevenue from '../pages/game-revenue'
+import PushPullRevenue from '../pages/push-pull'
 
 const PrivateRoutes = () => {
   const Merchants = lazy(() => import('../pages/marchents'))
@@ -76,6 +77,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <GameRevenue />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='pushpull/*'
+          element={
+            <SuspensedView>
+              <PushPullRevenue />
             </SuspensedView>
           }
         />

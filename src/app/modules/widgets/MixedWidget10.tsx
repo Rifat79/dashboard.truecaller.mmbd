@@ -86,7 +86,7 @@ const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight, tit
                             </span>
                         </div>
                         <span className="fs-6 fw-bold text-gray-400">
-                            Total Active
+                            {title}
                         </span>
                     </div>
                     {/* <div className="card-toolbar">
