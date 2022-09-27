@@ -8,6 +8,11 @@ import { WithChildren } from '../../_metronic/helpers'
 import UsersPage from '../pages/users'
 import OrganizationsPage from '../pages/organigetions'
 import ActivationDashboard from '../pages/device-activation'
+import ConfigurationPage from '../pages/configurations'
+import BusinessOrganizationPage from '../pages/business-organization'
+import GameRevenue from '../pages/game-revenue'
+import PushPullRevenue from '../pages/push-pull'
+import Profile from '../pages/profile'
 
 const PrivateRoutes = () => {
   const Merchants = lazy(() => import('../pages/marchents'))
@@ -16,7 +21,7 @@ const PrivateRoutes = () => {
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/dashboard' />} />
+        <Route path='auth/*' element={<Navigate to='/dashboard' />} /> 
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
         {/* Lazy Modules */}
@@ -37,6 +42,14 @@ const PrivateRoutes = () => {
           }
         />
         <Route
+          path='configuration/*'
+          element={
+            <SuspensedView>
+              <ConfigurationPage />
+            </SuspensedView>
+          }
+        />
+        <Route
           path='organizations/*'
           element={
             <SuspensedView>
@@ -45,10 +58,42 @@ const PrivateRoutes = () => {
           }
         />
         <Route
+          path='business-organizations/*'
+          element={
+            <SuspensedView>
+              <BusinessOrganizationPage />
+            </SuspensedView>
+          }
+        />
+        <Route
           path='activation/*'
           element={
             <SuspensedView>
               <ActivationDashboard />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='revenue/*'
+          element={
+            <SuspensedView>
+              <GameRevenue />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='pushpull/*'
+          element={
+            <SuspensedView>
+              <PushPullRevenue />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='profile'
+          element={
+            <SuspensedView>
+              <Profile />
             </SuspensedView>
           }
         />

@@ -105,7 +105,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       setSubmitting(true)
       try {
         if (isNotEmpty(values.id)) {
-          await updateUser({
+          const res: any =  await updateUser({
             statusActive: 1,
             address: values.address,
             email: values.email,
@@ -117,6 +117,15 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
             // password: values.password,
             role: values.role
           })
+          if(res?.data?.success) {
+            cancel(true);
+          } else {
+            swal({
+              title: "Sorry!",
+              text: res?.data?.message,
+              icon: "error",
+            });
+          }
         } else {
           const res: any = await createUser({
             statusActive: 1,
@@ -154,7 +163,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       const response = await getQueryRequest(GET_ORGANIZATION_LIST);
       const responseRole = await getQueryRequest(GET_ROLE_LIST);
 
-      const organizationList = reactSelectify(response?.data, 'organizationName');
+      const organizationList = reactSelectify(response?.data, 'organizationName'); 
       const roleList = reactSelectify(responseRole?.data, 'roleName');
 
       const selectedOrg = organizationList?.filter(e => e.value == user?.organization); 

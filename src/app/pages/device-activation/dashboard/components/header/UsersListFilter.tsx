@@ -5,12 +5,31 @@ import { useQueryRequest } from '../../core/QueryRequestProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
 import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
+import ReactDateRange from './react-date-range'
+import moment from 'moment'
+import Select from 'react-select'
+import { deviceTypeOptions } from '../../../../../constants/constants'
+import { getQueryRequest } from '../../../../../modules/helpers/api'
+import { GET_MODEL_LIST } from '../../../../../constants/api.constants'
+import { getAuth } from '../../../../../modules/auth'
+import { createGroup, reactSelectify } from '../../../../../modules/helpers/helper'
+import DateRange from '../../../../../../_metronic/partials/custom-modules/DateRange'
+import SelectSubmenu from '../../../../../modules/partials/custom-select-with-submenu'
 
-const UsersListFilter = () => {
+const UsersListFilter = ({state, setState}: any) => {
   const { updateState } = useQueryRequest()
   const { isLoading } = useQueryResponse()
+  const [deviceType, setDeviceType] = useState({id: 1, label: 'Smart Phone', value: 1});
+  const [options, setOptions] = useState([{}]);
+  const [models, setModels] = useState([{}]);
+  const [model, setModel] = useState<any>(null);
   const [role, setRole] = useState<string | undefined>()
   const [lastLogin, setLastLogin] = useState<string | undefined>()
+  const [date, setDate] = useState<any>({
+    start_date: moment().subtract(29, 'days').format('MM-DD-YYYY'),
+    end_date: moment().format('MM-DD-YYYY'),
+  })
+  const auth = getAuth();
 
   useEffect(() => {
     MenuComponent.reinitialization()
@@ -20,12 +39,46 @@ const UsersListFilter = () => {
     updateState({ filter: undefined, ...initialQueryState })
   }
 
+  const handleDeviceTypeOptionChange = (selectedOption: any) => {
+    setDeviceType(selectedOption);
+    // console.log(`Option selected:`, selectedOption);
+  };
+  const handleModelOptionChange = (selectedOption: any) => { 
+    setModel(selectedOption);
+    // console.log(`Option selected:`, selectedOption);
+  };
   const filterData = () => {
     updateState({
-      filter: { role, last_login: lastLogin },
+      filter: { 
+        start_date: `${date?.start_date} 00:00:00`,
+        end_date: `${date?.end_date} 23:59:59`,
+        model: model?.model,
+        deviceType: model?.deviceType
+      },
       ...initialQueryState,
     })
   }
+
+  console.log('date: ', date)
+
+  useEffect(() => {
+    const callAPI = async () => { 
+      const res: any = await getQueryRequest(`${GET_MODEL_LIST}?organization=${auth?.user?.organization || 20217}&deviceType=1`);
+      const res2: any = await getQueryRequest(`${GET_MODEL_LIST}?organization=${auth?.user?.organization || 20217}&deviceType=2`);
+      if(res2?.data && res?.data) {
+        // const models = reactSelectify(res?.data, 'model') || [];
+        // setModels(models);
+        const optionList = [
+          createGroup('---Smart Phone---', reactSelectify(res?.data, 'model'), setModel),
+          createGroup('---Feature Phone---', reactSelectify(res2?.data, 'model'), setModel)
+        ]
+        setOptions(optionList)
+        console.log('options: ', optionList)
+      }
+    };
+    callAPI();
+    
+  }, [deviceType, model])
 
   return (
     <>
@@ -56,59 +109,28 @@ const UsersListFilter = () => {
         {/* begin::Content */}
         <div className='px-7 py-5' data-kt-user-table-filter='form'>
           {/* begin::Input group */}
-          <div className='mb-10'>
+          {/* <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>Device Type:</label>
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-user-table-filter='role'
-              data-hide-search='true'
-              onChange={(e) => setRole(e.target.value)}
-              value={role}
-            >
-              <option value=''></option>
-              <option value="id,desc">User ID desc</option>
-              <option value="id,asc">User ID asc</option>
-              <option value="first_name,desc">Name desc</option>
-              <option value="first_name,asc">Name asc</option>
-              <option value="email,desc">Email desc</option>
-              <option value="email,asc">Email asc</option>
-              <option value="mobile,desc">Mobile desc</option>
-              <option value="mobile,asc">Mobile asc</option>
-            </select>
-          </div>
+            <Select options={deviceTypeOptions} onChange={handleDeviceTypeOptionChange} value={deviceType}/>
+          </div> */}
           {/* end::Input group */}
 
           {/* begin::Input group */}
           <div className='mb-10'>
-            <label className='form-label fs-6 fw-bold'>Models:</label>
-            <select
-              className='form-select form-select-solid fw-bolder'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              data-kt-user-table-filter='two-step'
-              data-hide-search='true'
-              onChange={(e) => setLastLogin(e.target.value)}
-              value={lastLogin}
-            >
-              <option value=''></option>
-              <option value='Yesterday'>Yesterday</option>
-              <option value='20 mins ago'>20 mins ago</option>
-              <option value='5 hours ago'>5 hours ago</option>
-              <option value='2 days ago'>2 days ago</option>
-            </select>
+            <label className='form-label fs-6 fw-bold'>Select Model:</label>
+              <SelectSubmenu options={options} value={model} setModel={setModel}/>
           </div>
           {/* end::Input group */}
-          <DateRangePicker />
+          <div className='mb-10 position-relative' id='date-range-ref'>
+            <label className='form-label fs-6 fw-bold'>Range:</label>
+              <DateRange callBack={(e: any) => setDate(e)}/>
+          </div>
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>
             <button
               type='button'
               disabled={isLoading}
-              onClick={filterData}
+              onClick={resetData}
               className='btn btn-light btn-active-light-primary fw-bold me-2 px-6'
               data-kt-menu-dismiss='true'
               data-kt-user-table-filter='reset'
@@ -118,7 +140,7 @@ const UsersListFilter = () => {
             <button
               disabled={isLoading}
               type='button'
-              onClick={resetData}
+              onClick={filterData}
               className='btn btn-primary fw-bold px-6'
               data-kt-menu-dismiss='true'
               data-kt-user-table-filter='filter'

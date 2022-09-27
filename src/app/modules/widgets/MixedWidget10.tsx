@@ -10,10 +10,12 @@ type Props = {
   chartHeight: string
   title: string
   description: string
-  total: any
+  total: any,
+  data: any,
+  series?: any
 }
 
-const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight, title, description, total}) => {
+const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight, title, description, total, data, series}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
   const {mode} = useThemeMode()
   const refreshChart = () => {
@@ -21,7 +23,7 @@ const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight, tit
       return
     }
 
-    const chart = new ApexCharts(chartRef.current, chartOptions(chartColor, chartHeight))
+    const chart = new ApexCharts(chartRef.current, chartOptions(chartColor, chartHeight, data, series))
     if (chart) {
       chart.render()
     }
@@ -39,6 +41,8 @@ const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight, tit
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chartRef, mode])
+
+  console.log('chart: ', chartRef)
 
   return (
     // <div className={`card ${className}`}>
@@ -75,18 +79,18 @@ const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight, tit
                 <div className="card-header py-3 px-4">
                     <div className="clearfix">
                         <div className="d-flex align-items-center">
-                            <span className="fs-4 fw-bold text-gray-400 align-self-start me-1>">
+                            {/* <span className="fs-4 fw-bold text-gray-400 align-self-start me-1>">
                                 ৳
-                            </span>
+                            </span> */}
                             <span className="fs-2hx fw-bolder text-gray-800 me-2 lh-1">
-                                69,700
+                                {data?.total_active}
                             </span>
                         </div>
                         <span className="fs-6 fw-bold text-gray-400">
-                            Total Active
+                            {title}
                         </span>
                     </div>
-                    <div className="card-toolbar">
+                    {/* <div className="card-toolbar">
                         <a
                             href="#"
                             className="btn btn-icon btn-light-primary btn-active-light-primary w-30px h-30px me-3"
@@ -94,7 +98,7 @@ const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight, tit
                         >
                             <i className="fas fa-eye fs-6" />
                         </a>
-                    </div>
+                    </div> */}
                 </div>
                 {/*begin::Card body*/}
                 <div className="card-body p-0">
@@ -109,26 +113,27 @@ const MixedWidget10: React.FC<Props> = ({className, chartColor, chartHeight, tit
   )
 }
 
-const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
+const chartOptions = (chartColor: string, chartHeight: string, data: any, series: any): ApexOptions => {
   const labelColor = getCSSVariableValue('--kt-gray-800')
   const strokeColor = getCSSVariableValue('--kt-gray-300')
   const baseColor = getCSSVariableValue('--kt-' + chartColor)
   const lightColor = getCSSVariableValue('--kt-' + chartColor + '-light')
 
   return {
-    series: [
-      {
-        name: 'Net Profit',
-        data: [15, 25, 15, 40, 20, 50],
-      },
-      {
-        name: 'Net Profit2',
-        data: [10, 50, 30, 20, 60, 40],
-      },
-    ],
+    // series: [
+    //   {
+    //     name: 'Net Profit',
+    //     data: data?.data1,
+    //   },
+    //   {
+    //     name: 'Net Profit2',
+    //     data: data?.data2,
+    //   },
+    // ],
+    series: series,
     chart: {
       fontFamily: 'inherit',
-      type: 'line',
+      type: 'area',
       height: chartHeight,
       toolbar: {
         show: false,
@@ -155,10 +160,10 @@ const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
       curve: 'smooth',
       show: true,
       width: 3,
-      colors: [baseColor],
+      colors: ['#008FFB', '#00E396',],
     },
     xaxis: {
-      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+      categories: data?.categories,
       axisBorder: {
         show: false,
       },
@@ -186,8 +191,6 @@ const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
       },
     },
     yaxis: {
-      min: 0,
-      max: 60,
       labels: {
         show: false,
         style: {
@@ -223,14 +226,14 @@ const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
       },
       y: {
         formatter: function (val) {
-          return '$' + val + ' thousands'
+          return ' ' + val 
         },
       },
     },
     colors: [lightColor],
     markers: {
-      colors: [lightColor],
-      strokeColors: [baseColor],
+      colors: ['#008FFB', '#00E396',],
+      strokeColors: ['#008FFB', '#00E396',],
       strokeWidth: 3,
     },
   }

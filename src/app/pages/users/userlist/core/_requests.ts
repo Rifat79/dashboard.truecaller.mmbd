@@ -36,8 +36,8 @@ const createUser = (user: any): Promise<User | undefined> => {
 const updateUser = (user: any): Promise<User | undefined> => {
   return axios
     .post(`${UPDATE_USER}`, user)
-    .then((response: AxiosResponse<Response<User>>) => response.data)
-    .then((response: Response<User>) => response.data)
+    .then((response: any) => response)
+    .then((response: any) => response)
 }
 
 const deleteUser = (userId: ID): Promise<void> => {

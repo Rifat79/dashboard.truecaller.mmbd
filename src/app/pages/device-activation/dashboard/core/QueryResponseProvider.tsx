@@ -13,12 +13,15 @@ import {
 import {getUsers} from './_requests'
 import {User} from './_models'
 import {useQueryRequest} from './QueryRequestProvider'
+import { GET_ACTIVATION_DASHBOARD_DATA } from '../../../../constants/api.constants'
+import { getAuth } from '../../../../modules/auth'
 
 const QueryResponseContext = createResponseContext<User>(initialQueryResponse)
 const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   const {state} = useQueryRequest()
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
+  const auth = getAuth();
 
   useEffect(() => {
     if (query !== updatedQuery) {
@@ -31,7 +34,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
     refetch,
     data: response,
   } = useQuery(
-    `${QUERIES.USERS_LIST}-${query}`,
+    `${GET_ACTIVATION_DASHBOARD_DATA}?organization_id=${auth?.user?.organization}-${query}`,
     () => {
       return getUsers(query)
     },

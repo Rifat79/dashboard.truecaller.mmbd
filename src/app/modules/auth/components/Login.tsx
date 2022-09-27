@@ -46,11 +46,13 @@ export function Login() {
           setCurrentUser(auth)
           setupAxios(axios, auth.user.access_token);
           // window.location.reload();
+        } else {
+          setStatus('The login detail is incorrect')
         }
-      } catch (error) {
-        console.error(error)
+      } catch (error: any) {
+        console.error(error.message)
         saveAuth(undefined)
-        setStatus('The login detail is incorrect')
+        setStatus(error.message)
         setSubmitting(false)
         setLoading(false)
       }
@@ -66,7 +68,7 @@ export function Login() {
     >
       {/* begin::Heading */}
       <div className='text-center mb-10'>
-        <h1 className='text-dark mb-3'>Sign In to Partner's Panel</h1>
+        <h1 className='text-dark mb-3'>Sign In</h1>
       </div>
       {/* begin::Heading */}
 

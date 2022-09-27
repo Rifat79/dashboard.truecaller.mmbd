@@ -6,9 +6,11 @@ import clsx from 'clsx'
 import {useLayout} from '../../core'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {AsideMenu} from './AsideMenu'
+import { getAuth } from '../../../../app/modules/auth'
 
 const AsideDefault: FC = () => {
   const {config, classes} = useLayout()
+  const auth = getAuth()
   const asideRef = useRef<HTMLDivElement | null>(null)
   const {aside} = config
 
@@ -40,7 +42,8 @@ const AsideDefault: FC = () => {
             <img
               alt='Logo'
               className='h-25px logo'
-              src={toAbsoluteUrl('/media/logos/logo.png')}
+              // src={toAbsoluteUrl('/media/logos/logo.png')}
+              src={auth?.user?.organizationUrl}
             />
           </Link>
         )}
@@ -49,7 +52,8 @@ const AsideDefault: FC = () => {
             <img
               alt='Logo'
               className='h-25px logo'
-              src={toAbsoluteUrl('/media/logos/logo.png')}
+              // src={toAbsoluteUrl('/media/logos/logo.png')}
+              src={auth?.user?.organizationUrl}
             />
           </Link>
         )}

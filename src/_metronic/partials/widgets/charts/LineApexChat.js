@@ -149,10 +149,11 @@ class LineApexChart extends React.Component {
     })
 
     this.state = {
-      series: [{
-        name: this.props.title || 'XYZ',
-        data: dates
-      }],
+      series: this.props.series,
+      // series: [{
+      //   name: this.props.title || 'XYZ',
+      //   data: this.props.data
+      // }],
       options: {
         chart: {
           type: 'area',
@@ -199,12 +200,13 @@ class LineApexChart extends React.Component {
         },
         xaxis: {
           type: this.props.xaxis || 'datetime',
+          categories: this.props.categories || []
         },
         tooltip: {
-          shared: false,
+          shared: true,
           y: {
             formatter: function (val) {
-              return (val).toFixed(0)
+              return (val).toFixed(2)
             }
           },
           x: {

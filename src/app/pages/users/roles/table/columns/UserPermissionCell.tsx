@@ -8,7 +8,7 @@ const UserPermissionCell: FC<Props> = ({roleList = []}: any) => {
   let permissions = []; 
   const permissionList = roleList || []; 
   for(let i = 0; i < permissionList.length; i++) {
-    permissions.push(permissionList[i].moduleName);
+    permissions.push(permissionList[i].displayName);
   } 
   
   return (
