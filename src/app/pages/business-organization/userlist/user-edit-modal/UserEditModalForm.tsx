@@ -323,7 +323,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 <CropperComponents
                   className="w-125px h-125px"
                   full=""
-                  height={400} width={400}
+                  height={56} width={220}
                   onCroped={(img: any) => formik.setFieldValue('organizationLogo', img)} src={user?.organizationLogo || blankImg} />
               </div>
             </div>

@@ -17,6 +17,7 @@ import moment from 'moment'
 import { getAuth } from '../../../modules/auth'
 import BarChart from '../../../modules/widgets/BarChart'
 import { ChartsWidget1 } from '../../../../_metronic/partials/widgets/charts/ChartsWidget1'
+import { getDateRange } from '../../../modules/helpers/helper'
 
 const DashBoard = () => {
   let bodyStyles = ''
@@ -24,7 +25,7 @@ const DashBoard = () => {
   bodyStyles += '--kt-toolbar-height-tablet-and-mobile:: 55px;'
   document.body.setAttribute('style', bodyStyles)
 
-  const { updateState } = useQueryRequest()
+  const { updateState, state } = useQueryRequest()
   const { isLoading } = useQueryResponse()
 
   type Chart = {
@@ -39,7 +40,7 @@ const DashBoard = () => {
     }
   }
 
-  const [state, setState] = useState(stateInit)
+  // const [state, setState] = useState(stateInit)
   const [loading, setLoading] = useState(true)
   const auth = getAuth()
   const data: any = useQueryResponseData();
@@ -74,8 +75,8 @@ const DashBoard = () => {
   // }, [state.filter.startDate, state.filter.endDate])
 
   useEffect(() => {
-    const startDate = moment().format('MM-DD-YYYY');
-    const endDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
+    const endDate = moment().format('MM-DD-YYYY');
+    const startDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
     updateState({
       filter: { 
         start_date: `${startDate} 00:00:00`,
@@ -131,8 +132,8 @@ const DashBoard = () => {
 
   return (
     <>
-      <Toolbar>
-        <UsersListHeader state={state} setState={setState}/>
+      <Toolbar title={`Game Revenue Report -- ${getDateRange(state?.filter)}`}>
+        <UsersListHeader />
       </Toolbar>
       {isLoading ? (
         <h5 style={{textAlign: 'center'}}>Chart is loading, please wait...</h5>
@@ -194,7 +195,7 @@ const DashBoard = () => {
             <h5 style={{textAlign: 'center'}}>Chart is loading, please wait...</h5>
           ) : Object.keys(data).length > 0 ? (
             <>
-              <div className='row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-3'>
+              <div className='row gy-4 row-cols-1 row-cols-sm-1 row-cols-lg-1'>
                 <MixedWidget10
                   className='card-xl-stretch mb-xl-8'
                   chartColor='info'
@@ -203,8 +204,12 @@ const DashBoard = () => {
                   description='Finance and accounting reports'
                   total={20330}
                   data={data?.chart2[0]}
+                  series={[
+                    {name: 'Smart Phone', data: data?.chart2[0]?.data1},
+                    {name: 'Feature Phone', data: data?.chart2[0]?.data2},
+                  ]}
                 />
-                <MixedWidget10
+                {/* <MixedWidget10
                   className='card-xl-stretch mb-xl-8'
                   chartColor='info'
                   chartHeight='150px'
@@ -212,6 +217,9 @@ const DashBoard = () => {
                   description='Finance and accounting reports'
                   total={20330}
                   data={data?.chart2[1]}
+                  series={[
+                    {name: 'Feature Phone', data: data?.chart2[1]?.data1},
+                  ]}
                 />
                 <MixedWidget10
                   className='card-xl-stretch mb-xl-8'
@@ -221,7 +229,10 @@ const DashBoard = () => {
                   description='Finance and accounting reports'
                   total={20330}
                   data={data?.chart2[2]}
-                />
+                  series={[
+                    {name: 'Smart Phone', data: data?.chart2[2]?.data1},
+                  ]}
+                /> */}
                 {/* <BarChart
                   settings={{
                     options: {
@@ -247,7 +258,7 @@ const DashBoard = () => {
                 
               </div>
               <div className='row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-1'>
-                <ChartsWidget1 className='' title='Total Game Revenue' data={data?.chart2[3]?.data1 || []} categories={data?.chart2[3]?.categories || []}/>
+                <ChartsWidget1 className='' title='Total Game Revenue' data={data?.chart2[1]?.data1 || []} categories={data?.chart2[1]?.categories || []}/>
               </div>
               
             </>

@@ -12,6 +12,7 @@ import ConfigurationPage from '../pages/configurations'
 import BusinessOrganizationPage from '../pages/business-organization'
 import GameRevenue from '../pages/game-revenue'
 import PushPullRevenue from '../pages/push-pull'
+import Profile from '../pages/profile'
 
 const PrivateRoutes = () => {
   const Merchants = lazy(() => import('../pages/marchents'))
@@ -85,6 +86,14 @@ const PrivateRoutes = () => {
           element={
             <SuspensedView>
               <PushPullRevenue />
+            </SuspensedView>
+          }
+        />
+        <Route
+          path='profile'
+          element={
+            <SuspensedView>
+              <Profile />
             </SuspensedView>
           }
         />

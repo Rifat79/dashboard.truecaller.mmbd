@@ -12,8 +12,12 @@ export default function() {
         lastWeek: '...'
     });
 
-    useEffect(async() => {
-        const res = await getQueryRequest(GET_PUSHPULL_REPORT_SUMMARY);
+    useEffect(() => {
+        callAPI();
+    }, []);
+
+    const callAPI = async () => {
+      const res = await getQueryRequest(GET_PUSHPULL_REPORT_SUMMARY);
 
         setLoading(false);
         if(res?.success) {
@@ -25,7 +29,7 @@ export default function() {
                 lastYear: res?.data?.lastYear 
             });
         }
-    }, []);
+    };
 
     if(loading) return <h3 style={{textAlign: 'center'}}>loading...</h3>;
     console.log('data: ', data)

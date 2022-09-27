@@ -3,10 +3,7 @@ import { initialQueryState, KTSVG } from '../../../../../../../_metronic/helpers
 import { MenuComponent } from '../../../../../../../_metronic/assets/ts/components'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
-import { DateRangePicker } from 'rsuite';
 import 'rsuite/dist/rsuite.min.css';
-import moment from 'moment'
-import Select from 'react-select'
 import { deviceTypeOptions } from '../../../../../../constants/constants'
 import { getQueryRequest } from '../../../../../../modules/helpers/api'
 import { GET_MODEL_LIST } from '../../../../../../constants/api.constants'
@@ -57,23 +54,25 @@ const UsersListFilter = ({state, setState}: any) => {
   console.log('model: ', model)
 
   useEffect(() => {
-    const callAPI = async () => { 
-      const res: any = await getQueryRequest(`${GET_MODEL_LIST}?organization=${auth?.user?.organization || 20217}&deviceType=1`);
-      const res2: any = await getQueryRequest(`${GET_MODEL_LIST}?organization=${auth?.user?.organization || 20217}&deviceType=2`);
-      if(res2?.data && res?.data) {
-        // const models = reactSelectify(res?.data, 'model') || [];
-        // setModels(models);
-        const optionList = [
-          createGroup('---Smart Phone---', reactSelectify(res?.data, 'model'), setModel),
-          createGroup('---Feature Phone---', reactSelectify(res2?.data, 'model'), setModel)
-        ]
-        setOptions(optionList)
-        console.log('options: ', optionList)
-      }
-    };
+    
     callAPI();
     
   }, [deviceType, model])
+  
+  const callAPI = async () => { 
+    const res: any = await getQueryRequest(`${GET_MODEL_LIST}?organization=${auth?.user?.organization || 20217}&deviceType=1`);
+    const res2: any = await getQueryRequest(`${GET_MODEL_LIST}?organization=${auth?.user?.organization || 20217}&deviceType=2`);
+    if(res2?.data && res?.data) {
+      // const models = reactSelectify(res?.data, 'model') || [];
+      // setModels(models);
+      const optionList = [
+        createGroup('---Smart Phone---', reactSelectify(res?.data, 'model'), setModel),
+        createGroup('---Feature Phone---', reactSelectify(res2?.data, 'model'), setModel)
+      ]
+      setOptions(optionList)
+      console.log('options: ', optionList)
+    }
+  };
 
   return (
     <>

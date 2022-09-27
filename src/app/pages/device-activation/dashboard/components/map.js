@@ -4,10 +4,8 @@ import * as am5map from '@amcharts/amcharts5/map'
 import am5geodata_data_countries2 from '@amcharts/amcharts5-geodata/data/countries2'
 import {useEffect} from 'react'
 
-export default function ChartMap ({data = {}}) {
+export default function ChartMap ({data = {}, obj}) {
   useEffect(() => {
-    const root = am5.Root.new('smartphone-chart')
-    const root1 = am5.Root.new('feature-chart')
 
     let color = {
         min: 0xf42a41,
@@ -23,8 +21,14 @@ export default function ChartMap ({data = {}}) {
     const map_d_smartphone = data?.smartPhone?.regions
     console.log('map d sp: ', map_d_smartphone)
 
-    initMap(root, color, map_d_smartphone)
-    initMap(root1, color1, map_d)
+    if(document.getElementById('smartphone-chart')) {
+      const root = am5.Root.new('smartphone-chart')
+      initMap(root, color, map_d_smartphone)
+    }
+    if(document.getElementById('feature-chart')) {
+      const root1 = am5.Root.new('feature-chart')
+      initMap(root1, color1, map_d)
+    }
 
     function initMap (root, color = {}, map_data = []) {
       root.setThemes([am5themes_Animated.new(root)])
@@ -153,9 +157,12 @@ export default function ChartMap ({data = {}}) {
       })
     }
   }, [])
+
+
   return (
     <>
-      <div className='col-md-6'>
+      {obj?.deviceType != 1 && (
+        <div className={`col-md-${obj?.deviceType ? 12 : 6}`}>
         <div className='card card-flush h-md-100'>
           <div className='card-header pt-4'>
             <h2 className='cart-title'>Feature Phone</h2>
@@ -177,7 +184,9 @@ export default function ChartMap ({data = {}}) {
           {/*end::Body*/}
         </div>
       </div>
-      <div className='col-md-6'>
+      )}
+      {obj?.deviceType != 2 && (
+        <div className={`col-md-${obj?.deviceType ? 12 : 6}`}>
         <div className='card card-flush h-md-100'>
           <div className='card-header pt-4'>
             <h2 className='cart-title'>Smart Phone</h2>
@@ -199,6 +208,7 @@ export default function ChartMap ({data = {}}) {
           {/*end::Body*/}
         </div>
       </div>
+      )}
     </>
   )
 }

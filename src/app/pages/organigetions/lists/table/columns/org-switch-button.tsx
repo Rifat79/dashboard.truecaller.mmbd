@@ -2,8 +2,10 @@
 import clsx from 'clsx'
 import {FC} from 'react'
 import { useNavigate } from 'react-router-dom'
+import swal from 'sweetalert'
 import {toAbsoluteUrl} from '../../../../../../_metronic/helpers'
 import { getAuth, setAuth } from '../../../../../modules/auth'
+import { updateUser } from '../../../../users/userlist/core/_requests'
 import {User} from '../../core/_models'
 
 type Props = {
@@ -13,16 +15,30 @@ type Props = {
 const SwitchButtonCell: FC<Props> = ({user}) => {
   const auth = getAuth(); 
   const navigate = useNavigate()
-  const switchOrg = () => {
-    setAuth({
-      ...auth,
-      user: {
-        ...auth.user,
-        organization: user?.id
-      }
-    })
-    navigate('/')
-    window.location.reload()
+  const switchOrg = async() => {
+    const res: any = await updateUser({
+      ...auth?.user, organizationId: user?.id
+    });
+    console.log('res: ', res)
+    if(res?.success || res?.status == 200) {
+      setAuth({
+        ...auth,
+        user: {
+          ...auth.user,
+          organization: user?.id,
+          organizationName: res?.data?.data?.organization,
+          organizationUrl: res?.data?.data?.organizationUrl
+        }
+      })
+      navigate('/')
+      window.location.reload()
+    } else {
+      swal({
+        title: "Sorry!",
+        text: res?.data?.message,
+        icon: "error",
+      });
+    }
   }
 
   return (

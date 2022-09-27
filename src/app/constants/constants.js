@@ -4,7 +4,7 @@ export const statusOptions = [
     {id: 1, label: 'Active', value: 1},
     {id: 0, label: 'Inactive', value: 0}
 ];
-
+export const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
 export const deviceTypeOptions = [
     {id: 1, label: 'Smart Phone', value: 1},
     {id: 2, label: 'Feature Phone', value: 2}

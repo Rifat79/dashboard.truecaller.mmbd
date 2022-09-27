@@ -52,7 +52,8 @@ const UsersListFilter = ({state, setState}: any) => {
       filter: { 
         start_date: `${date?.start_date} 00:00:00`,
         end_date: `${date?.end_date} 23:59:59`,
-        model: model?.model
+        model: model?.model,
+        deviceType: model?.deviceType
       },
       ...initialQueryState,
     })

@@ -1,3 +1,4 @@
+import moment from "moment";
 import { months, months30 } from "../../constants/constants";
 
 
@@ -77,4 +78,24 @@ export const createGroup = (groupName, options, setValue) => {
     })(),
     options: options
   };
+};
+
+export const getDateRange = (obj) => {
+  if(!obj) {
+    return ' Last 30 Days'
+  };
+
+  return (`
+    ${moment(obj?.start_date).format('ll')} to ${moment(obj?.end_date).format('ll')}
+  `)
+};
+
+export const isChartRequired = (obj, device_type_not) => {
+  if(!obj?.deviceType) return true;
+
+  return obj?.deviceType != device_type_not;
+}
+
+export const containsDeviceType = (obj) => {
+  return obj?.deviceType ? true : false;
 };

@@ -12,20 +12,24 @@ export default function() {
         lastWeek: '...'
     });
 
-    useEffect(async() => {
-        const res = await getQueryRequest(GET_ACTIVATION_REPORT_SUMMARY);
-
-        setLoading(false);
-        if(res?.success) {
-            setData({
-                ...data,
-                today: res?.data?.today,
-                thisMonth: res?.data?.thisMonth ,
-                lastWeek: res?.data?.lastWeek ,
-                lastYear: res?.data?.lastYear 
-            });
-        }
+    useEffect(() => {
+        callAPI();
     }, []);
+
+    const callAPI = async() => {
+      const res = await getQueryRequest(GET_ACTIVATION_REPORT_SUMMARY);
+
+      setLoading(false);
+      if(res?.success) {
+          setData({
+              ...data,
+              today: res?.data?.today,
+              thisMonth: res?.data?.thisMonth ,
+              lastWeek: res?.data?.lastWeek ,
+              lastYear: res?.data?.lastYear 
+          });
+      }
+    };
 
     if(loading) return <h3 style={{textAlign: 'center'}}>loading...</h3>;
     console.log('data: ', data)

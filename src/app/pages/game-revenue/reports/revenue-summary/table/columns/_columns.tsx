@@ -62,7 +62,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Revenue' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Details' className='min-w-125px' />
     ),
     id: 'details-icon',
     Cell: ({...props}) => <DetailsIconCell month={props.data[props.row.index].month}/>

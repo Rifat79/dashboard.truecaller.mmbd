@@ -159,31 +159,33 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   }); 
 
   useEffect(() => {
-    const callAPI =async () => {
-      const response = await getQueryRequest(GET_ORGANIZATION_LIST);
-      const responseRole = await getQueryRequest(GET_ROLE_LIST);
-
-      const organizationList = reactSelectify(response?.data, 'organizationName'); 
-      const roleList = reactSelectify(responseRole?.data, 'roleName');
-
-      const selectedOrg = organizationList?.filter(e => e.value == user?.organization); 
-      const selectedRole = roleList?.filter(e => e.value == user?.role?.roleName);
-
-
-      setState({
-        ...state, 
-        formData: {
-          ...state.formData, 
-          org: [...organizationList], 
-          role: [...roleList], 
-      }});
-      formik.setFieldValue('organization', selectedOrg.length ? selectedOrg[0] : {});
-      formik.setFieldValue('role', selectedRole.length ? selectedRole[0] : {});
-      formik.setFieldValue('password', '12345');
-      formik.setFieldValue('confirmPass', '12345')
-    }
+   
     callAPI();
   }, []);
+
+  const callAPI =async () => {
+    const response = await getQueryRequest(GET_ORGANIZATION_LIST);
+    const responseRole = await getQueryRequest(GET_ROLE_LIST);
+
+    const organizationList = reactSelectify(response?.data, 'organizationName'); 
+    const roleList = reactSelectify(responseRole?.data, 'roleName');
+
+    const selectedOrg = organizationList?.filter(e => e.value == user?.organization); 
+    const selectedRole = roleList?.filter(e => e.value == user?.role?.roleName);
+
+
+    setState({
+      ...state, 
+      formData: {
+        ...state.formData, 
+        org: [...organizationList], 
+        role: [...roleList], 
+    }});
+    formik.setFieldValue('organization', selectedOrg.length ? selectedOrg[0] : {});
+    formik.setFieldValue('role', selectedRole.length ? selectedRole[0] : {});
+    formik.setFieldValue('password', '12345');
+    formik.setFieldValue('confirmPass', '12345')
+  }
 
   return (
     <>

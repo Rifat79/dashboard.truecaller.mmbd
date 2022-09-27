@@ -23,6 +23,7 @@ import {
 import moment from 'moment'
 import {getAuth} from '../../../modules/auth'
 import BarChart from '../../../modules/widgets/BarChart'
+import { getDateRange } from '../../../modules/helpers/helper'
 
 const DashBoard = () => {
   let bodyStyles = ''
@@ -30,7 +31,7 @@ const DashBoard = () => {
   bodyStyles += '--kt-toolbar-height-tablet-and-mobile:: 55px;'
   document.body.setAttribute('style', bodyStyles)
 
-  const {updateState} = useQueryRequest()
+  const {updateState, state} = useQueryRequest()
   const {isLoading} = useQueryResponse()
 
   type Chart = {
@@ -47,7 +48,7 @@ const DashBoard = () => {
     },
   }
 
-  const [state, setState] = useState(stateInit)
+  // const [state, setState] = useState(stateInit)
   const [loading, setLoading] = useState(true)
   const auth = getAuth()
   const data: any = useQueryResponseData()
@@ -97,8 +98,8 @@ const DashBoard = () => {
   // }, [state.filter.startDate, state.filter.endDate])
 
   useEffect(() => {
-    const startDate = moment().format('MM-DD-YYYY')
-    const endDate = moment()
+    const endDate = moment().format('MM-DD-YYYY')
+    const startDate = moment()
       .subtract(30, 'days')
       .format('MM-DD-YYYY')
     updateState({
@@ -156,8 +157,8 @@ const DashBoard = () => {
 
   return (
     <>
-      <Toolbar>
-        <UsersListHeader state={state} setState={setState} />
+      <Toolbar title={`Push-pull Revenue Report -- ${getDateRange(state?.filter)}`}>
+        <UsersListHeader  />
       </Toolbar>
       {isLoading ? (
         <h5 style={{textAlign: 'center'}}>Chart is loading, please wait...</h5>

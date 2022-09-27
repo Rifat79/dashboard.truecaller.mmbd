@@ -6,9 +6,10 @@ import { PageLink, useLayout } from '../../core'
 type Props = {
   children?: any
   breadcrumbs?: Array<PageLink>
+  title?: any
 }
 
-const Toolbar: FC<Props> = ({ children, breadcrumbs }) => {
+const Toolbar: FC<Props> = ({ children, breadcrumbs, title }) => {
   const { classes } = useLayout();
 
   return (
@@ -22,6 +23,9 @@ const Toolbar: FC<Props> = ({ children, breadcrumbs }) => {
           <div
             className={clsx('page-title d-flex', classes.pageTitle.join(' '))}
           >
+            {title?.length > 0 && (
+              <div className="d-flex align-items-center" id="kt_header_nav"><span className="d-flex align-items-center  my-1 fs-3">{title}</span></div>
+            )}
             {breadcrumbs &&
               breadcrumbs.length > 0 && (
                 <>

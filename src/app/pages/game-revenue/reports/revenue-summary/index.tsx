@@ -10,16 +10,16 @@ import {Toolbar} from '../../../../../_metronic/layout/components/toolbar/Toolba
 
 const UsersList = () => {
   let bodyStyles = ''
-  bodyStyles += '--kt-toolbar-height: 55px;'
-  bodyStyles += '--kt-toolbar-height-tablet-and-mobile:: 55px;'
+  bodyStyles += '--kt-toolbar-height: 5px;'
+  bodyStyles += '--kt-toolbar-height-tablet-and-mobile:: 5px;'
   document.body.setAttribute('style', bodyStyles)
 
   const {itemIdForUpdate} = useListView()
   return (
     <>
-      <Toolbar>
+      {/* <Toolbar>
         <UsersListHeader />
-      </Toolbar>
+      </Toolbar> */}
       <KTCard>
         <UsersTable />
       </KTCard>

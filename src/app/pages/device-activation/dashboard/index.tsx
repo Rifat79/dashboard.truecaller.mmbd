@@ -15,6 +15,7 @@ import {getQueryRequest} from '../../../modules/helpers/api'
 import {GET_ACTIVATION_DASHBOARD_DATA} from '../../../constants/api.constants'
 import moment from 'moment'
 import { getAuth } from '../../../modules/auth'
+import { containsDeviceType, getDateRange, isChartRequired } from '../../../modules/helpers/helper'
 
 const DashBoard = () => {
   let bodyStyles = ''
@@ -36,11 +37,12 @@ const DashBoard = () => {
     }
   }
 
-  const [state, setState] = useState(stateInit)
+  // const [state, setState] = useState(stateInit)
   const auth = getAuth()
 
   const data: any = useQueryResponseData()
-  const {updateState} = useQueryRequest()
+  const {updateState, state} = useQueryRequest() 
+  console.log('state: ', state)
   useEffect(() => {
     const endDate = moment().format('MM-DD-YYYY');
     const startDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
@@ -119,8 +121,8 @@ const DashBoard = () => {
 
   return (
     <>
-      <Toolbar>
-        <UsersListHeader state={state} setState={setState}/>
+      <Toolbar title={`Activation Recap Report -- ${getDateRange(state?.filter)}`}>
+        <UsersListHeader />
       </Toolbar>
       {isLoading ? (
         <h5 style={{textAlign: 'center'}}>Chart is loading, please wait...</h5>
@@ -181,34 +183,48 @@ const DashBoard = () => {
           {isLoading ? (
             <h5 style={{textAlign: 'center'}}>Chart is loading, please wait...</h5>
           ) : Object.keys(data).length > 0 ? (
-            <div className='row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-4'>
-              <MixedWidget10
+            <div className={`row gy-4 row-cols-1 row-cols-sm-2 row-cols-lg-${containsDeviceType(state?.filter) ? 1 : 2}`}>
+              {/* <MixedWidget10
                 className='card-xl-stretch mb-xl-8'
                 chartColor='info'
                 chartHeight='150px'
                 title='Total Active'
                 description='Finance and accounting reports'
                 total={20330}
+                series={[
+                  {name: 'Smart Phone', data: data?.chart2[0]?.data1},
+                  {name: 'Feature Phone', data: data?.chart2[0]?.data2},
+                ]}
                 data={data?.chart2[0]}
-              />
-              <MixedWidget10
-                className='card-xl-stretch mb-xl-8'
-                chartColor='info'
-                chartHeight='150px'
-                title='Total Smart Phone'
-                description='Finance and accounting reports'
-                total={20330}
-                data={data?.chart2[1]}
-              />
-              <MixedWidget10
-                className='card-xl-stretch mb-xl-8'
-                chartColor='info'
-                chartHeight='150px'
-                title='Total Feature Phone'
-                description='Finance and accounting reports'
-                total={20330}
-                data={data?.chart2[2]}
-              />
+              /> */}
+              {isChartRequired(state?.filter, 2) && (
+                <MixedWidget10
+                  className='card-xl-stretch mb-xl-8'
+                  chartColor='info'
+                  chartHeight='150px'
+                  title='Total Smart Phone'
+                  description='Finance and accounting reports'
+                  total={20330}
+                  data={data?.chart2[0]}
+                  series={[
+                    {name: 'Smart Phone', data: data?.chart2[0]?.data1},
+                  ]}
+                />
+              )}
+              {isChartRequired(state?.filter, 1) && (
+                <MixedWidget10
+                  className='card-xl-stretch mb-xl-8'
+                  chartColor='info'
+                  chartHeight='150px'
+                  title='Total Feature Phone'
+                  description='Finance and accounting reports'
+                  total={20330}
+                  data={data?.chart2[1]}
+                  series={[
+                    {name: 'Feature Phone', data: data?.chart2[1]?.data1},
+                  ]}
+                />
+              )}
               {/* <MixedWidget10
               className='card-xl-stretch mb-xl-8'
               chartColor='info'
@@ -227,7 +243,7 @@ const DashBoard = () => {
         {isLoading ? (
           <h5 style={{textAlign: 'center'}}>Map is loading, please wait...</h5>
         ) : Object.keys(data).length > 0 ? (
-          <ChartMap data={data?.chart3} />
+          <ChartMap data={data?.chart3} obj={state?.filter}/>
         ) : (
           <h5 style={{textAlign: 'center'}}>No Data Found!</h5>
         )}
