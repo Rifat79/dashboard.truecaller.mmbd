@@ -56,7 +56,7 @@ const useQueryResponseData = () => {
   return response?.data || []
 }
 
-const useQueryResponsePagination = () => {
+const useQueryResponsePagination: any = () => {
   const defaultPaginationState: PaginationState = {
     links: [],
     ...initialQueryState,

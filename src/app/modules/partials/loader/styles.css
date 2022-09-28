@@ -1,0 +1,11 @@
+.full-page-loader {
+    font-family: sans-serif;
+    text-align: center;
+  }
+  
+  ._loading_overlay_content {
+    top: 50%;
+    left: 50%;
+    position: fixed;
+  }
+  

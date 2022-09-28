@@ -27,7 +27,7 @@ const UsersListPagination = () => {
     updateState({ page, items_per_page: per_page || pagination.items_per_page })
   }
 
-  return (
+  return ( 
     <div className='row'>
       <div className='col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start'>
         <div className="dataTables_length" id="kt_datatable_zero_configuration_length">
