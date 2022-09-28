@@ -129,8 +129,8 @@ export default function ProfileView () {
             <div id='kt_customer_view_details' className='collapse show'>
               <div className='py-5 fs-6'>
                 <div className='badge badge-light-info d-inline'>Premium user</div>
-                <div className='fw-bolder mt-5'>Account ID</div>
-                <div className='text-gray-600'>ID-{currentUser?.id}</div>
+                {/* <div className='fw-bolder mt-5'>Account ID</div>
+                <div className='text-gray-600'>ID-{currentUser?.id}</div> */}
                 <div className='fw-bolder mt-5'>Primary Email</div>
                 <div className='text-gray-600'>
                   <span className='text-gray-600 text-hover-primary'>{currentUser?.email}</span>

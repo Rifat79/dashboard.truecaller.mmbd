@@ -9,6 +9,7 @@ import DateRange from '../../../../../../../_metronic/partials/custom-modules/Da
 import { getQueryRequest } from '../../../../../../modules/helpers/api'
 import { GET_KEYWORDS } from '../../../../../../constants/api.constants'
 import { reactSelectify } from '../../../../../../modules/helpers/helper'
+import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
 
 const UsersListFilter = () => {
   const [date, setDate] = useState<any>()
@@ -103,8 +104,9 @@ const UsersListFilter = () => {
                />
           </div>
           <div className='mb-10 position-relative' id='date-range-ref'>
-            <label className='form-label fs-6 fw-bold'>Range:</label>
-              <DateRange callBack={(e: any) => setDate(e)}/>
+            {/* <label className='form-label fs-6 fw-bold'>Range:</label>
+              <DateRange callBack={(e: any) => setDate(e)}/> */}
+              <DateRange2 callBack={(e: any) => setDate(e)}/>
           </div>
           {/*end::Input group*/}
           {/*begin::Actions*/}

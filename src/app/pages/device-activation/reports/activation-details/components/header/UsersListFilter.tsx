@@ -11,6 +11,7 @@ import { getAuth } from '../../../../../../modules/auth'
 import { createGroup, reactSelectify } from '../../../../../../modules/helpers/helper'
 import DateRange from '../../../../../../../_metronic/partials/custom-modules/DateRange'
 import SelectSubmenu from '../../../../../../modules/partials/custom-select-with-submenu'
+import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
 
 const UsersListFilter = ({state, setState}: any) => {
   const { updateState } = useQueryRequest()
@@ -116,8 +117,9 @@ const UsersListFilter = ({state, setState}: any) => {
           </div>
           {/* end::Input group */}
           <div className='mb-10 position-relative' id='date-range-ref'>
-            <label className='form-label fs-6 fw-bold'>Range:</label>
-              <DateRange callBack={(e: any) => setDate(e)}/>
+            {/* <label className='form-label fs-6 fw-bold'>Range:</label>
+              <DateRange callBack={(e: any) => setDate(e)}/> */}
+              <DateRange2 callBack={(e: any) => setDate(e)}/>
           </div>
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>
