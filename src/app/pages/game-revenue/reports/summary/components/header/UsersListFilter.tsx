@@ -6,6 +6,7 @@ import { useQueryResponse } from '../../core/QueryResponseProvider'
 import Select from 'react-select'
 import { deviceTypeOptions } from '../../../../../../constants/constants'
 import DateRange from '../../../../../../../_metronic/partials/custom-modules/DateRange'
+import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
 
 const UsersListFilter = () => {
   const [date, setDate] = useState<any>()
@@ -83,8 +84,9 @@ const UsersListFilter = () => {
             <Select />
           </div> */}
           <div className='mb-10 position-relative' id='date-range-ref'>
-            <label className='form-label fs-6 fw-bold'>Range:</label>
-              <DateRange callBack={(e: any) => setDate(e)}/>
+            {/* <label className='form-label fs-6 fw-bold'>Range:</label>
+              <DateRange callBack={(e: any) => setDate(e)}/> */}
+              <DateRange2 callBack={(e: any) => setDate(e)}/>
           </div>
           {/*end::Input group*/}
           {/*begin::Actions*/}
