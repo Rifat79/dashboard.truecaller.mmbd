@@ -2,7 +2,7 @@ import * as am5 from '@amcharts/amcharts5'
 import am5themes_Animated from '@amcharts/amcharts5/themes/Animated'
 import * as am5map from '@amcharts/amcharts5/map'
 import am5geodata_data_countries2 from '@amcharts/amcharts5-geodata/data/countries2'
-import {useEffect} from 'react'
+import React, {useEffect} from 'react'
 
 export default function ChartMap ({data = {}, obj}) {
   useEffect(() => {

@@ -3,7 +3,7 @@ import { GET_ACTIVATION_REPORT_SUMMARY, GET_PUSHPULL_REPORT_SUMMARY } from "../.
 import { getQueryRequest } from "../../../../../../modules/helpers/api";
 
 
-export default function() {
+export default function ReportSummaryCard() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         today: '...',

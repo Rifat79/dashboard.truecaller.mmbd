@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { GET_ACTIVATION_REPORT_SUMMARY } from "../../../../../../constants/api.constants";
 import { getQueryRequest } from "../../../../../../modules/helpers/api";
 
 
-export default function() {
+export default function ReportSummaryCard() {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         today: '...',
