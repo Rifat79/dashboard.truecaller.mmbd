@@ -1,6 +1,6 @@
 import moment from 'moment'
 import './date-range.css'
-import {useState} from 'react'
+import React, {useState} from 'react'
 
 export default function DateRange2 ({callBack}) {
   const [state, setState] = useState({
