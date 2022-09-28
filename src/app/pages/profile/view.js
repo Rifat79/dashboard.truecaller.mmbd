@@ -1,3 +1,4 @@
+import React from 'react'
 import {Modal} from 'react-bootstrap'
 import {KTSVG, toAbsoluteUrl} from '../../../_metronic/helpers'
 import {getAuth, useAuth} from '../../modules/auth'

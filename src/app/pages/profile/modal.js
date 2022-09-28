@@ -1,3 +1,4 @@
+import React from 'react'
 import {useFormik} from 'formik'
 import CropperComponents from '../../modules/helpers/cropper/CropperComponents'
 import clsx from 'clsx'
