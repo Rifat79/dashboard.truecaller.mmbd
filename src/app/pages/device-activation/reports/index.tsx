@@ -2,6 +2,7 @@ import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
 import { PageTitle } from '../../../../_metronic/layout/core'
 import { ActivationDetailsWrapper } from './activation-details'
 import { ModelListWrapper } from './model-wise'
+import { SearchWrapper } from './search'
 
 const ReportsPage = () => (
     <Routes>
@@ -12,6 +13,15 @@ const ReportsPage = () => (
                     <>
                         <PageTitle>Activation Details</PageTitle>
                         <ActivationDetailsWrapper />
+                    </>
+                }
+            />
+            <Route
+                path='imei-search'
+                element={
+                    <>
+                        <PageTitle>IMEI Search</PageTitle>
+                        <SearchWrapper />
                     </>
                 }
             />

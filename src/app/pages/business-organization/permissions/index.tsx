@@ -5,7 +5,6 @@ import { UsersListHeader } from './components/header/UsersListHeader'
 import { UsersTable } from './table/UsersTable'
 import { UserEditModal } from './user-edit-modal/UserEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
-import { PageTitle } from '../../../../_metronic/layout/core'
 import { Toolbar } from '../../../../_metronic/layout/components/toolbar/Toolbar'
 
 const PermissionsList = () => {

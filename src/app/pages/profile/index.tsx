@@ -1,8 +1,8 @@
+import React from 'react'
 import { PageTitle } from "../../../_metronic/layout/core";
 import ProfileView from "./view";
 
-
-export default function Profile() {
+const Profile = () => {
     let bodyStyles = '';
     bodyStyles += '--kt-toolbar-height: 5px;';
     bodyStyles += '--kt-toolbar-height-tablet-and-mobile: 5px;';
@@ -14,3 +14,5 @@ export default function Profile() {
         </>
     );
 }
+
+export default Profile
