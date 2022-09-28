@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { GET_ACTIVATION_REPORT_SUMMARY, GET_PUSHPULL_REPORT_SUMMARY } from "../../../../../../constants/api.constants";
 import { getQueryRequest } from "../../../../../../modules/helpers/api";
-
 
 export default function() {
     const [loading, setLoading] = useState(true);
