@@ -21,6 +21,10 @@ const QueryResponseProvider: FC<WithChildren> = ({children}: any) => {
   const [query, setQuery] = useState<string>(stringifyRequestQuery(state))
   const updatedQuery = useMemo(() => stringifyRequestQuery(state), [state])
 
+  function isNotEmpty(obj: unknown) {
+    return obj !== undefined && obj !== null && obj !== ''
+  }
+
   useEffect(() => {
     if (query !== updatedQuery) {
       setQuery(updatedQuery)
@@ -34,7 +38,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}: any) => {
   } = useQuery(
     `${BASE_URL}/partnerapi/user/search-${query}`,
     () => {
-      return getUsers(query)
+      return isNotEmpty(state?.search) ? getUsers(query) : {}
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
   )
