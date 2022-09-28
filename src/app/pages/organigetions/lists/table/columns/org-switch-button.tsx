@@ -5,8 +5,11 @@ import { useNavigate } from 'react-router-dom'
 import swal from 'sweetalert'
 import {toAbsoluteUrl} from '../../../../../../_metronic/helpers'
 import { getAuth, setAuth } from '../../../../../modules/auth'
+import FullPageLoader from '../../../../../modules/partials/loader/loader'
 import { updateUser } from '../../../../users/userlist/core/_requests'
+import { useQueryRequest } from '../../core/QueryRequestProvider'
 import {User} from '../../core/_models'
+import {useState} from 'react'
 
 type Props = {
   user: User
@@ -14,12 +17,16 @@ type Props = {
 
 const SwitchButtonCell: FC<Props> = ({user}) => {
   const auth = getAuth(); 
+  const {state, updateState} = useQueryRequest()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
   const switchOrg = async() => {
+    setLoading(true);
     const res: any = await updateUser({
       ...auth?.user, organizationId: user?.id
     });
-    console.log('res: ', res)
+    setLoading(false)
+    
     if(res?.success || res?.status == 200) {
       setAuth({
         ...auth,
@@ -42,6 +49,7 @@ const SwitchButtonCell: FC<Props> = ({user}) => {
   }
 
   return (
+    <>
     <a
       href='#'
       className='btn btn-icon btn-light-primary btn-active-light-primary w-30px h-30px me-3'
@@ -50,6 +58,8 @@ const SwitchButtonCell: FC<Props> = ({user}) => {
     >
       <i className='fas fa-sign-in-alt fs-6'></i>
     </a>
+    {loading && <FullPageLoader loaded={!loading} />}
+    </>
   )
 }
 

@@ -11,7 +11,7 @@ const UsersListToolbar = () => {
 
   return (
     <div className='d-flex justify-content-end ms-2' data-kt-user-table-toolbar='base'>
-      <UsersListFilter />
+      {/* <UsersListFilter /> */}
 
       {/* begin::Add user */}
       <button type='button' className='btn btn-sm btn-primary' onClick={openAddUserModal}>

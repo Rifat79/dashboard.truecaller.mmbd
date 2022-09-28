@@ -11,42 +11,42 @@ import {User} from '../../core/_models'
 import { SwitchButtonCell } from './org-switch-button'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
+  // {
+  //   Header: (props) => <UserSelectionHeader tableProps={props} />,
+  //   id: 'selection',
+  //   Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
+  // },
   {
-    Header: (props) => <UserSelectionHeader tableProps={props} />,
-    id: 'selection',
-    Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
-  },
-  {
-    Header: (props) => <UserCustomHeader tableProps={props} title='ID' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='ID'  />,
     id: 'id',
     accessor: 'id',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Name' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,
     id: 'name',
     accessor: 'organizationName',
   },
   // {
-  //   Header: (props) => <UserCustomHeader tableProps={props} title='Role' className='min-w-125px' />,
+  //   Header: (props) => <UserCustomHeader tableProps={props} title='Role'  />,
   //   accessor: 'role',
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Switch' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Switch'  />
     ),
     id: 'switch',
     Cell: ({...props}) => <SwitchButtonCell user={props.data[props.row.index]} />,
   },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Created At' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Created At'  />
   //   ),
   //   id: 'created_at',
   //   accessor: 'createdAt'
   // },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Updated At' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Updated At'  />
   //   ),
   //   id: 'updated_at',
   //   accessor: 'updatedAt',

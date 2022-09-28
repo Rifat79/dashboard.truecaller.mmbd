@@ -17,57 +17,57 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
   },
   // {
-  //   Header: (props) => <UserCustomHeader tableProps={props} title='Name' className='min-w-125px' />,
+  //   Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,
   //   id: 'name',
   //   Cell: ({...props}) => <UserInfoCell user={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Id' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Id'  />,
     id: 'id',
     accessor: 'id',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Name' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,
     id: 'role_name',
     accessor: 'roleName',
   },
   // {
-  //   Header: (props) => <UserCustomHeader tableProps={props} title='Slug' className='min-w-125px' />,
+  //   Header: (props) => <UserCustomHeader tableProps={props} title='Slug'  />,
   //   id: 'role_slug',
   //   accessor: 'slug',
   // },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Permissions' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Permissions'  />,
     id: 'Permission',
     Cell: ({...props}) => <UserPermissionCell roleList={props.data[props.row.index].modulesList} />,
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Created At' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Created At'  />,
     id: 'created_at',
     accessor: 'createdAt',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Updated At' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Updated At'  />,
     id: 'updated_at',
     accessor: 'updatedAt',
   },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Last login' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Last login'  />
   //   ),
   //   id: 'last_login',
   //   Cell: ({...props}) => <UserLastLoginCell last_login={props.data[props.row.index].last_login} />,
   // },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Two steps' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Two steps'  />
   //   ),
   //   id: 'two_steps',
   //   Cell: ({...props}) => <UserTwoStepsCell two_steps={props.data[props.row.index].two_steps} />,
   // },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Joined day' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Joined day'  />
   //   ),
   //   accessor: 'joined_day',
   // },
