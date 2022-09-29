@@ -9,6 +9,7 @@ import {UserCustomHeader} from './UserCustomHeader'
 import {UserSelectionHeader} from './UserSelectionHeader'
 import {User} from '../../core/_models'
 import { SwitchButtonCell } from './org-switch-button'
+import { UserSL } from './UserSL'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
   // {
@@ -17,9 +18,11 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   //   Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
   // },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='ID'  />,
-    id: 'id',
-    accessor: 'id',
+    Header: (props) => (
+      <UserCustomHeader tableProps={props} title='SL' className='min-w-125px' />
+    ),
+    id: 'serial',
+    Cell: ({...props}) => <UserSL sl={props.row.index} />,
   },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,

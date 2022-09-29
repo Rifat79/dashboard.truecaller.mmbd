@@ -57,6 +57,17 @@ export default function EditProfile () {
               });
               if(res?.data?.success) {
                 // cancel(true);
+                localStorage.setItem('user', {
+                  ...auth,
+                  user: {
+                    ...auth?.user,
+                    name: values.name,
+                    email: values.email,
+                    mobile: values.mobile,
+                    image: values.image,
+                    address: values.address
+                  }
+                })
               } else {
                 swal({
                   title: "Sorry!",

@@ -10,11 +10,11 @@ import {UserSelectionHeader} from './UserSelectionHeader'
 import {User} from '../../core/_models'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
-  {
-    Header: (props) => <UserSelectionHeader tableProps={props} />,
-    id: 'selection',
-    Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
-  },
+  // {
+  //   Header: (props) => <UserSelectionHeader tableProps={props} />,
+  //   id: 'selection',
+  //   Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
+  // },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Name' className='min-w-125px' />,
     id: 'name',
