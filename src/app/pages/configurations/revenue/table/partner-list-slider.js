@@ -138,7 +138,7 @@ export default function PartnerListSlider ({partners = []}) {
             </span>
           </div>
           <span className='nav-text text-muted fs-7 lh-1'>All</span>
-          <span className='nav-text text-gray-700 fw-bolder fs-6 lh-1 pt-2'>2300</span>
+          {/* <span className='nav-text text-gray-700 fw-bolder fs-6 lh-1 pt-2'>2300</span> */}
           <span className='bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary' />
         </label>
       </li>
@@ -159,12 +159,12 @@ export default function PartnerListSlider ({partners = []}) {
             <div className='nav-icon'>
               <img
                 alt=''
-                src='https://partners.momagic.com.bd/organization_images/OrganizationLogoOf_Winmax.png'
+                src={item?.organizationLogo}
                 className='w-70px img-fluid'
               />
             </div>
             <span className='nav-text text-muted fs-7 lh-1'>{item?.organizationName}</span>
-            <span className='nav-text text-gray-700 fw-bolder fs-6 lh-1 pt-2'>2300</span>
+            <span className='nav-text text-gray-700 fw-bolder fs-6 lh-1 pt-2'>{item?.id}</span>
             <span className='bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary' />
           </label>
         </div>

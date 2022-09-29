@@ -23,7 +23,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Id' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='SL' className='min-w-125px' />
     ),
     accessor: 'id',
   },

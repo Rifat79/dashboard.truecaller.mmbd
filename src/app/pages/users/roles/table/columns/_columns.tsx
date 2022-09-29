@@ -9,22 +9,25 @@ import {UserCustomHeader} from './UserCustomHeader'
 import {UserSelectionHeader} from './UserSelectionHeader'
 import {User} from '../../core/_models'
 import { UserPermissionCell } from './UserPermissionCell'
+import { UserSL } from './UserSL'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
-  {
-    Header: (props) => <UserSelectionHeader tableProps={props} />,
-    id: 'selection',
-    Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
-  },
+  // {
+  //   Header: (props) => <UserSelectionHeader tableProps={props} />,
+  //   id: 'selection',
+  //   Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
+  // },
   // {
   //   Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,
   //   id: 'name',
   //   Cell: ({...props}) => <UserInfoCell user={props.data[props.row.index]} />,
   // },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Id'  />,
+    Header: (props) => (
+      <UserCustomHeader tableProps={props} title='SL' className='min-w-125px' />
+    ),
     id: 'id',
-    accessor: 'id',
+    Cell: ({...props}) => <UserSL sl={props.row.index} />
   },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,

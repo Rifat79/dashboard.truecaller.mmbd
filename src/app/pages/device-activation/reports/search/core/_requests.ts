@@ -6,7 +6,7 @@ import {User, UsersQueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
 const USER_URL = `${BASE_URL}/partnerapi/subscriber/create`
-const GET_USERS_URL = `${BASE_URL}/partnerapi/subscriber/search`
+const GET_USERS_URL = `${BASE_URL}/partnerapi/subscriber/searchImei`
 const GET_USER_BY_ID = `${BASE_URL}/partnerapi/subscriber/get`
 const UPDATE_USER = `${BASE_URL}/partnerapi/subscriber/update`
 const  DELETE_USER = `${BASE_URL}/partnerapi/subscriber/delete`
@@ -15,7 +15,7 @@ const auth = getAuth();
 
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios
-    .get(`${GET_USERS_URL}?organization_id=${auth?.user?.organization || 20217}&${query}`)
+    .get(`${GET_USERS_URL}`)
     .then((d: AxiosResponse<UsersQueryResponse>) => d.data)
 }
 

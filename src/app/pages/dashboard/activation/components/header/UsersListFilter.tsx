@@ -62,8 +62,8 @@ const UsersListFilter = ({state, setState}: any) => {
 
   useEffect(() => {
     const callAPI = async () => { 
-      const res: any = await getQueryRequest(`${GET_MODEL_LIST}?organization=${auth?.user?.organization || 20217}&deviceType=1`);
-      const res2: any = await getQueryRequest(`${GET_MODEL_LIST}?organization=${auth?.user?.organization || 20217}&deviceType=2`);
+      const res: any = await getQueryRequest(`${GET_MODEL_LIST}?&deviceType=1`);
+      const res2: any = await getQueryRequest(`${GET_MODEL_LIST}?&deviceType=2`);
       if(res2?.data && res?.data) {
         // const models = reactSelectify(res?.data, 'model') || [];
         // setModels(models);

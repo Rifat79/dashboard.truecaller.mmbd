@@ -1,5 +1,6 @@
 // base_url_prod = 'http://192.168.33.32:8080'
-// base_url_local = 'http://172.16.34.108:8083/'
+// base_url_local = 'http://172.16.34.108:8083'
+// base_url_real = 'http://103.23.31.34:8080'
 export const BASE_URL='http://103.23.31.34:8080'
 export const GET_ORGANIZATION_LIST = `${BASE_URL}/partnerapi/organization/search`
 export const GET_ROLE_LIST = `${BASE_URL}/partnerapi/role/search`
@@ -11,7 +12,7 @@ export const GET_ACTIVATION_DASHBOARD_DATA = `${BASE_URL}/partnerapi/subscriber/
 export const GET_MODEL_LIST = `${BASE_URL}/partnerapi/model/byOrganizationId`
 export const GET_GAME_REVENUE_CHART = `${BASE_URL}/partnerapi/revenue/chart`
 export const GET_KEYWORDS = `${BASE_URL}/partnerapi/pushpull/keywords`
-export const GET_MAIN_DASHBOARD_DATA = `${BASE_URL}/partnerapi/dashBoard/`
+// export const GET_MAIN_DASHBOARD_DATA = `${BASE_URL}/partnerapi/dashBoard/`
 export const GET_ACTIVATION_REPORT_SUMMARY = `${BASE_URL}/partnerapi/subscriber/search/summary`
 export const GET_PUSHPULL_REPORT_SUMMARY = `${BASE_URL}/partnerapi/pushpull/search/summary`
 export const GET_GAME_REPORT_SUMMARY = `${BASE_URL}/partnerapi/revenue/search/summary`

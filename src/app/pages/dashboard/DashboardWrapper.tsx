@@ -4,7 +4,6 @@ import { useIntl } from 'react-intl'
 import { Toolbar } from '../../../_metronic/layout/components/toolbar/Toolbar'
 import { PageTitle } from '../../../_metronic/layout/core'
 import LineApexChart, { dataSeries } from '../../../_metronic/partials/widgets/charts/LineApexChat'
-import { GET_MAIN_DASHBOARD_DATA } from '../../constants/api.constants'
 import { getAuth } from '../../modules/auth'
 import { getQueryRequest } from '../../modules/helpers/api'
 import { getDateRange } from '../../modules/helpers/helper'
@@ -12,7 +11,7 @@ import ActivationDashboard from '../device-activation'
 import { ActivationDashboardWrapper } from './activation'
 import { UsersListHeader } from './components/header/UsersListHeader'
 import { QueryRequestProvider, useQueryRequest } from './core/QueryRequestProvider'
-import { QueryResponseProvider, useQueryResponse, useQueryResponseData } from './core/QueryResponseProvider'
+import { QueryResponseProvider, useQueryResponseData } from './core/QueryResponseProvider'
 import { GameDashboardWrapper } from './game-revenue'
 import { PushpullDashboardWrapper } from './push-pull'
 
@@ -22,7 +21,6 @@ const DashboardPage = () => {
   bodyStyles += '--kt-toolbar-height-tablet-and-mobile:: 55px;'
   document.body.setAttribute('style', bodyStyles)
 
-  const { isLoading } = useQueryResponse()
   const {updateState, state} = useQueryRequest()
   // const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);

@@ -1,6 +1,6 @@
 import axios, {AxiosResponse} from 'axios'
 import {ID, Response} from '../../../../_metronic/helpers'
-import { BASE_URL, GET_ACTIVATION_DASHBOARD_DATA, GET_MAIN_DASHBOARD_DATA } from '../../../constants/api.constants'
+import { BASE_URL, GET_ACTIVATION_DASHBOARD_DATA } from '../../../constants/api.constants'
 import { getAuth } from '../../../modules/auth'
 import {User, UsersQueryResponse} from './_models'
 
@@ -14,7 +14,7 @@ const  DELETE_USER = `${BASE_URL}/partnerapi/organization/delete`
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   const auth = getAuth();
   return axios
-    .get(`${GET_MAIN_DASHBOARD_DATA}?id=${auth?.user?.organization}&${query}`)
+    .get(`${GET_USERS_URL}?id=${auth?.user?.organization}&${query}`)
     .then((d: AxiosResponse<UsersQueryResponse>) => d.data)
 }
 
