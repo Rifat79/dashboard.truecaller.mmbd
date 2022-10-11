@@ -30,13 +30,13 @@ const QueryResponseProvider: FC<WithChildren> = ({children}: any) => {
       setQuery(updatedQuery)
     }
   }, [updatedQuery])
-
+console.log('state: ', state, query)
   const {
     isFetching,
     refetch,
     data: response,
   } = useQuery(
-    `${BASE_URL}/partnerapi/user/search-${query}`,
+    `${BASE_URL}/partnerapi/subscriber/searchImei?${query}`,
     () => {
       return isNotEmpty(state?.search) ? getUsers(query) : {}
     },

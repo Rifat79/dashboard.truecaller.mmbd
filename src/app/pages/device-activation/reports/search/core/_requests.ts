@@ -15,7 +15,7 @@ const auth = getAuth();
 
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios
-    .get(`${GET_USERS_URL}`)
+    .get(`${GET_USERS_URL}?${query}`)
     .then((d: AxiosResponse<UsersQueryResponse>) => d.data)
 }
 
