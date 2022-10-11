@@ -356,47 +356,46 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
             </div>
           </div>
 
-          <div className="fv-row mb-3">
-            <div className="row">
-              <div className="col">
-                <label className="required fs-6 fw-bold mb-2">Password</label>
-                <input
-                  {...formik.getFieldProps('password')}
-                  type="password"
-                  className="form-control form-control-solid"
-                  placeholder=""
-                  name="password"
-                />
-                {formik.touched.password && formik.errors.password && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                      <span role='alert'>{formik.errors.password}</span>
+          {!isNotEmpty(formik.values.id) && (
+            <div className="fv-row mb-3">
+              <div className="row">
+                <div className="col">
+                  <label className="required fs-6 fw-bold mb-2">Password</label>
+                  <input
+                    {...formik.getFieldProps('password')}
+                    type="password"
+                    className="form-control form-control-solid"
+                    placeholder=""
+                    name="password"
+                  />
+                  {formik.touched.password && formik.errors.password && (
+                    <div className='fv-plugins-message-container'>
+                      <div className='fv-help-block'>
+                        <span role='alert'>{formik.errors.password}</span>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-              <div className="col">
-                <label className="required fs-6 fw-bold mb-2">Confirm Password</label>
-                <input
-                  {...formik.getFieldProps('confirmPass')}
-                  type="password"
-                  className="form-control form-control-solid"
-                  placeholder=""
-                  name="confirmPass"
-                />
-                {formik.touched.confirmPass && formik.errors.confirmPass && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                      <span role='alert'>{formik.errors.confirmPass}</span>
+                  )}
+                </div>
+                <div className="col">
+                  <label className="required fs-6 fw-bold mb-2">Confirm Password</label>
+                  <input
+                    {...formik.getFieldProps('confirmPass')}
+                    type="password"
+                    className="form-control form-control-solid"
+                    placeholder=""
+                    name="confirmPass"
+                  />
+                  {formik.touched.confirmPass && formik.errors.confirmPass && (
+                    <div className='fv-plugins-message-container'>
+                      <div className='fv-help-block'>
+                        <span role='alert'>{formik.errors.confirmPass}</span>
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-
-
-
+          )}
           {/* end::Input group */}
         </div>
         {/* end::Scroll */}

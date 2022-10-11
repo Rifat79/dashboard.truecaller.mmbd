@@ -24,8 +24,8 @@ const UsersList = () => {
       <KTCard>
         <UsersTable />
       </KTCard>
-      {itemIdForUpdate !== undefined && typeof(itemIdForUpdate) != 'object' && <UserEditModal />}
-      {itemIdForUpdate !== undefined && typeof(itemIdForUpdate) == 'object' && <UserPasswordChngModal />}
+      {itemIdForUpdate !== undefined && <UserEditModal />}
+      {itemIdForUpdate !== undefined && itemIdForUpdate != null && typeof(itemIdForUpdate) == 'object' && <UserPasswordChngModal />}
     </>
   )
 }
