@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
+import moment from 'moment'
 import { FC, useEffect, useState } from 'react'
 import { useIntl } from 'react-intl'
+import { initialQueryState } from '../../../_metronic/helpers'
 import { Toolbar } from '../../../_metronic/layout/components/toolbar/Toolbar'
 import { PageTitle } from '../../../_metronic/layout/core'
 import LineApexChart, { dataSeries } from '../../../_metronic/partials/widgets/charts/LineApexChat'
@@ -25,6 +27,19 @@ const DashboardPage = () => {
   // const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
+
+  useEffect(() => {
+    const endDate = moment().format('MM-DD-YYYY');
+    const startDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
+    const search = window.location.search;
+    updateState({
+      filter: { 
+        start_date: `${startDate} 00:00:00`,
+        end_date: `${endDate} 23:59:59`,
+      },
+      ...initialQueryState,
+    });
+  }, []);
 
   // const data: any = useQueryResponseData()
 

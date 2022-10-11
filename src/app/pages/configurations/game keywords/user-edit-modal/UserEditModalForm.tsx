@@ -228,7 +228,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
           data-kt-scroll-offset='300px'
           style={{maxHeight: 661}}
         >
-          <div id='kt_modal_update_customer_user_info' className='show'>
+          <div id='kt_modal_update_customer_user_info' className='show row row-cols-1 row-cols-sm-2 row-cols-lg-2 gy-4'>
             <div className='fv-row mb-3'>
               <label className='required fs-6 fw-bold mb-2'>Organization</label>
               <Select options={state.formData.organizationList} name="organization" value={formik.values.organization} onChange={handleOrgChange}/>
@@ -251,6 +251,10 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                 )}
             </div>
             <div className='fv-row mb-3'>
+              <label className='required fs-6 fw-bold mb-2'>Device Type</label>
+              <Select options={deviceTypeOptions} name="deviceType" value={formik.values.deviceType} onChange={handleDeviceTypeChange}/>
+            </div>
+            <div className='fv-row mb-3'>
               <label className=' fs-6 fw-bold mb-2'>Sub KeyWord</label>
               <input 
                 type='text' 
@@ -266,10 +270,6 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                     </div>
                   </div>
                 )}
-            </div>
-            <div className='fv-row mb-3'>
-              <label className='required fs-6 fw-bold mb-2'>Device Type</label>
-              <Select options={deviceTypeOptions} name="deviceType" value={formik.values.deviceType} onChange={handleDeviceTypeChange}/>
             </div>
             <div className='fv-row mb-3'>
               <label className='fs-6 fw-bold mb-2'>Brand</label>

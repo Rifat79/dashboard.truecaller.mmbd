@@ -14,7 +14,7 @@ const  DELETE_USER = `${BASE_URL}/partnerapi/organization/delete`
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   const auth = getAuth();
   return axios
-    .get(`${GET_ACTIVATION_DASHBOARD_DATA}`)
+    .get(`${GET_ACTIVATION_DASHBOARD_DATA}?${query}`)
     .then((d: AxiosResponse<UsersQueryResponse>) => d.data)
 }
 

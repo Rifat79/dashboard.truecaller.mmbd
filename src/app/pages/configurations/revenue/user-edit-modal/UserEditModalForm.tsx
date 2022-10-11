@@ -14,7 +14,7 @@ import swal from 'sweetalert'
 import { DatePickerCustom } from '../../../../modules/helpers/datepicker/date-picker'
 import { getQueryRequest } from '../../../../modules/helpers/api'
 import { GET_ORGANIZATION_LIST } from '../../../../constants/api.constants'
-import { reactSelectify } from '../../../../modules/helpers/helper'
+import { getGrandShareAirtel, getGrandShareBL, getGrandShareGP, getGrandShareRobi, getGrandShareTeletalk, reactSelectify } from '../../../../modules/helpers/helper'
 import moment from 'moment'
 
 type Props = {
@@ -23,37 +23,27 @@ type Props = {
 }
 
 const editUserSchema = Yup.object().shape({
-  btrcShare: Yup.number()
+  btrcShare: Yup.number().max(1).min(0)
     .required('This Field is required'),
-    gpShare: Yup.number()
+    gpShare: Yup.number().max(1).min(0)
     .required('This Field is required'),
-    airtelGrandShare: Yup.number()
+    airtelShare: Yup.number().max(1).min(0)
     .required('This Field is required'),
-    airtelShare: Yup.number()
-    .required('This Field is required'),
-    ait: Yup.number()
+    ait: Yup.number().max(1).min(0)
     .required('This Field is required'),
     billingFee: Yup.number()
+    .required('This Field is required').max(1).min(0),
+    blShare: Yup.number().max(1).min(0)
     .required('This Field is required'),
-    blGrandShare: Yup.number()
+    discrepancy: Yup.number().max(1).min(0)
     .required('This Field is required'),
-    blShare: Yup.number()
+    partnerShare: Yup.number().max(1).min(0)
     .required('This Field is required'),
-    discrepancy: Yup.number()
+    robiShare: Yup.number().max(1).min(0)
     .required('This Field is required'),
-    gpGrandShare: Yup.number()
+    teletalkShare: Yup.number().max(1).min(0)
     .required('This Field is required'),
-    partnerShare: Yup.number()
-    .required('This Field is required'),
-    robiGrandShare: Yup.number()
-    .required('This Field is required'),
-    robiShare: Yup.number()
-    .required('This Field is required'),
-    teletalkGrandShare: Yup.number()
-    .required('This Field is required'),
-    teletalkShare: Yup.number()
-    .required('This Field is required'),
-    vat: Yup.number()
+    vat: Yup.number().max(1).min(0)
     .required('This Field is required'),
 
 })
@@ -84,24 +74,24 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
 
   const [userForEdit] = useState<User>({
     ...user,
-    airtelGrandShare: user.airtelGrandShare || initialUser.airtelGrandShare,
-    airtelShare: user.airtelShare || initialUser.airtelShare,
-    ait: user.ait || initialUser.ait,
-    billingFee: user.billingFee || initialUser.billingFee,
-    blGrandShare: user.blGrandShare || initialUser.blGrandShare,
-    blShare: user.blShare || initialUser.blShare,
-    status: statusOptions.filter(e => e.id == user.status)[0] || state.formData.status,
-    btrcShare: user.btrcShare|| initialUser.btrcShare,
-    discrepancy: user.discrepancy || initialUser.discrepancy,
-    gpGrandShare: user.gpGrandShare || initialUser.gpGrandShare,
-    gpShare: user.gpShare || initialUser.gpShare,
-    partnerShare: user.partnerShare || initialUser.partnerShare,
+    // airtelGrandShare: user.airtelGrandShare || initialUser.airtelGrandShare,
+    airtelShare: 0.7,
+    ait: user.ait || 0,
+    billingFee: user.billingFee || 0,
+    // blGrandShare: user.blGrandShare || initialUser.blGrandShare,
+    blShare: 0.6,
+    status: statusOptions.filter(e => e.id == user.status)[0] || {id: 1, label: 'Active', value: 1},
+    btrcShare: 0.065,
+    discrepancy: user.discrepancy || 0,
+    // gpGrandShare: user.gpGrandShare || initialUser.gpGrandShare,
+    gpShare: 0.5,
+    partnerShare: user.partnerShare || 0,
     remarks: user.remarks || initialUser.remarks,
-    robiGrandShare: user.robiGrandShare || initialUser.robiGrandShare,
-    robiShare: user.robiShare || initialUser.robiShare,
-    teletalkGrandShare: user.teletalkGrandShare || initialUser.teletalkGrandShare,
-    teletalkShare: user.teletalkShare || initialUser.teletalkShare,
-    vat: user.vat || initialUser.vat,
+    // robiGrandShare: user.robiGrandShare || initialUser.robiGrandShare,
+    robiShare: 0.7,
+    // teletalkGrandShare: user.teletalkGrandShare || initialUser.teletalkGrandShare,
+    teletalkShare: 0.7,
+    vat: user.vat || 0,
     startTime: startDate,
     endTime: endDate
   })
@@ -138,23 +128,23 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
         if (isNotEmpty(values.id)) {
           const res: any = await updateUser({
             id: user?.id,
-            airtelGrandShare: values.airtelGrandShare,
+            airtelGrandShare: Number(getGrandShareAirtel(values)),
             airtelShare: values.airtelShare,
             ait: values.ait,
             billingFee: values.billingFee,
-            blGrandShare: values.blGrandShare,
+            blGrandShare: Number(getGrandShareBL(values)),
             blShare: values.blShare,
             btrcShare: values.btrcShare,
             discrepancy: values.discrepancy,
-            gpGrandShare: values.gpGrandShare,
+            gpGrandShare: Number(getGrandShareGP(values)),
             gpShare: values.gpShare,
             organizationId: values.organization?.id,
             partnerShare: values.partnerShare,
             remarks: values.remarks,
-            robiGrandShare: values.robiGrandShare,
+            robiGrandShare: Number(getGrandShareRobi(values)),
             robiShare: values.robiShare,
             status: values.status.id,
-            teletalkGrandShare: values.teletalkGrandShare,
+            teletalkGrandShare: Number(getGrandShareTeletalk(values)),
             teletalkShare: values.teletalkShare,
             vat: values.vat,
             startTime: moment(values.startTime).format('MM-DD-YYYY HH:mm:ss'),
@@ -172,23 +162,23 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
           }
         } else {
           const res: any = await createUser({
-            airtelGrandShare: values.airtelGrandShare,
+            airtelGrandShare: Number(getGrandShareAirtel(values)),
             airtelShare: values.airtelShare,
             ait: values.ait,
             billingFee: values.billingFee,
-            blGrandShare: values.blGrandShare,
+            blGrandShare:  Number(getGrandShareBL(values)),
             blShare: values.blShare,
             btrcShare: values.btrcShare,
             discrepancy: values.discrepancy,
-            gpGrandShare: values.gpGrandShare,
+            gpGrandShare: Number(getGrandShareGP(values)),
             gpShare: values.gpShare,
             organizationId: values.organization?.id,
             partnerShare: values.partnerShare,
             remarks: values.remarks,
-            robiGrandShare: values.robiGrandShare,
+            robiGrandShare: Number(getGrandShareRobi(values)),
             robiShare: values.robiShare,
             status: values.status.id,
-            teletalkGrandShare: values.teletalkGrandShare,
+            teletalkGrandShare: Number(getGrandShareTeletalk(values)),
             teletalkShare: values.teletalkShare,
             vat: values.vat,
             startTime: moment(values.startTime).format('MM-DD-YYYY HH:mm:ss'),
@@ -230,10 +220,8 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
       formik.setFieldValue('organization', selectedOrg.length ? selectedOrg[0] : {});
     };
     callAPI();
-  }, []);
-
-  console.log("formik: ", formik)
-
+  }, []); 
+console.log('formik: ', formik)
   return (
     <>
       <form
@@ -246,10 +234,10 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
       <div className="fv-row mb-3" data-select2-id="select2-data-11-cia2">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 gy-4">
           <div className="col" data-select2-id="select2-data-10-nrap">
-            <label className="fs-6 fw-bold mb-2 required">OEM</label>
+            <label className="fs-6 fw-bold mb-2 required">Organization</label>
             <Select options={state?.formData?.organizationList}  onChange={handlePartnerOptionChange} value={formik.values.organization} name='organization'/>
           </div>
-          <div className="col">
+          {/* <div className="col">
             <label className="fs-6 fw-bold mb-2 required">BTRC Share</label>
             <input
               type="number"
@@ -362,121 +350,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                 </div>
               </div>
             )}
-          </div>
-          <div className="col">
-            <label className="fs-6 required fw-bold mb-2"> Partner Share</label>
-            <input
-              type="number"
-              {...formik.getFieldProps('partnerShare')}
-              step="0.0001"
-              min={0}
-              className="form-control"
-              placeholder=""
-              name="partnerShare"
-            />
-            {formik.touched.partnerShare && formik.errors.partnerShare && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.partnerShare}</span>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="col">
-            <label className="fs-6 required fw-bold mb-2">GP Grand Share</label>
-            <input
-              type="number"
-              {...formik.getFieldProps('gpGrandShare')}
-              step="0.0001"
-              min={0}
-              className="form-control"
-              placeholder=""
-              name="gpGrandShare"
-            />
-            {formik.touched.gpGrandShare && formik.errors.gpGrandShare && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.gpGrandShare}</span>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="col">
-            <label className="fs-6 required fw-bold mb-2"> Airtel Grand Share</label>
-            <input
-              type="number"
-              {...formik.getFieldProps('airtelGrandShare')}
-              step="0.0001"
-              min={0}
-              className="form-control"
-              placeholder=""
-              name="airtelGrandShare"
-            />
-            {formik.touched.airtelGrandShare && formik.errors.airtelGrandShare && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.airtelGrandShare}</span>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="col">
-            <label className="fs-6 required fw-bold mb-2">Robi Grand Share</label>
-            <input
-              type="number"
-              {...formik.getFieldProps('robiGrandShare')}
-              step="0.0001"
-              min={0}
-              className="form-control"
-              placeholder=""
-              name="robiGrandShare"
-            />
-            {formik.touched.robiGrandShare && formik.errors.robiGrandShare && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.robiGrandShare}</span>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="col">
-            <label className="fs-6 required fw-bold mb-2"> BL Grand Share</label>
-            <input
-              type="number"
-              {...formik.getFieldProps('blGrandShare')}
-              step="0.0001"
-              min={0}
-              className="form-control"
-              placeholder=""
-              name="blGrandShare"
-            />
-            {formik.touched.blGrandShare && formik.errors.blGrandShare && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.blGrandShare}</span>
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="col">
-            <label className="fs-6 required fw-bold mb-2">Teletalk Grand Share</label>
-            <input
-              type="number"
-              {...formik.getFieldProps('teletalkGrandShare')}
-              step="0.0001"
-              min={0}
-              className="form-control"
-              placeholder=""
-              name="teletalkGrandShare"
-            />
-            {formik.touched.teletalkGrandShare && formik.errors.teletalkGrandShare && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.teletalkGrandShare}</span>
-                </div>
-              </div>
-            )}
-          </div>
+          </div> */}
           <div className="col">
             <label className="fs-6 required fw-bold mb-2"> Billing Fee</label>
             <input
@@ -484,6 +358,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
               {...formik.getFieldProps('billingFee')}
               step="0.0001"
               min={0}
+              max={1}
               className="form-control"
               placeholder=""
               name="billingFee"
@@ -516,6 +391,45 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             )}
           </div>
           <div className="col">
+            <label className="fs-6 required fw-bold mb-2"> Partner Share</label>
+            <input
+              type="number"
+              {...formik.getFieldProps('partnerShare')}
+              step="0.0001"
+              min={0}
+              max={1}
+              className="form-control"
+              placeholder=""
+              name="partnerShare"
+            />
+            {formik.touched.partnerShare && formik.errors.partnerShare && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.partnerShare}</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="col">
+            <label className="fs-6 required fw-bold mb-2"> AIT </label>
+            <input
+              type="number"
+              {...formik.getFieldProps('ait')}
+              step="0.0001"
+              min={0}
+              className="form-control"
+              placeholder=""
+              name="ait"
+            />
+            {formik.touched.ait && formik.errors.ait && (
+              <div className='fv-plugins-message-container'>
+                <div className='fv-help-block'>
+                  <span role='alert'>{formik.errors.ait}</span>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="col">
             <label className="fs-6 required fw-bold mb-2"> Vat</label>
             <input
               type="number"
@@ -534,49 +448,100 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
               </div>
             )}
           </div>
-          <div className="col">
-            <label className="fs-6 required fw-bold mb-2"> Ait </label>
-            <input
-              type="number"
-              {...formik.getFieldProps('ait')}
-              step="0.0001"
-              min={0}
-              className="form-control"
-              placeholder=""
-              name="ait"
-            />
-            {formik.touched.ait && formik.errors.ait && (
-              <div className='fv-plugins-message-container'>
-                <div className='fv-help-block'>
-                  <span role='alert'>{formik.errors.ait}</span>
-                </div>
-              </div>
-            )}
-          </div>
           <div className="col" data-select2-id="select2-data-16-j4z2">
             <label className="fs-6 required fw-bold mb-2"> Status </label>
             <Select options={statusOptions} name="status" value={formik.values.status} onChange={handleStatusChange}/>
           </div>
           <div className="col">
             <div id="date-parent-1" className="single-date position-relative">
-              <label className="form-label required">Start Date</label>
+              <label className="form-label required fw-bold">Start Date</label>
               <DatePickerCustom selectedDate={formik.values.startTime} onChangeHandler={(date:Date) => formik.setFieldValue('startTime', date)}/>
             </div>
             `
           </div>
           <div className="col">
             <div id="date-parent-2" className="single-date position-relative">
-              <label className="form-label required">End Date</label>
+              <label className="form-label required fw-bold">End Date</label>
               <DatePickerCustom selectedDate={formik.values.endTime} onChangeHandler={(date:Date) => formik.setFieldValue('endTime', date)} />
             </div>
             `
           </div>
           <div className="col">
-            <div id="date-parent-1" className="single-date position-relative">
-              <label className="form-label">Remarks</label>
+            <div className="single-date position-relative">
+              <label className="form-label fw-bold">Remarks</label>
               <textarea className="form-control"  {...formik.getFieldProps('remarks')} name="remarks"/>
             </div>
             `
+          </div>
+        </div>
+
+        <div className="separator separator-dashed mb-3 border-dark" />
+
+        <div className="row row-cols-1 row-cols-sm-2 row-cols-lg-3 gy-4">
+          <div className="col">
+            <label className="fs-6  fw-bold mb-2">GP Grand Share</label>
+            <input
+              type="number"
+              step="0.0001"
+              min={0}
+              readOnly
+              value={getGrandShareGP(formik.values)}
+              className="form-control"
+              placeholder=""
+              name="gpGrandShare"
+            />
+          </div>
+          <div className="col">
+            <label className="fs-6  fw-bold mb-2"> Airtel Grand Share</label>
+            <input
+              type="number"
+              step="0.0001"
+              min={0}
+              readOnly
+              value={getGrandShareAirtel(formik.values)}
+              className="form-control"
+              placeholder=""
+              name="airtelGrandShare"
+            />
+          </div>
+          <div className="col">
+            <label className="fs-6  fw-bold mb-2">Robi Grand Share</label>
+            <input
+              type="number"
+              step="0.0001"
+              min={0}
+              readOnly
+              value={getGrandShareRobi(formik.values)}
+              className="form-control"
+              placeholder=""
+              name="robiGrandShare"
+            />
+          </div>
+          <div className="col">
+            <label className="fs-6  fw-bold mb-2"> BL Grand Share</label>
+            <input
+              type="number"
+              step="0.0001"
+              min={0}
+              readOnly
+              value={getGrandShareBL(formik.values)}
+              className="form-control"
+              placeholder=""
+              name="blGrandShare"
+            />
+          </div>
+          <div className="col">
+            <label className="fs-6  fw-bold mb-2">Teletalk Grand Share</label>
+            <input
+              type="number"
+              step="0.0001"
+              min={0}
+              readOnly
+              value={getGrandShareTeletalk(formik.values)}
+              className="form-control"
+              placeholder=""
+              name="teletalkGrandShare"
+            />
           </div>
         </div>
       </div>

@@ -28,7 +28,7 @@ export type User = {
   organizationMobile?: any
   organizationName?: any
   organizationThumbnail?: any
-  organizationWebsite?: any
+  organizationWebsite?: string
   statusActive?: any
 }
 

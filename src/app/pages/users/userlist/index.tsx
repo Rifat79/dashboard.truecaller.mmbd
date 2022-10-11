@@ -7,6 +7,7 @@ import { UserEditModal } from './user-edit-modal/UserEditModal'
 import { KTCard } from '../../../../_metronic/helpers'
 import { PageTitle } from '../../../../_metronic/layout/core'
 import { Toolbar } from '../../../../_metronic/layout/components/toolbar/Toolbar'
+import { UserPasswordChngModal } from './password-change-modal/UserEditModal'
 
 const UsersList = () => {
   let bodyStyles = '';
@@ -23,7 +24,8 @@ const UsersList = () => {
       <KTCard>
         <UsersTable />
       </KTCard>
-      {itemIdForUpdate !== undefined && <UserEditModal />}
+      {itemIdForUpdate !== undefined && typeof(itemIdForUpdate) != 'object' && <UserEditModal />}
+      {itemIdForUpdate !== undefined && typeof(itemIdForUpdate) == 'object' && <UserPasswordChngModal />}
     </>
   )
 }

@@ -25,6 +25,10 @@ const UserActionsCell: FC<Props> = ({id}) => {
     setItemIdForUpdate(id)
   }
 
+  const openPasswordChangeModal = () => {
+    setItemIdForUpdate({id: id})
+  }
+
   const deleteItem = useMutation(() => deleteUser(id), {
     // 💡 response of the mutation is passed to onSuccess
     onSuccess: () => {
@@ -81,6 +85,13 @@ const UserActionsCell: FC<Props> = ({id}) => {
         <div className='menu-item px-3'>
           <a className='menu-link px-3' onClick={openEditModal}>
             Edit
+          </a>
+        </div>
+        {/* end::Menu item */}
+        {/* begin::Menu item */}
+        <div className='menu-item px-1'>
+          <a className='menu-link px-3' onClick={openPasswordChangeModal}>
+            Change password
           </a>
         </div>
         {/* end::Menu item */}
