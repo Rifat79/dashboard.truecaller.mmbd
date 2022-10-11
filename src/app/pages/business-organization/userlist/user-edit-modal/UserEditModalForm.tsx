@@ -17,6 +17,7 @@ import swal from 'sweetalert'
 import { statusOptions } from '../../../../constants/constants'
 
 const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
+const websiteRegEx = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-\.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
 
 const options = [
   { value: 'approved', label: 'Approved' },
@@ -45,6 +46,8 @@ const editUserSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(500, 'Maximum 50 symbols')
     .required('Address is required'),
+  organizationWebsite: Yup.string()
+    .matches(websiteRegEx, 'Organizaton website is not valid')
 })
 
 const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
@@ -194,7 +197,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           <div className='row'>
             <div className='col-lg-4'>
               <div className='fv-row mb-3'>
-                <label className='d-block fw-bold fs-6 mb-5'>Avatar</label>
+                <label className='d-block fw-bold fs-6 mb-5'>Logo (400 × 400)</label>
                 <CropperComponents
                   className="w-125px h-125px"
                   full=""
@@ -267,76 +270,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 
           {/* begin::Input group */}
           <div className="fv-row mb-3">
-            <label className="fs-6 fw-bold mb-2">Address</label>
-            <input
-              type="text"
-              {...formik.getFieldProps('address')}
-              className={clsx(
-                'form-control form-control-solid mb-3 mb-lg-0',
-                { 'is-invalid': formik.touched.address && formik.errors.address },
-                {
-                  'is-valid': formik.touched.address && !formik.errors.address,
-                }
-              )}
-              placeholder=""
-              name="address"
-              
-            />
-            {formik.touched.address && formik.errors.address && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                        <span role='alert'>{formik.errors.address}</span>
-                      </div>
-                  </div>
-                )}
-          </div>
-
-          <div className="fv-row mb-3">
-            <label className="fs-6 fw-bold mb-2">Website</label>
-            <input
-              type="text"
-              {...formik.getFieldProps('organizationWebsite')}
-              className={clsx(
-                'form-control form-control-solid mb-3 mb-lg-0',
-                { 'is-invalid': formik.touched.organizationWebsite && formik.errors.organizationWebsite },
-                {
-                  'is-valid': formik.touched.organizationWebsite && !formik.errors.organizationWebsite,
-                }
-              )}
-              placeholder=""
-              name="organizationWebsite"
-              
-            />
-            {formik.touched.address && formik.errors.address && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                        <span role='alert'>{formik.errors.address}</span>
-                      </div>
-                  </div>
-                )}
-          </div>
-
-          <div className="row">
-            <div className='col-lg-4'>
-              <div className='fv-row mb-3'>
-                <label className='d-block fw-bold fs-6 mb-5'>Logo</label>
-                <CropperComponents
-                  className="w-125px h-125px"
-                  full=""
-                  height={56} width={220}
-                  onCroped={(img: any) => formik.setFieldValue('organizationLogo', img)} src={user?.organizationLogo || blankImg} />
-              </div>
-            </div>
-            <div className="col" data-select2-id="select2-data-5-57fi">
-              <div className="fv-row mb-7">
-                {/*begin::Label*/}
-                <label className="required fs-6 fw-bold form-label mb-2">Status</label>
-                {/*end::Label*/}
-                {/*begin::Input*/}
-                <Select options={statusOptions} onChange={handleStatusOptionChange} value={formik.values.statusActive} name="role"/>
-                {/*end::Input*/}
-              </div>
-              <label className="required fs-6 fw-bold mb-2">
+          <label className="required fs-6 fw-bold mb-2">
                   <span>Phone</span>
                   <i
                     className="fas fa-exclamation-circle ms-1 fs-7"
@@ -367,6 +301,77 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                     </div>
                   </div>
                 )}
+            
+          </div>
+
+          <div className="fv-row mb-3">
+            <label className="fs-6 fw-bold mb-2">Website</label>
+            <input
+              type="text"
+              {...formik.getFieldProps('organizationWebsite')}
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                { 'is-invalid': formik.touched.organizationWebsite && formik.errors.organizationWebsite },
+                {
+                  'is-valid': formik.touched.organizationWebsite && !formik.errors.organizationWebsite,
+                }
+              )}
+              placeholder=""
+              name="organizationWebsite"
+              
+            />
+            {formik.touched.organizationWebsite && formik.errors.organizationWebsite && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                        <span role='alert'>{formik.errors.organizationWebsite}</span>
+                      </div>
+                  </div>
+                )}
+          </div>
+
+          <div className="row">
+            <div className='col-lg-4'>
+              <div className='fv-row mb-3'>
+                <label className='d-block fw-bold fs-6 mb-5'>Logo (220 × 56)</label>
+                <CropperComponents
+                  className="w-125px h-125px"
+                  full=""
+                  height={56} width={220}
+                  onCroped={(img: any) => formik.setFieldValue('organizationLogo', img)} src={user?.organizationLogo || blankImg} />
+              </div>
+            </div>
+            <div className="col" data-select2-id="select2-data-5-57fi">
+              <div className="fv-row mb-7">
+                {/*begin::Label*/}
+                <label className="required fs-6 fw-bold form-label mb-2">Status</label>
+                {/*end::Label*/}
+                {/*begin::Input*/}
+                <Select options={statusOptions} onChange={handleStatusOptionChange} value={formik.values.statusActive} name="role"/>
+                {/*end::Input*/}
+                <label className="fs-6 fw-bold mt-2">Address</label>
+            <input
+              type="text"
+              {...formik.getFieldProps('address')}
+              className={clsx(
+                'form-control form-control-solid mb-3 mb-lg-0',
+                { 'is-invalid': formik.touched.address && formik.errors.address },
+                {
+                  'is-valid': formik.touched.address && !formik.errors.address,
+                }
+              )}
+              placeholder=""
+              name="address"
+              
+            />
+            {formik.touched.address && formik.errors.address && (
+                  <div className='fv-plugins-message-container'>
+                    <div className='fv-help-block'>
+                        <span role='alert'>{formik.errors.address}</span>
+                      </div>
+                  </div>
+                )}
+              </div>
+              
             </div>
           </div>
           

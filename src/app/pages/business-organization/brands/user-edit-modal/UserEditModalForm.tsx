@@ -144,6 +144,12 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           >
             <div id="kt_modal_update_customer_user_info" className="show">
               <div className="fv-row mb-3">
+                <label className="required fs-6 fw-bold form-label mb-2">
+                  Select Organization
+                </label>
+                <Select name='organization' options={state.formData.organizations} onChange={handleOrganizationOptionChange} value={formik.values.organization}/>
+              </div>
+              <div className="fv-row mb-3">
                 <label className="required fs-6 fw-bold mb-2">Name</label>
                 <input
                   type="text"
@@ -167,12 +173,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 </label>
                 <Select name='organization' options={statusOptions} onChange={handleStatusOptionChange} value={formik.values.status}/>
               </div>
-              <div className="fv-row mb-7">
-                <label className="required fs-6 fw-bold form-label mb-2">
-                  Select Organization
-                </label>
-                <Select name='organization' options={state.formData.organizations} onChange={handleOrganizationOptionChange} value={formik.values.organization}/>
-              </div>
+              
             </div>
           </div>
         </div>

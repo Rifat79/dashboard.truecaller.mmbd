@@ -32,7 +32,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
     refetch,
     data: response,
   } = useQuery(
-    `${BASE_URL}/partnerapi/pushpull/dashboard`,
+    `${BASE_URL}/partnerapi/pushpull/dashboard?${query}`,
     () => {
       return getUsers(query)
     },

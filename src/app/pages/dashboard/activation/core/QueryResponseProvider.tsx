@@ -34,7 +34,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
     refetch,
     data: response,
   } = useQuery(
-    `${GET_ACTIVATION_DASHBOARD_DATA}`,
+    `${GET_ACTIVATION_DASHBOARD_DATA}?${query}`,
     () => {
       return getUsers(query)
     },

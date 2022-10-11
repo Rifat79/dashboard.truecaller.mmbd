@@ -87,7 +87,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           <div className='row'>
             <div className='col-lg-4'>
               <div className='fv-row mb-3'>
-                <label className='d-block fw-bold fs-6 mb-5'>Avatar</label>
+                <label className='d-block fw-bold fs-6 mb-5'>Logo(400 × 400)</label>
                 <CropperComponents
                   className="w-125px h-125px"
                   full=""
