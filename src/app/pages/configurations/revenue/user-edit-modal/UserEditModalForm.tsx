@@ -14,7 +14,7 @@ import swal from 'sweetalert'
 import { DatePickerCustom } from '../../../../modules/helpers/datepicker/date-picker'
 import { getQueryRequest } from '../../../../modules/helpers/api'
 import { GET_ORGANIZATION_LIST } from '../../../../constants/api.constants'
-import { getGrandShareAirtel, getGrandShareBL, getGrandShareGP, getGrandShareRobi, getGrandShareTeletalk, reactSelectify } from '../../../../modules/helpers/helper'
+import { getGrandShareAirtel, getGrandShareBL, getGrandShareGP, getGrandShareRobi, getGrandShareTeletalk, makeDateString, reactSelectify } from '../../../../modules/helpers/helper'
 import moment from 'moment'
 
 type Props = {
@@ -67,10 +67,11 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
       status: [{}]
     }
   });
-  const startDate = user?.startTime?.split(' ')[0] ? new Date(user?.startTime?.split(' ')[0]) : (new Date()); 
-  const endDate = user?.endTime?.split(' ')[0] ? new Date(user?.endTime?.split(' ')[0]) : (new Date());
+  const startDate = user?.startTime?.split(' ')[0] ? makeDateString(user?.startTime?.split(' ')[0]) : (new Date()); 
+  const endDate = user?.endTime?.split(' ')[0] ? makeDateString(user?.endTime?.split(' ')[0]) : (new Date());
   const {setItemIdForUpdate} = useListView()
   const {refetch} = useQueryResponse()
+
 
   const [userForEdit] = useState<User>({
     ...user,

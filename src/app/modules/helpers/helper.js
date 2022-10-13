@@ -222,3 +222,17 @@ export const getOrgId = (list = [], key='') => { console.log('list: ', list, key
     return fil[0]?.id;
   } else return null;
 }
+
+export const makeDateString = (str) => {
+  const string = str.split(' ')[0];
+  if(!string) {
+    return null;
+  } else {
+    const ar = string.split('-');
+    if(ar?.length == 3) {
+      return new Date(`${ar[2]}-${ar[0]}-${ar[1]}`)
+    } else {
+      return null;
+    }
+  }
+}
