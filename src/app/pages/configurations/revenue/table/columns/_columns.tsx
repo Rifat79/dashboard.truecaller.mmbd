@@ -59,7 +59,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     accessor: 'ait',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='VAT'  />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='TDS'  />,
     id: 'vat',
     accessor: 'vat',
   },

@@ -478,6 +478,7 @@ console.log('formik: ', formik)
           </div>
           <div className='col'>
             <ul>
+              <li>BTRC Share = 0.065</li>
               <li>Gp Share = 0.5</li>
               <li>Robi Share = 0.7</li>
               <li>Airtel Share = 0.7</li>
