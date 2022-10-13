@@ -9,6 +9,7 @@ import {UserCustomHeader} from './UserCustomHeader'
 import {UserSelectionHeader} from './UserSelectionHeader'
 import {User} from '../../core/_models'
 import { UserPermissionCell } from './UserPermissionCell'
+import { UserSL } from './UserSL'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
   // {
@@ -16,6 +17,13 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   //   id: 'selection',
   //   Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
   // },
+  {
+    Header: (props) => (
+      <UserCustomHeader tableProps={props} title='SL'  />
+    ),
+    id: 'id',
+    Cell: ({...props}) => <UserSL sl={props.row.index} />
+  },
   {
     Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,
     id: 'name',
@@ -72,7 +80,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Actions' className='text-end min-w-100px' />
+      <UserCustomHeader tableProps={props} title='Actions' className='text-end' />
     ),
     id: 'actions',
     Cell: ({...props}) => <UserActionsCell id={props.data[props.row.index].id} />,

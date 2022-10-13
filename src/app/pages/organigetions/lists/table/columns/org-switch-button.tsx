@@ -33,7 +33,7 @@ const SwitchButtonCell: FC<Props> = ({user}) => {
         user: {
           ...auth.user,
           organization: user?.id,
-          organizationName: res?.data?.data?.organization,
+          organizationName: res?.data?.data?.organizationName,
           organizationUrl: res?.data?.data?.organizationUrl
         }
       })

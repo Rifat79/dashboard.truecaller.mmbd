@@ -178,8 +178,9 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
             type="reset"
             id="kt_modal_update_customer_cancel"
             className="btn btn-light me-3 btn-sm"
+            onClick={() => cancel()}
           >
-            Reset
+            Discard
           </button>
           <button
             type="submit"

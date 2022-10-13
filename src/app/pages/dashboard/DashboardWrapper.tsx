@@ -28,18 +28,18 @@ const DashboardPage = () => {
   const [loading, setLoading] = useState(false);
   const auth = getAuth();
 
-  useEffect(() => {
-    const endDate = moment().format('MM-DD-YYYY');
-    const startDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
-    const search = window.location.search;
-    updateState({
-      filter: { 
-        start_date: `${startDate} 00:00:00`,
-        end_date: `${endDate} 23:59:59`,
-      },
-      ...initialQueryState,
-    });
-  }, []);
+  // useEffect(() => {
+  //   const endDate = moment().format('MM-DD-YYYY');
+  //   const startDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
+  //   const search = window.location.search;
+  //   updateState({
+  //     filter: { 
+  //       start_date: `${startDate} 00:00:00`,
+  //       end_date: `${endDate} 23:59:59`,
+  //     },
+  //     ...initialQueryState,
+  //   });
+  // }, []);
 
   // const data: any = useQueryResponseData()
 

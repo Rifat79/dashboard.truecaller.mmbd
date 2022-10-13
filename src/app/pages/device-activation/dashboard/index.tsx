@@ -43,20 +43,20 @@ const DashBoard = () => {
   const data: any = useQueryResponseData()
   const {updateState, state} = useQueryRequest() 
   console.log('state: ', state)
-  useEffect(() => {
-    const endDate = moment().format('MM-DD-YYYY');
-    const startDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
-    const search = window.location.search;
-    const model = new URLSearchParams(search).get("model");
-    updateState({
-      filter: { 
-        start_date: `${startDate} 00:00:00`,
-        end_date: `${endDate} 23:59:59`,
-        model: model
-      },
-      ...initialQueryState,
-    });
-  }, []);
+  // useEffect(() => {
+  //   // const endDate = moment().format('MM-DD-YYYY');
+  //   // const startDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
+  //   const search = window.location.search;
+  //   const model = new URLSearchParams(search).get("model");
+  //   updateState({
+  //     filter: { 
+  //       // start_date: `${startDate} 00:00:00`,
+  //       // end_date: `${endDate} 23:59:59`,
+  //       model: model
+  //     },
+  //     ...initialQueryState,
+  //   });
+  // }, []);
   // const data = useMemo(() => users, [users])
   // useEffect(() => {
   //   const callAPI = async () => {

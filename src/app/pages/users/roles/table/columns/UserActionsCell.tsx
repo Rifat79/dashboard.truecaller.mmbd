@@ -77,6 +77,7 @@ const UserActionsCell: FC<Props> = ({id}) => {
         {/* begin::Menu item */}
         <div className='menu-item px-3'>
           <a className='menu-link px-3' onClick={openEditModal}>
+            <i className='bi bi-pen me-2'/>
             Edit
           </a>
         </div>
@@ -89,6 +90,7 @@ const UserActionsCell: FC<Props> = ({id}) => {
             data-kt-users-table-filter='delete_row'
             onClick={handleDelete}
           >
+            <i className='bi bi-trash me-2'/>
             Delete
           </a>
         </div>

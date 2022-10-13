@@ -381,7 +381,7 @@ export default function ProfileView () {
           <Modal.Title>Edit Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <EditProfile />
+          <EditProfile closePopuop={() => setInfoModal(false)}/>
         </Modal.Body>
         {/* <InfoModal setInfoModal={setInfoModal} data={currentUser} /> */}
       </Modal>

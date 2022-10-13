@@ -34,7 +34,7 @@ const ReportsPage = () => (
                     </>
                 }
             />
-            <Route
+            {/* <Route
                 path='downloads'
                 element={
                     <>
@@ -42,7 +42,8 @@ const ReportsPage = () => (
                         <ActivationDetailsWrapper />
                     </>
                 }
-            />
+            /> */}
+            <Route path='downloads' element={<Navigate to='/error/404' />} />
             <Route index element={<Navigate to='/users/index' />} />
         </Route>
     </Routes>

@@ -20,52 +20,52 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='SL' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='SL'  />
     ),
     id: 'id',
     Cell: ({...props}) => <UserSL sl={props.row.index} />
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Name' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,
     id: 'name',
     Cell: ({...props}) => <UserInfoCell user={props.data[props.row.index]} />,
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Address' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Address'  />
     ),
     accessor: 'organizationAddress',
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Logo' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Logo'  />
     ),
     id: 'organizationLogo',
     Cell: ({...props}) => <ImageCell user={props.data[props.row.index]} />,
   },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Two steps' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Two steps'  />
   //   ),
   //   id: 'two_steps',
   //   Cell: ({...props}) => <UserTwoStepsCell two_steps={props.data[props.row.index].two_steps} />,
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Mobile' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Mobile'  />
     ),
     accessor: 'organizationMobile',
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Created At' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Created At'  />
     ),
     id: "created_at",
     accessor: 'createdAt',
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Updated At' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Updated At'  />
     ),
     id: "updated_at",
     accessor: 'updatedAt',

@@ -36,7 +36,8 @@ const QueryResponseProvider: FC<WithChildren> = ({children}) => {
   } = useQuery(
     `${GET_ACTIVATION_DASHBOARD_DATA}?organization_id=${auth?.user?.organization}-${query}`,
     () => {
-      return getUsers(query)
+      // return getUsers(query)
+      return {}
     },
     {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
   )

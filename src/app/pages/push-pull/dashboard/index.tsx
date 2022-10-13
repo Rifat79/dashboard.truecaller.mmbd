@@ -97,19 +97,19 @@ const DashBoard = () => {
   //   callAPI();
   // }, [state.filter.startDate, state.filter.endDate])
 
-  useEffect(() => {
-    const endDate = moment().format('MM-DD-YYYY')
-    const startDate = moment()
-      .subtract(30, 'days')
-      .format('MM-DD-YYYY')
-    updateState({
-      filter: {
-        start_date: `${startDate} 00:00:00`,
-        end_date: `${endDate} 23:59:59`,
-      },
-      ...initialQueryState,
-    })
-  }, [])
+  // useEffect(() => {
+  //   const endDate = moment().format('MM-DD-YYYY')
+  //   const startDate = moment()
+  //     .subtract(30, 'days')
+  //     .format('MM-DD-YYYY')
+  //   updateState({
+  //     filter: {
+  //       start_date: `${startDate} 00:00:00`,
+  //       end_date: `${endDate} 23:59:59`,
+  //     },
+  //     ...initialQueryState,
+  //   })
+  // }, [])
 
   const {itemIdForUpdate} = useListView()
   // const settings = {

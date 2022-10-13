@@ -51,7 +51,7 @@ export default function PartnerListSlider ({partners = []}) {
           filter: {id},
           ...initialQueryState,
         })
-        setPartner(id);
+        setPartner(id || 0);
       }
   return (
     <Slider {...settings} className='d-flex'>
@@ -139,7 +139,9 @@ export default function PartnerListSlider ({partners = []}) {
           </div>
           <span className='nav-text text-muted fs-7 lh-1'>All</span>
           {/* <span className='nav-text text-gray-700 fw-bolder fs-6 lh-1 pt-2'>2300</span> */}
-          <span className='bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary' />
+          {activePartner == 0 && (
+            <span className='bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary' />
+          )}
         </label>
       </li>
       {partners?.map((item, indx) => (
@@ -165,7 +167,9 @@ export default function PartnerListSlider ({partners = []}) {
             </div>
             <span className='nav-text text-muted fs-7 lh-1'>{item?.organizationName}</span>
             <span className='nav-text text-gray-700 fw-bolder fs-6 lh-1 pt-2'>{item?.id}</span>
-            <span className='bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary' />
+            {activePartner == item?.id && (
+              <span className='bullet-custom position-absolute bottom-0 w-100 h-4px bg-primary' />
+            )}
           </label>
         </div>
       ))}

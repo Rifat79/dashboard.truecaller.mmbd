@@ -2,7 +2,7 @@
 import {useState} from 'react'
 import * as Yup from 'yup'
 import clsx from 'clsx'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {useFormik} from 'formik'
 import {getUserByToken, login} from '../core/_requests'
 import {toAbsoluteUrl} from '../../../../_metronic/helpers'
@@ -30,6 +30,7 @@ const initialValues = {
 export function Login() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues,
@@ -45,6 +46,7 @@ export function Login() {
           saveAuth({ ...auth, expired: d.getTime() })
           setCurrentUser(auth)
           setupAxios(axios, auth.user.access_token);
+          navigate(auth?.user?.permissions?.landingUrl);
           // window.location.reload();
         } else {
           setStatus('The login detail is incorrect')
@@ -52,7 +54,7 @@ export function Login() {
       } catch (error: any) {
         console.error(error.message)
         saveAuth(undefined)
-        setStatus(error.message)
+        setStatus('The login detail is incorrect')
         setSubmitting(false)
         setLoading(false)
       }

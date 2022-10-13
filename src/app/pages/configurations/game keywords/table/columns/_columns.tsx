@@ -17,82 +17,82 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   //   Cell: ({...props}) => <UserSelectionCell id={props.data[props.row.index].id} />,
   // },
   // {
-  //   Header: (props) => <UserCustomHeader tableProps={props} title='Id' className='min-w-125px' />,
+  //   Header: (props) => <UserCustomHeader tableProps={props} title='Id'  />,
   //   id: 'id',
   //   accessor: 'id',
   // },
   // {
-  //   Header: (props) => <UserCustomHeader tableProps={props} title='Name' className='min-w-125px' />,
+  //   Header: (props) => <UserCustomHeader tableProps={props} title='Name'  />,
   //   id: 'name',
   //   Cell: ({...props}) => <UserInfoCell user={props.data[props.row.index]} />,
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='SL' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='SL'  />
     ),
     id: 'serial',
     Cell: ({...props}) => <UserSL sl={props.row.index} />,
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Brand' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Brand'  />,
     id: 'brand',
     accessor: 'brand',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Keyword' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Keyword'  />,
     id: 'keyword',
     accessor: 'keyword',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Sub Keyword' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Sub Keyword'  />,
     id: 'subKeyword',
     accessor: 'subKeyword',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Device Type' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Device Type'  />,
     id: 'deviceType',
     accessor: 'deviceType',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Game Provider' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Game Provider'  />,
     id: 'gameProvider',
     accessor: 'gameProvider',
   },
   {
-    Header: (props) => <UserCustomHeader tableProps={props} title='Status' className='min-w-125px' />,
+    Header: (props) => <UserCustomHeader tableProps={props} title='Status'  />,
     id: 'status',
     accessor: 'status',
   },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Last login' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Last login'  />
   //   ),
   //   id: 'last_login',
   //   Cell: ({...props}) => <UserLastLoginCell last_login={props.data[props.row.index].last_login} />,
   // },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Two steps' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Two steps'  />
   //   ),
   //   id: 'two_steps',
   //   Cell: ({...props}) => <UserTwoStepsCell two_steps={props.data[props.row.index].two_steps} />,
   // },
   // {
   //   Header: (props) => (
-  //     <UserCustomHeader tableProps={props} title='Joined day' className='min-w-125px' />
+  //     <UserCustomHeader tableProps={props} title='Joined day'  />
   //   ),
   //   accessor: 'joined_day',
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Created At' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Created At'  />
     ),
     id: "created_at",
     accessor: 'createdAt',
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Updated At' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='Updated At'  />
     ),
     id: "updated_at",
     accessor: 'updatedAt',

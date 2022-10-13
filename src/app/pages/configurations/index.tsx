@@ -3,6 +3,7 @@ import { PageTitle } from '../../../_metronic/layout/core'
 import { getAuth } from '../../modules/auth'
 import { GameKeywordsWrapper } from './game keywords'
 import { RevenueListWrapper } from './revenue'
+import { PushpullKeywordsWrapper } from './pushpull keywords'
 
 const ConfigurationPage = () => {
     const auth = getAuth()
@@ -24,6 +25,15 @@ const ConfigurationPage = () => {
                         <>
                             <PageTitle description={auth?.user?.organizationName || ''}>Revenue</PageTitle>
                             <RevenueListWrapper />
+                        </>
+                    }
+                />
+                <Route
+                    path='push-pull-keyword'
+                    element={
+                        <>
+                            <PageTitle description={auth?.user?.organizationName || ''}>Pushpull Keywords</PageTitle>
+                            <PushpullKeywordsWrapper />
                         </>
                     }
                 />

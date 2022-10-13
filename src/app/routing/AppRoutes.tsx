@@ -9,7 +9,7 @@ import {FC} from 'react'
 import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
 import {PrivateRoutes} from './PrivateRoutes'
 import {ErrorsPage} from '../modules/errors/ErrorsPage'
-import {Logout, AuthPage, useAuth} from '../modules/auth'
+import {Logout, AuthPage, useAuth, getAuth} from '../modules/auth'
 import {App} from '../App'
 
 /**
@@ -21,6 +21,8 @@ const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
   const {currentUser} = useAuth();
+  const auth = getAuth(); 
+  console.log('auth: ', auth)
   return (
     <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
@@ -30,7 +32,7 @@ const AppRoutes: FC = () => {
           {currentUser ? (
             <>
               <Route path='/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to='/dashboard' />} />
+              <Route index element={<Navigate to={auth?.user?.permissions?.landingUrl} />} />
             </>
           ) : (
             <>

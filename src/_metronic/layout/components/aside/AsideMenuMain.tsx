@@ -12,18 +12,20 @@ export function AsideMenuMain() {
 
   return (
     <>
-      <AsideMenuItem
-        to='/dashboard'
-        icon='/media/icons/duotune/art/art002.svg'
-        title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
-        fontIcon='bi-grid'
-      />
+      {permissions?.dashboard?.items?.length > 0 && (
+          <AsideMenuItem
+          to='/dashboard'
+          icon='/media/icons/duotune/art/art002.svg'
+          title={intl.formatMessage({ id: 'MENU.DASHBOARD' })}
+          fontIcon='bi-grid'
+        />
+      )}
 
       {/* // routes for user */}
       {permissions?.admin?.items?.length > 0 && (
         <>
           <div className='menu-item'>
-            <div className='menu-content pt-8 pb-2'>
+            <div className='menu-content pt-2 pb-2'>
               <span className='menu-section text-muted text-uppercase fs-8 ls-1'>ADMINISTRATION</span>
             </div>
           </div>
@@ -58,7 +60,7 @@ export function AsideMenuMain() {
       {(permissions?.device_activation?.items?.length > 0 || permissions?.device_activation?.reports?.length > 0) && (
         <>
           <div className='menu-item'>
-            <div className='menu-content pt-8 pb-2'>
+            <div className='menu-content pt-2 pb-2'>
               <span className='menu-section text-muted text-uppercase fs-8 ls-1'>ACTIVATION REPORTS</span>
             </div>
           </div>
@@ -84,7 +86,7 @@ export function AsideMenuMain() {
       {(permissions?.game_revenue?.items?.length > 0 || permissions?.game_revenue?.reports?.length > 0) && (
         <>
           <div className='menu-item'>
-            <div className='menu-content pt-8 pb-2'>
+            <div className='menu-content pt-2 pb-2'>
               <span className='menu-section text-muted text-uppercase fs-8 ls-1'>REVENUE REPORTS</span>
             </div>
           </div>
@@ -128,7 +130,7 @@ export function AsideMenuMain() {
       {permissions?.invoice_payout?.items?.length > 0 && (
         <>
           <div className='menu-item'>
-            <div className='menu-content pt-8 pb-2'>
+            <div className='menu-content pt-2 pb-2'>
               <span className='menu-section text-muted text-uppercase fs-8 ls-1'>INVOICE & PAYOUT</span>
             </div>
           </div>
@@ -149,7 +151,7 @@ export function AsideMenuMain() {
       {permissions?.organizations_management?.items?.length > 0 && (
         <>
           <div className='menu-item'>
-            <div className='menu-content pt-8 pb-2'>
+            <div className='menu-content pt-2 pb-2'>
               <span className='menu-section text-muted text-uppercase fs-8 ls-1'>Business Organization</span>
             </div>
           </div>
@@ -170,7 +172,7 @@ export function AsideMenuMain() {
       {permissions?.configurations?.items?.length > 0 && (
         <>
           <div className='menu-item'>
-            <div className='menu-content pt-8 pb-2'>
+            <div className='menu-content pt-2 pb-2'>
               <span className='menu-section text-muted text-uppercase fs-8 ls-1'>CONFIGURATION</span>
             </div>
           </div>
