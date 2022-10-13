@@ -6,7 +6,7 @@ const gpShare = 0.5;
 const blShare = 0.6;
 const robiShare = 0.7;
 const airtelShare = 0.7;
-const teletalkShare = 0.7;
+const teletalkShare = 0.6;
 
 export const reactSelectify = (list = [{}], accessor = 'id') => {
     return list.map(item => {
@@ -87,7 +87,7 @@ export const createGroup = (groupName, options, setValue) => {
 
 export const getDateRange = (obj) => {
   if(!obj) {
-    return ' Last 30 Days'
+    return ' LifeTime'
   };
 
   return (`
@@ -119,7 +119,7 @@ export const getAitGP = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareGP(discrepency, billingFee, partnerShare) * (1 - ait);
 };
 export const getVatGP = (discrepency, billingFee, partnerShare, ait, vat) => {
-  return getPartnerShareGP(discrepency, billingFee, partnerShare, ait) * (1 - vat);
+  return getAitGP(discrepency, billingFee, partnerShare, ait) * (1 - vat);
 };
 export const getGrandShareGP = (values) => {
   return getVatGP(values?.discrepancy, values?.billingFee, values?.partnerShare, values?.ait, values?.vat).toFixed(5);
@@ -140,7 +140,7 @@ export const getAitBL = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareBL(discrepency, billingFee, partnerShare) * (1 - ait);
 };
 export const getVatBL = (discrepency, billingFee, partnerShare, ait, vat) => {
-  return getPartnerShareBL(discrepency, billingFee, partnerShare, ait) * (1 - vat);
+  return getAitBL(discrepency, billingFee, partnerShare, ait) * (1 - vat);
 };
 export const getGrandShareBL = (values) => {
   return getVatBL(values?.discrepancy, values?.billingFee, values?.partnerShare, values?.ait, values?.vat).toFixed(5);
@@ -161,7 +161,7 @@ export const getAitRobi = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareRobi(discrepency, billingFee, partnerShare) * (1 - ait);
 };
 export const getVatRobi = (discrepency, billingFee, partnerShare, ait, vat) => {
-  return getPartnerShareRobi(discrepency, billingFee, partnerShare, ait) * (1 - vat);
+  return getAitRobi(discrepency, billingFee, partnerShare, ait) * (1 - vat);
 };
 export const getGrandShareRobi = (values) => {
   return getVatRobi(values?.discrepancy, values?.billingFee, values?.partnerShare, values?.ait, values?.vat).toFixed(5);
@@ -182,7 +182,7 @@ export const getAitAirtel = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareAirtel(discrepency, billingFee, partnerShare) * (1 - ait);
 };
 export const getVatAirtel = (discrepency, billingFee, partnerShare, ait, vat) => {
-  return getPartnerShareAirtel(discrepency, billingFee, partnerShare, ait) * (1 - vat);
+  return getAitAirtel(discrepency, billingFee, partnerShare, ait) * (1 - vat);
 };
 export const getGrandShareAirtel = (values) => {
   return getVatAirtel(values?.discrepancy, values?.billingFee, values?.partnerShare, values?.ait, values?.vat).toFixed(5);
@@ -203,8 +203,22 @@ export const getAitTeletalk = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareTeletalk(discrepency, billingFee, partnerShare) * (1 - ait);
 };
 export const getVatTeletalk = (discrepency, billingFee, partnerShare, ait, vat) => {
-  return getPartnerShareTeletalk(discrepency, billingFee, partnerShare, ait) * (1 - vat);
+  return getAitTeletalk(discrepency, billingFee, partnerShare, ait) * (1 - vat);
 };
 export const getGrandShareTeletalk = (values) => {
   return getVatTeletalk(values?.discrepancy, values?.billingFee, values?.partnerShare, values?.ait, values?.vat).toFixed(5);
 };
+
+//
+
+export const getOrgId = (list = [], key='') => { console.log('list: ', list, key)
+  if(!list || list?.length == 0) {
+    return null;
+  }
+
+  const fil = list.filter(e => e?.organizationName == key);
+  console.log('fil: ', fil)
+  if(fil?.length >= 1) {
+    return fil[0]?.id;
+  } else return null;
+}

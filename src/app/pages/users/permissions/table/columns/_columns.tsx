@@ -18,7 +18,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='SL' className='min-w-125px' />
+      <UserCustomHeader tableProps={props} title='SL' />
     ),
     id: 'serial',
     Cell: ({...props}) => <UserSL sl={props.row.index} />,

@@ -3,12 +3,13 @@ import {useFormik} from 'formik'
 import CropperComponents from '../../modules/helpers/cropper/CropperComponents'
 import clsx from 'clsx'
 import * as Yup from 'yup'
-import {getAuth} from '../../modules/auth'
+import {getAuth, useAuth} from '../../modules/auth'
 import { phoneRegExp } from '../../constants/constants'
 import { updateUser } from '../users/userlist/core/_requests'
 import swal from 'sweetalert'
 
-export default function EditProfile () {
+export default function EditProfile ({closePopuop = {}}) {
+  const {saveAuth} = useAuth()
   const auth = getAuth();
   const user = {
     id: auth?.user?.id,
@@ -52,12 +53,12 @@ export default function EditProfile () {
                 image: values.image,
                 mobile: values.mobile,
                 name: values.name,
-                organizationId: auth?.user?.organization,
                 role: auth?.user?.role
               });
               if(res?.data?.success) {
                 // cancel(true);
-                localStorage.setItem('user', {
+                closePopuop()
+                saveAuth({
                   ...auth,
                   user: {
                     ...auth?.user,

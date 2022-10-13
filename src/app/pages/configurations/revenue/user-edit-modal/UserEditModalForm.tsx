@@ -90,7 +90,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
     // robiGrandShare: user.robiGrandShare || initialUser.robiGrandShare,
     robiShare: 0.7,
     // teletalkGrandShare: user.teletalkGrandShare || initialUser.teletalkGrandShare,
-    teletalkShare: 0.7,
+    teletalkShare: 0.6,
     vat: user.vat || 0,
     startTime: startDate,
     endTime: endDate
@@ -242,7 +242,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('btrcShare')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -261,7 +261,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('gpShare')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -280,7 +280,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('airtelShare')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -299,7 +299,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('robiShare')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -318,7 +318,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('blShare')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -337,7 +337,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('teletalkShare')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -356,7 +356,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('billingFee')}
-              step="0.0001"
+              step="0.001"
               min={0}
               max={1}
               className="form-control"
@@ -376,7 +376,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('discrepancy')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -395,7 +395,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('partnerShare')}
-              step="0.0001"
+              step="0.001"
               min={0}
               max={1}
               className="form-control"
@@ -415,7 +415,7 @@ console.log('formik: ', formik)
             <input
               type="number"
               {...formik.getFieldProps('ait')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -430,11 +430,11 @@ console.log('formik: ', formik)
             )}
           </div>
           <div className="col">
-            <label className="fs-6 required fw-bold mb-2"> Vat</label>
+            <label className="fs-6 required fw-bold mb-2"> VAT</label>
             <input
               type="number"
               {...formik.getFieldProps('vat')}
-              step="0.0001"
+              step="0.001"
               min={0}
               className="form-control"
               placeholder=""
@@ -466,12 +466,23 @@ console.log('formik: ', formik)
             </div>
             `
           </div>
+          
+        </div>
+        <div className='row row-cols-1 row-cols-sm-2 row-cols-lg-2 gy-4'>
           <div className="col">
             <div className="single-date position-relative">
               <label className="form-label fw-bold">Remarks</label>
               <textarea className="form-control"  {...formik.getFieldProps('remarks')} name="remarks"/>
             </div>
-            `
+          </div>
+          <div className='col'>
+            <ul>
+              <li>Gp Share = 0.5</li>
+              <li>Robi Share = 0.7</li>
+              <li>Airtel Share = 0.7</li>
+              <li>Banglalink Share = 0.6</li>
+              <li>Teletalk Share = 0.6</li>
+            </ul>
           </div>
         </div>
 
@@ -482,7 +493,7 @@ console.log('formik: ', formik)
             <label className="fs-6  fw-bold mb-2">GP Grand Share</label>
             <input
               type="number"
-              step="0.0001"
+              step="0.001"
               min={0}
               readOnly
               value={getGrandShareGP(formik.values)}
@@ -495,7 +506,7 @@ console.log('formik: ', formik)
             <label className="fs-6  fw-bold mb-2"> Airtel Grand Share</label>
             <input
               type="number"
-              step="0.0001"
+              step="0.001"
               min={0}
               readOnly
               value={getGrandShareAirtel(formik.values)}
@@ -508,7 +519,7 @@ console.log('formik: ', formik)
             <label className="fs-6  fw-bold mb-2">Robi Grand Share</label>
             <input
               type="number"
-              step="0.0001"
+              step="0.001"
               min={0}
               readOnly
               value={getGrandShareRobi(formik.values)}
@@ -521,7 +532,7 @@ console.log('formik: ', formik)
             <label className="fs-6  fw-bold mb-2"> BL Grand Share</label>
             <input
               type="number"
-              step="0.0001"
+              step="0.001"
               min={0}
               readOnly
               value={getGrandShareBL(formik.values)}
@@ -534,7 +545,7 @@ console.log('formik: ', formik)
             <label className="fs-6  fw-bold mb-2">Teletalk Grand Share</label>
             <input
               type="number"
-              step="0.0001"
+              step="0.001"
               min={0}
               readOnly
               value={getGrandShareTeletalk(formik.values)}
