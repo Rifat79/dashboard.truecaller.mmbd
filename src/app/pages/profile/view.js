@@ -86,7 +86,7 @@ export default function ProfileView () {
             <div className='d-flex flex-center flex-column mb-5'>
               <div className='symbol symbol-100px symbol-circle mb-7'>
                 <img
-                  src={currentUser?.avatar || toAbsoluteUrl('/media/avatars/blank.png')}
+                  src={currentUser?.image || toAbsoluteUrl('/media/avatars/blank.png')}
                   alt='image'
                 />
               </div>

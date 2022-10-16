@@ -14,6 +14,7 @@ import { getQueryRequest } from '../../../../../modules/helpers/api'
 import { GET_ORGANIZATION_LIST, GET_ROLE_LIST } from '../../../../../constants/api.constants'
 import { reactSelectify } from '../../../../../modules/helpers/helper'
 import swal from 'sweetalert'
+import DateRange2 from '../../../../../../_metronic/partials/custom-modules/date-range'
 
 const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
 
@@ -63,6 +64,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
   });
   const { setItemIdForUpdate } = useListView()
   const { refetch } = useQueryResponse()
+  const [date, setDate] = useState<any>(null)
 
   const [userForEdit] = useState<User>({
     ...user,
@@ -158,32 +160,6 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     },
   }); 
 
-  useEffect(() => {
-    const callAPI =async () => {
-      const response = await getQueryRequest(GET_ORGANIZATION_LIST);
-      const responseRole = await getQueryRequest(GET_ROLE_LIST);
-
-      const organizationList = reactSelectify(response?.data, 'organizationName'); 
-      const roleList = reactSelectify(responseRole?.data, 'roleName');
-
-      const selectedOrg = organizationList?.filter(e => e.value == user?.organization); 
-      const selectedRole = roleList?.filter(e => e.value == user?.role?.roleName);
-
-
-      setState({
-        ...state, 
-        formData: {
-          ...state.formData, 
-          org: [...organizationList], 
-          role: [...roleList], 
-      }});
-      formik.setFieldValue('organization', selectedOrg.length ? selectedOrg[0] : {});
-      formik.setFieldValue('role', selectedRole.length ? selectedRole[0] : {});
-      formik.setFieldValue('password', '12345');
-      formik.setFieldValue('confirmPass', '12345')
-    }
-    callAPI();
-  }, []);
 
   return (
     <>
@@ -199,204 +175,13 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           data-kt-scroll-wrappers='#kt_modal_add_user_scroll'
           data-kt-scroll-offset='300px'
         >
-          <div className='row'>
-            <div className='col-lg-4'>
-              <div className='fv-row mb-3'>
-                <label className='d-block fw-bold fs-6 mb-5'>Avatar</label>
-                <CropperComponents
-                  className="w-125px h-125px"
-                  full=""
-                  height={400} width={400}
-                  onCroped={(img: any) => formik.setFieldValue('image', img)} src={user?.image || blankImg} />
-              </div>
-            </div>
-            <div className='col-lg-8'>
-              <div className='fv-row mb-7'>
-                <label className='required fw-bold fs-6 mb-2'>Full Name</label>
-                <input
-                  placeholder='Full name'
-                  {...formik.getFieldProps('name')}
-                  type='text'
-                  name='name'
-                  className={clsx(
-                    'form-control form-control-solid mb-3 mb-lg-0',
-                    { 'is-invalid': formik.touched.name && formik.errors.name },
-                    {
-                      'is-valid': formik.touched.name && !formik.errors.name,
-                    }
-                  )}
-                  autoComplete='off'
-                  disabled={formik.isSubmitting || isUserLoading}
-                />
-                {formik.touched.name && formik.errors.name && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                      <span role='alert'>{formik.errors.name}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-              {/* END */}
-              <div className='fv-row mb-7'>
-                <label className='required fw-bold fs-6 mb-2'>Email</label>
-                <input
-                  placeholder='Email'
-                  {...formik.getFieldProps('email')}
-                  className={clsx(
-                    'form-control form-control-solid mb-3 mb-lg-0',
-                    { 'is-invalid': formik.touched.email && formik.errors.email },
-                    {
-                      'is-valid': formik.touched.email && !formik.errors.email,
-                    }
-                  )}
-                  type='email'
-                  name='email'
-                  autoComplete='off'
-                  disabled={formik.isSubmitting || isUserLoading}
-                />
-                {formik.touched.email && formik.errors.email && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                        <span role='alert'>{formik.errors.email}</span>
-                      </div>
-                  </div>
-                )}
-              </div>
-              {/* END */}
-            </div>
+
+
+          <div className='mb-10 position-relative' id='date-range-ref'>
+            <label className='form-label fs-6 fw-bold'>Range:</label>
+              {/* <DateRange callBack={(e: any) => setDate(e)}/> */}
+              <DateRange2 callBack={(e: any) => setDate(e)}/>
           </div>
-
-
-          {/* end::Input group */}
-
-          {/* begin::Input group */}
-
-          {/* end::Input group */}
-
-          {/* begin::Input group */}
-          <div className="fv-row mb-3">
-            <label className="fs-6 fw-bold mb-2">Address</label>
-            <input
-              type="text"
-              {...formik.getFieldProps('address')}
-              className={clsx(
-                'form-control form-control-solid mb-3 mb-lg-0',
-                { 'is-invalid': formik.touched.address && formik.errors.address },
-                {
-                  'is-valid': formik.touched.address && !formik.errors.address,
-                }
-              )}
-              placeholder=""
-              name="address"
-              
-            />
-            {formik.touched.address && formik.errors.address && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                        <span role='alert'>{formik.errors.address}</span>
-                      </div>
-                  </div>
-                )}
-          </div>
-
-          <div className="row">
-            <div className="col">
-              <label className="fs-6 fw-bold mb-2">Partner</label>
-              <Select options={state?.formData?.org}  onChange={handlePartnerOptionChange} value={formik.values.organization} name="organization"/>
-            </div>
-            <div className="col" data-select2-id="select2-data-5-57fi">
-              <div className="fv-row mb-7">
-                {/*begin::Label*/}
-                <label className="required fs-6 fw-bold form-label mb-2">Role</label>
-                {/*end::Label*/}
-                {/*begin::Input*/}
-                <Select options={state.formData.role} onChange={handleRoleOptionChange} value={formik.values.role} name="role"/>
-                {/*end::Input*/}
-              </div>
-            </div>
-          </div>
-          
-          <div className="separator separator-dashed mb-3 border-dark" />
-          
-          <div className="fv-row mb-3">
-            <div className="row">
-              <div className="col">
-                <label className="required fs-6 fw-bold mb-2">
-                  <span>Phone</span>
-                  <i
-                    className="fas fa-exclamation-circle ms-1 fs-7"
-                    data-bs-toggle="tooltip"
-                    title=""
-                    data-bs-original-title="Email address must be active"
-                    aria-label="Email address must be active"
-                  />
-                </label>
-                <input
-                  type="phone"
-                  {...formik.getFieldProps('mobile')}
-                  className={clsx(
-                    'form-control form-control-solid',
-                    { 'is-invalid': formik.touched.mobile && formik.errors.mobile },
-                    {
-                      'is-valid': formik.touched.mobile && !formik.errors.mobile,
-                    }
-                  )}
-                  placeholder="01XXXXXXXXX"
-                  name="mobile"
-                  disabled={formik.isSubmitting || isUserLoading}
-                />
-                {formik.touched.mobile && formik.errors.mobile && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                      <span role='alert'>{formik.errors.mobile}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          <div className="fv-row mb-3">
-            <div className="row">
-              <div className="col">
-                <label className="required fs-6 fw-bold mb-2">Password</label>
-                <input
-                  {...formik.getFieldProps('password')}
-                  type="password"
-                  className="form-control form-control-solid"
-                  placeholder=""
-                  name="password"
-                />
-                {formik.touched.password && formik.errors.password && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                      <span role='alert'>{formik.errors.password}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-              <div className="col">
-                <label className="required fs-6 fw-bold mb-2">Confirm Password</label>
-                <input
-                  {...formik.getFieldProps('confirmPass')}
-                  type="password"
-                  className="form-control form-control-solid"
-                  placeholder=""
-                  name="confirmPass"
-                />
-                {formik.touched.confirmPass && formik.errors.confirmPass && (
-                  <div className='fv-plugins-message-container'>
-                    <div className='fv-help-block'>
-                      <span role='alert'>{formik.errors.confirmPass}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-
-
           {/* end::Input group */}
         </div>
         {/* end::Scroll */}
