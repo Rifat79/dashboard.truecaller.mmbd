@@ -4,8 +4,8 @@ import React, {useState} from 'react'
 
 export default function DateRange2 ({callBack}) {
   const [state, setState] = useState({
-    start: moment().subtract(29, 'days'),
-    end: moment(),
+    start:'',
+    end: '',
   });
 
   const { start, end } = state;

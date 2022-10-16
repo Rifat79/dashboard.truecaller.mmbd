@@ -105,8 +105,8 @@ const UserActionsCell: FC<Props> = ({id, user}) => {
       >
         {/* begin::Menu item */}
         <div className='menu-item px-3'>
-          <a className='menu-link px-3' onClick={openEditModal}>
-            <i className='bi bi-pen me-2'/>
+          <a className='menu-link px-3 text-primary' onClick={openEditModal}>
+            <i className='bi bi-pen me-2 text-primary'/>
             Edit
           </a>
         </div>
@@ -115,14 +115,14 @@ const UserActionsCell: FC<Props> = ({id, user}) => {
         {/* begin::Menu item */}
         <div className='menu-item px-3'>
           <a
-            className='menu-link px-3 '
+            className='menu-link px-3 text-danger'
             data-kt-users-table-filter='delete_row'
             onClick={handleDelete}
           >
             {user?.status ? (
-              <i className='bi bi-dash-circle-fill me-2'/>
+              <i className='bi bi-dash-circle-fill me-2 text-danger'/>
             ) : (
-              <i className="bi bi-check-lg me-2"></i>
+              <i className="bi bi-check-lg me-2 text-success"></i>
             )}
             {user?.status ? (
               'Inactive'

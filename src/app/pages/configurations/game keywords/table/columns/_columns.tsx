@@ -34,6 +34,11 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     Cell: ({...props}) => <UserSL sl={props.row.index} />,
   },
   {
+    Header: (props) => <UserCustomHeader tableProps={props} title='Organization'  />,
+    id: 'organization',
+    accessor: 'organization',
+  },
+  {
     Header: (props) => <UserCustomHeader tableProps={props} title='Brand'  />,
     id: 'brand',
     accessor: 'brand',

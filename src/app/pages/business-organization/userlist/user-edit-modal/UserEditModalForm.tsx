@@ -195,17 +195,8 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
           data-kt-scroll-offset='300px'
         >
           <div className='row'>
-            <div className='col-lg-4'>
-              <div className='fv-row mb-3'>
-                <label className='d-block fw-bold fs-6 mb-5'>Logo (400 × 400)</label>
-                <CropperComponents
-                  className="w-125px h-125px"
-                  full=""
-                  height={400} width={400}
-                  onCroped={(img: any) => formik.setFieldValue('organizationThumbnail', img)} src={user?.organizationThumbnail || blankImg} />
-              </div>
-            </div>
-            <div className='col-lg-8'>
+              
+              
               <div className='fv-row mb-7'>
                 <label className='required fw-bold fs-6 mb-2'>Org. Name</label>
                 <input
@@ -258,7 +249,6 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                 )}
               </div>
               {/* END */}
-            </div>
           </div>
 
 
@@ -328,19 +318,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
                   </div>
                 )}
           </div>
-
-          <div className="row">
-            <div className='col-lg-4'>
-              <div className='fv-row mb-3'>
-                <label className='d-block fw-bold fs-6 mb-5'>Logo (220 × 56)</label>
-                <CropperComponents
-                  className="w-125px h-125px"
-                  full=""
-                  height={56} width={220}
-                  onCroped={(img: any) => formik.setFieldValue('organizationLogo', img)} src={user?.organizationLogo || blankImg} />
-              </div>
-            </div>
-            <div className="col" data-select2-id="select2-data-5-57fi">
+          <div className="col" data-select2-id="select2-data-5-57fi">
               <div className="fv-row mb-7">
                 {/*begin::Label*/}
                 <label className="required fs-6 fw-bold form-label mb-2">Status</label>
@@ -373,6 +351,30 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
               </div>
               
             </div>
+
+          <div className="row">
+            <label className='d-block fw-bold fs-6 mb-5'> Logo</label>
+            <div className='col-6'>
+              <div className='fv-row mb-3'>
+                <span className='d-block  fs-6 mb-5'>Size: (220 × 56)</span>
+                <CropperComponents
+                  className="w-125px h-125px"
+                  full=""
+                  height={56} width={220}
+                  onCroped={(img: any) => formik.setFieldValue('organizationLogo', img)} src={user?.organizationLogo || blankImg} />
+              </div>
+            </div>
+            <div className='col-6'>
+              <div className='fv-row mb-3'>
+                <label className='d-block fs-6 mb-5'>Size: (400 × 400)</label>
+                <CropperComponents
+                  className="w-125px h-125px"
+                  full=""
+                  height={400} width={400}
+                  onCroped={(img: any) => formik.setFieldValue('organizationThumbnail', img)} src={user?.organizationThumbnail || blankImg} />
+              </div>
+            </div>
+            
           </div>
           
           {/* <div className="separator separator-dashed mb-3 border-dark" />
