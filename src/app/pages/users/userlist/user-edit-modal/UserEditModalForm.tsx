@@ -275,7 +275,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 
           {/* begin::Input group */}
           <div className="fv-row mb-3">
-            <label className="fs-6 fw-bold mb-2">Address</label>
+            <label className="fs-6 fw-bold mb-2 required">Address</label>
             <input
               type="text"
               {...formik.getFieldProps('address')}

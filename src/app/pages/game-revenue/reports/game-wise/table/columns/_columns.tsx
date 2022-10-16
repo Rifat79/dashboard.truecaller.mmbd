@@ -11,6 +11,7 @@ import {User} from '../../core/_models'
 import { UserPermissionCell } from './UserPermissionCell'
 import { UserSL } from './UserSL'
 import { DetailsIconCell } from './DetailsIconCell'
+import { CustomValueCell } from './CustomValue'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
   // {
@@ -30,11 +31,18 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     id: 'serial',
     Cell: ({...props}) => <UserSL sl={props.row.index} />,
   },
+  // {
+  //   Header: (props) => (
+  //     <UserCustomHeader tableProps={props} title='GAme'  />
+  //   ),
+  //   accessor: 'game',
+  // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='GAme'  />
+      <UserCustomHeader tableProps={props} title='Game'  />
     ),
-    accessor: 'game',
+    id: 'game',
+    Cell: ({...props}) => <CustomValueCell val={props.data[props.row.index]?.game?.toUpperCase()} />,
   },
   {
     Header: (props) => (
