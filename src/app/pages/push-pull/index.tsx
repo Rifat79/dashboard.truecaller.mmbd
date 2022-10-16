@@ -14,7 +14,7 @@ const PushPullRevenue = () => {
                     path='dashboard'
                     element={
                         <>
-                            <PageTitle  description={auth?.user?.organizationName || ''}>Game Revenue</PageTitle>
+                            <PageTitle  description={auth?.user?.organizationName || ''}>Push-Pull Revenue</PageTitle>
                             <DashboardWrapper />
                         </>
                     }

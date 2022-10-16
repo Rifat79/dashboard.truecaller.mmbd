@@ -79,8 +79,8 @@ const UserActionsCell: FC<Props> = ({id}) => {
       >
         {/* begin::Menu item */}
         <div className='menu-item px-3'>
-          <a className='menu-link px-3' onClick={openEditModal}>
-            <i className='bi bi-pen me-2'/>
+          <a className='menu-link px-3 text-primary' onClick={openEditModal}>
+            <i className='bi bi-pen me-2 text-primary'/>
             Edit
           </a>
         </div>

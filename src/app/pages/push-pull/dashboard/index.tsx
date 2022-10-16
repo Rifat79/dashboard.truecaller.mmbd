@@ -232,7 +232,7 @@ const DashBoard = () => {
                   },
                   series: [
                     {
-                      name: 'series-1',
+                      name: 'revenue',
                       data: data?.chart2[0]?.data1 || [],
                     },
                   ],
@@ -240,7 +240,7 @@ const DashBoard = () => {
                 height={350}
                 width={450}
                 total_active={data?.chart2[0]?.total_active}
-                total_field_name="Total Revenue"
+                total_field_name="Revenue Duration"
               />
               <BarChart
                 settings={{
@@ -254,7 +254,7 @@ const DashBoard = () => {
                   },
                   series: [
                     {
-                      name: 'series-1',
+                      name: 'revenue',
                       data: data?.chart2[1]?.data1 || [],
                     },
                   ],
@@ -262,7 +262,7 @@ const DashBoard = () => {
                 height={350}
                 width={450}
                 total_active={data?.chart2[1]?.total_active || 0}
-                total_field_name="Total Active Keyword"
+                total_field_name="Revenue Keyword"
               />
               {/* <MixedWidget10
                 className='card-xl-stretch mb-xl-8'
