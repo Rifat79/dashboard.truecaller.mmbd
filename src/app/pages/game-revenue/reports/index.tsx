@@ -29,7 +29,7 @@ const ReportsPage = () => (
                 path='details'
                 element={
                     <>
-                        <PageTitle>Revenue Details</PageTitle>
+                        <PageTitle>Game Revenue Details</PageTitle>
                         <ReportDetails />
                     </>
                 }

@@ -20,7 +20,7 @@ const ReportsPage = () => (
                 path='details'
                 element={
                     <>
-                        <PageTitle>Revenue Details</PageTitle>
+                        <PageTitle>Push-Pull Revenue Details</PageTitle>
                         <ReportDetails />
                     </>
                 }

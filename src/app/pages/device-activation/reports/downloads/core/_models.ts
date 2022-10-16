@@ -22,6 +22,12 @@ export type User = {
   }
   password?: string
   confirmPass?: string
+  startDate?: any
+  endDate?: any
+  file?: any
+  user?: any
+  title?: any
+  requestTime?: any
 }
 
 export type UsersQueryResponse = Response<Array<User>>

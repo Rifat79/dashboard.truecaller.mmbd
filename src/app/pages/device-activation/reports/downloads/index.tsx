@@ -28,7 +28,7 @@ const UsersList = () => {
   )
 }
 
-const ActivationDetailsWrapper = () => (
+const DownloadsWrapper = () => (
   <QueryRequestProvider>
     <QueryResponseProvider>
       <ListViewProvider>
@@ -38,4 +38,4 @@ const ActivationDetailsWrapper = () => (
   </QueryRequestProvider>
 )
 
-export { ActivationDetailsWrapper }
+export { DownloadsWrapper }

@@ -7,7 +7,7 @@ const UsersListHeader = () => {
   const {selected} = useListView()
   return (
     <>
-      <UsersListSearchComponent />
+      {/* <UsersListSearchComponent /> */}
       {/* begin::Card toolbar */}
       <div className='card-toolbar'>
         {/* begin::Group actions */}

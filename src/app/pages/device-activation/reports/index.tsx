@@ -1,6 +1,7 @@
 import { Route, Routes, Outlet, Navigate } from 'react-router-dom'
 import { PageTitle } from '../../../../_metronic/layout/core'
 import { ActivationDetailsWrapper } from './activation-details'
+import { DownloadsWrapper } from './downloads'
 import { ModelListWrapper } from './model-wise'
 import { SearchWrapper } from './search'
 
@@ -34,16 +35,16 @@ const ReportsPage = () => (
                     </>
                 }
             />
-            {/* <Route
+            <Route
                 path='downloads'
                 element={
                     <>
                         <PageTitle>Permissions</PageTitle>
-                        <ActivationDetailsWrapper />
+                        <DownloadsWrapper />
                     </>
                 }
-            /> */}
-            <Route path='downloads' element={<Navigate to='/error/404' />} />
+            />
+            {/* <Route path='downloads' element={<Navigate to='/error/404' />} /> */}
             <Route index element={<Navigate to='/users/index' />} />
         </Route>
     </Routes>
