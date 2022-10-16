@@ -90,7 +90,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     // console.log(`Option selected:`, selectedOption);
   };
 
-  const blankImg = toAbsoluteUrl('/media/svg/avatars/blank.svg')
+  const blankImg = toAbsoluteUrl('/media/avatars/organization_blank.png')
   const userAvatarImg = toAbsoluteUrl(`/media/${userForEdit.avatar}`)
 
   const formik = useFormik({
