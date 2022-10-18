@@ -17,14 +17,14 @@ const loginSchema = Yup.object().shape({
     .max(50, 'Maximum 50 symbols')
     .required('Email is required'),
   password: Yup.string()
-    .min(3, 'Minimum 3 symbols')
+    .min(6)
     .max(50, 'Maximum 50 symbols')
     .required('Password is required'),
 })
 
 const initialValues = {
-  email: 'test@mail.com',
-  password: 'password',
+  email: '',
+  password: '',
 }
 
 export function Login() {
@@ -62,6 +62,7 @@ export function Login() {
   })
 
   return (
+    
     <form
       className='form w-100'
       onSubmit={formik.handleSubmit}
@@ -99,7 +100,9 @@ export function Login() {
         />
         {formik.touched.email && formik.errors.email && (
           <div className='fv-plugins-message-container'>
+            <div className='fv-help-block'>
             <span role='alert'>{formik.errors.email}</span>
+            </div>
           </div>
         )}
       </div>

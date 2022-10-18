@@ -4,6 +4,7 @@ import {isNotEmpty, QUERIES} from '../../../../../_metronic/helpers'
 import {useListView} from '../core/ListViewProvider'
 import {getUserById} from '../core/_requests'
 import { BASE_URL } from '../../../../constants/api.constants'
+import { ModalSpinner } from '../../../../modules/partials/modal-spinner/ModalSpinner'
 
 const UserEditModalFormWrapper = () => {
   const {itemIdForUpdate, setItemIdForUpdate} = useListView();
@@ -30,7 +31,9 @@ const UserEditModalFormWrapper = () => {
   if (!itemIdForUpdate) {
     return <UserEditModalForm isUserLoading={isLoading} user={{id: undefined}} />
   }
-
+  if(isLoading) {
+    return <ModalSpinner height={300} width={500}/>
+  }
   if (!isLoading && !error && user) {
     return <UserEditModalForm isUserLoading={isLoading} user={user} />
   }
