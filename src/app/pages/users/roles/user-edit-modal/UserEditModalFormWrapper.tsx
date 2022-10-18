@@ -5,6 +5,7 @@ import {useListView} from '../core/ListViewProvider'
 import {getUserById} from '../core/_requests'
 import { BASE_URL } from '../../../../constants/api.constants'
 import { reactSelectify } from '../../../../modules/helpers/helper'
+import { ModalSpinner } from '../../../../modules/partials/modal-spinner/ModalSpinner'
 
 const UserEditModalFormWrapper = () => {
   const {itemIdForUpdate, setItemIdForUpdate} = useListView()
@@ -32,6 +33,9 @@ const UserEditModalFormWrapper = () => {
     return <UserEditModalForm isUserLoading={isLoading} user={{id: undefined}} />
   }
 
+  if(isLoading) {
+    return <ModalSpinner height={500} width={500}/>
+  }
   if (!isLoading && !error && user) {
     return <UserEditModalForm isUserLoading={isLoading} user={{...user, modulesList: reactSelectify(user?.modulesList, 'moduleName') || []}} />
   }
