@@ -200,7 +200,7 @@ const DashBoard = () => {
             // },
           ]}
           type='area'
-          height={450}
+          height={300}
         />
       ) : (
         <h5 style={{textAlign: 'center'}}>No Data Found!</h5>

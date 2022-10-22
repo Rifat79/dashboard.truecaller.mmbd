@@ -64,33 +64,33 @@ const DashboardPage = () => {
     </Toolbar>
     {/* begin::Row */}
     
-    <div className='row g-5 g-xl-8'>
+    <div className='row g-2 g-xl-3'>
       <div className='col-12'>
         <div className='card'>
-          <div className='card-header'>
-            <h2 className='card-title'>Activation Recap Report -- All Models</h2>
+          <div className='card-header min-h-auto'>
+            <h2 className='card-title fw-bolder lh-1 py-1'>Activation Recap Report -- All Models</h2>
           </div>
-          <div className='card-body'>
+          <div className='card-body p-1'>
             <ActivationDashboardWrapper />
           </div>
         </div>
       </div>
       <div className='col-12'>
         <div className='card'>
-          <div className='card-header'>
-            <h2 className='card-title'>Game Revenue Report</h2>
+          <div className='card-header min-h-auto'>
+            <h2 className='card-title fw-bolder lh-1 py-1'>Game Revenue Report</h2>
           </div>
-          <div className='card-body'>
+          <div className='card-body p-1'>
              <GameDashboardWrapper />
           </div>
         </div>
       </div>
       <div className='col-12'>
         <div className='card'>
-          <div className='card-header'>
-            <h2 className='card-title'>Push-Pull Revenue Report</h2>
+          <div className='card-header min-h-auto'>
+            <h2 className='card-title fw-bolder lh-1 py-1'>Push-Pull Revenue Report</h2>
           </div>
-          <div className='card-body'>
+          <div className='card-body p-1'>
              <PushpullDashboardWrapper />
           </div>
         </div>
