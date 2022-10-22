@@ -15,7 +15,7 @@ import {getQueryRequest} from '../../../modules/helpers/api'
 import {GET_ACTIVATION_DASHBOARD_DATA} from '../../../constants/api.constants'
 import moment from 'moment'
 import { getAuth } from '../../../modules/auth'
-import { containsDeviceType, getDateRange, isChartRequired } from '../../../modules/helpers/helper'
+import { containsDeviceType, getDateRange, getFilterModel, isChartRequired } from '../../../modules/helpers/helper'
 
 const DashBoard = () => {
   let bodyStyles = ''
@@ -121,7 +121,7 @@ const DashBoard = () => {
 
   return (
     <>
-      <Toolbar title={`Activation Recap Report -- ${getDateRange(state?.filter)}`}>
+      <Toolbar title={`Activation Recap Report -- ${getDateRange(state?.filter)} ${getFilterModel(state?.filter)}`}>
         <UsersListHeader />
       </Toolbar>
       {isLoading ? (

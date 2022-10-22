@@ -20,6 +20,7 @@ import DateRange2 from '../../../../../../_metronic/partials/custom-modules/date
 const UsersListFilter = ({state, setState}: any) => {
   const { updateState } = useQueryRequest()
   const { isLoading } = useQueryResponse()
+  const [allModelList, setAllModelList] = useState<any>([])
   const [deviceType, setDeviceType] = useState({id: 1, label: 'Smart Phone', value: 1});
   const [options, setOptions] = useState([{}]);
   const [models, setModels] = useState([{}]);
@@ -74,12 +75,15 @@ const UsersListFilter = ({state, setState}: any) => {
           createGroup('---Feature Phone---', reactSelectify(res2?.data, 'model'), setModel)
         ]
         setOptions(optionList)
+        setAllModelList([ ...res?.data, ...res2?.data])
         console.log('options: ', optionList)
       }
     };
     callAPI();
     
   }, [deviceType, model])
+
+
 
   return (
     <>
@@ -117,9 +121,30 @@ const UsersListFilter = ({state, setState}: any) => {
           {/* end::Input group */}
 
           {/* begin::Input group */}
-          <div className='mb-10'>
+          {/* <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>Select Model:</label>
               <SelectSubmenu options={options} value={model} setModel={setModel}/>
+          </div> */}
+          <div className="form-group row">
+            <label className='form-label fs-6 fw-bold'>Select Model:</label>
+            <div className="mb-3 ">
+              <select className="form-control select2"  onChange={(e) => setModel(allModelList?.filter((el: any) => el?.model == e.target.value)[0])} id="kt_select2_2" name="param">
+                {/* <optgroup label="Alaskan/Hawaiian Time Zone" style={{fontWeight: 'bolder'}}>
+                  <option value="AK">Alaska</option>
+                  <option value="HI">Hawaii</option>
+                </optgroup> */}
+                {options?.map((item: any, indx) => (
+                  item?.options?.length > 0 && (
+                    <optgroup label={item?.label?.props?.children} style={{fontWeight: 'bolder'}}>
+                      {item?.options?.map((item: any, indx: any) => (
+                        <option value={item?.model} >{item?.model}</option>
+                      ))}
+                    </optgroup>
+                  )
+                ))}
+                {!allModelList || allModelList?.length == 0 && (<option>No Options</option>)}
+              </select>
+            </div>
           </div>
           {/* end::Input group */}
           <div className='mb-10 position-relative' id='date-range-ref'>

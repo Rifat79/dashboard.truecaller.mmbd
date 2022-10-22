@@ -95,6 +95,16 @@ export const getDateRange = (obj) => {
   `)
 };
 
+export const getFilterModel = (obj) => {
+  if(!obj?.model) {
+    return ''
+  };
+
+  return (`
+    (Model: ${obj?.model})
+  `)
+};
+
 export const isChartRequired = (obj, device_type_not) => {
   if(!obj?.deviceType) return true;
 
