@@ -9,7 +9,7 @@ import {UserCustomHeader} from './UserCustomHeader'
 import {UserSelectionHeader} from './UserSelectionHeader'
 import {User} from '../../core/_models'
 import { UserPermissionCell } from './UserPermissionCell'
-import { UserSL } from '../../../../../device-activation/reports/model-wise/table/columns/UserSL'
+import { UserSL } from './UserSL'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
   // {

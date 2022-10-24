@@ -8,8 +8,9 @@ import { deviceTypeOptions } from '../../../../../../constants/constants'
 import DateRange from '../../../../../../../_metronic/partials/custom-modules/DateRange'
 import { getQueryRequest } from '../../../../../../modules/helpers/api'
 import { GET_KEYWORDS } from '../../../../../../constants/api.constants'
-import { reactSelectify } from '../../../../../../modules/helpers/helper'
+import { isDate, reactSelectify } from '../../../../../../modules/helpers/helper'
 import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
+import moment from 'moment'
 
 const UsersListFilter = () => {
   const [date, setDate] = useState<any>()
@@ -24,6 +25,10 @@ const UsersListFilter = () => {
   })
   const [keywords, setKeywords] = useState<any>([]);
   const [keyword, setKeyword] = useState<any>();
+
+  const search = window.location.search;
+  const startDate = new URLSearchParams(search).get("start_date");
+  const endDate = new URLSearchParams(search).get("end_date");
 
   useEffect(() => {
     MenuComponent.reinitialization()
@@ -48,9 +53,11 @@ const UsersListFilter = () => {
 
   const filterData = () => {
     updateState({
-      filter: { 
+      filter: isDate(date?.start_date) && isDate(date?.end_date) ? { 
         start_date: `${date?.start_date} 00:00:00`,
         end_date: `${date?.end_date} 23:59:59`,
+        keyword: keyword?.value
+      } : {
         keyword: keyword?.value
       },
       ...initialQueryState,
@@ -97,20 +104,36 @@ const UsersListFilter = () => {
           </div> */}
           <div className='mb-10 position-relative' id='date-range-ref'>
             <label className='form-label fs-6 fw-bold'>Keywords:</label>
-              <Select
+              {/* <Select
                 options={keywords}
                 onChange={(option) => setKeyword(option)}
                 value={keyword}
-               />
+               /> */}
+               <select className='form-control select2' onChange={(e) => setKeyword(keywords?.filter((el: any) => el?.key == e.target.value)[0])}>
+                <option label='Select a keyword...'></option>
+                {keywords?.map((item: any, indx: any) => (
+                  <option>{item?.key}</option>
+                ))}
+               </select>
           </div>
           <div className='mb-10 position-relative' id='date-range-ref'>
             {/* <label className='form-label fs-6 fw-bold'>Range:</label>
               <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2 callBack={(e: any) => setDate(e)}/>
+              <DateRange2 startDate={startDate} endDate={endDate} callBack={(e: any) => setDate(e)}/>
           </div>
           {/*end::Input group*/}
           {/*begin::Actions*/}
           <div className="d-flex justify-content-end mt-5">
+            <button
+              type='button'
+              disabled={isLoading}
+              onClick={resetData}
+              className='btn btn-light btn-active-light-primary fw-bold me-2 px-6'
+              data-kt-menu-dismiss='true'
+              data-kt-user-table-filter='reset'
+            >
+              Reset
+            </button>
             <button
               type="submit"
               className="btn btn-primary"

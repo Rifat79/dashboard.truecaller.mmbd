@@ -86,7 +86,7 @@ const UsersListFilter = () => {
           <div className='mb-10 position-relative' id='date-range-ref'>
             {/* <label className='form-label fs-6 fw-bold'>Range:</label>
               <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2 callBack={(e: any) => setDate(e)}/>
+              <DateRange2  startDate={''} endDate={''} callBack={(e: any) => setDate(e)}/>
           </div>
           {/*end::Input group*/}
           {/*begin::Actions*/}

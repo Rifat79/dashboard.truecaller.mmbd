@@ -12,7 +12,7 @@ import { deviceTypeOptions } from '../../../../../constants/constants'
 import { getQueryRequest } from '../../../../../modules/helpers/api'
 import { GET_MODEL_LIST } from '../../../../../constants/api.constants'
 import { getAuth } from '../../../../../modules/auth'
-import { createGroup, reactSelectify } from '../../../../../modules/helpers/helper'
+import { createGroup, isDate, reactSelectify } from '../../../../../modules/helpers/helper'
 import DateRange from '../../../../../../_metronic/partials/custom-modules/DateRange'
 import SelectSubmenu from '../../../../../modules/partials/custom-select-with-submenu'
 import DateRange2 from '../../../../../../_metronic/partials/custom-modules/date-range'
@@ -51,11 +51,12 @@ const UsersListFilter = ({state, setState}: any) => {
   };
   const filterData = () => {
     updateState({
-      filter: { 
+      filter: isDate(date?.start_date) && isDate(date?.end_date) ? { 
         start_date: `${date?.start_date} 00:00:00`,
         end_date: `${date?.end_date} 23:59:59`,
-        model: model?.model,
-        deviceType: model?.deviceType
+        model: model?.model
+      } : {
+        model: model?.model
       },
       ...initialQueryState,
     })
@@ -76,7 +77,6 @@ const UsersListFilter = ({state, setState}: any) => {
         ]
         setOptions(optionList)
         setAllModelList([ ...res?.data, ...res2?.data])
-        console.log('options: ', optionList)
       }
     };
     callAPI();
@@ -133,6 +133,7 @@ const UsersListFilter = ({state, setState}: any) => {
                   <option value="AK">Alaska</option>
                   <option value="HI">Hawaii</option>
                 </optgroup> */}
+                <option label='Select a model...'></option>
                 {options?.map((item: any, indx) => (
                   item?.options?.length > 0 && (
                     <optgroup label={item?.label?.props?.children} style={{fontWeight: 'bolder'}}>
@@ -150,7 +151,7 @@ const UsersListFilter = ({state, setState}: any) => {
           <div className='mb-10 position-relative' id='date-range-ref'>
             <label className='form-label fs-6 fw-bold'>Range:</label>
               {/* <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2 callBack={(e: any) => setDate(e)}/>
+              <DateRange2  startDate={''} endDate={''}  callBack={(e: any) => setDate(e)}/>
           </div>
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>

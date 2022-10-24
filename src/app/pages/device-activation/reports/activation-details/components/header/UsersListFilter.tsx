@@ -8,17 +8,19 @@ import { deviceTypeOptions } from '../../../../../../constants/constants'
 import { getQueryRequest } from '../../../../../../modules/helpers/api'
 import { GET_MODEL_LIST } from '../../../../../../constants/api.constants'
 import { getAuth } from '../../../../../../modules/auth'
-import { createGroup, reactSelectify } from '../../../../../../modules/helpers/helper'
+import { createGroup, isDate, reactSelectify } from '../../../../../../modules/helpers/helper'
 import DateRange from '../../../../../../../_metronic/partials/custom-modules/DateRange'
 import SelectSubmenu from '../../../../../../modules/partials/custom-select-with-submenu'
 import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
+import moment from 'moment'
 
-const UsersListFilter = ({state, setState}: any) => {
-  const { updateState } = useQueryRequest()
+const UsersListFilter = () => {
+  const { updateState, state } = useQueryRequest()
   const { isLoading } = useQueryResponse()
   const [deviceType, setDeviceType] = useState({id: 1, label: 'Smart Phone', value: 1});
   const [options, setOptions] = useState([{}]);
   const [models, setModels] = useState([{}]);
+  const [allModelList, setAllModelList] = useState<any>([])
   const [model, setModel] = useState<any>(null);
   const [role, setRole] = useState<string | undefined>()
   const [lastLogin, setLastLogin] = useState<string | undefined>()
@@ -43,22 +45,22 @@ const UsersListFilter = ({state, setState}: any) => {
   };
   const filterData = () => {
     updateState({
-      filter: { 
+      filter: isDate(date?.start_date) && isDate(date?.end_date) ? { 
         start_date: `${date?.start_date} 00:00:00`,
         end_date: `${date?.end_date} 23:59:59`,
+        model: model?.model
+      } : {
         model: model?.model
       },
       ...initialQueryState,
     })
   }
 
-  console.log('model: ', model)
-
   useEffect(() => {
     
     callAPI();
     
-  }, [deviceType, model])
+  }, [])
   
   const callAPI = async () => { 
     const res: any = await getQueryRequest(`${GET_MODEL_LIST}?&deviceType=1`);
@@ -71,9 +73,33 @@ const UsersListFilter = ({state, setState}: any) => {
         createGroup('---Feature Phone---', reactSelectify(res2?.data, 'model'), setModel)
       ]
       setOptions(optionList)
-      console.log('options: ', optionList)
+      setAllModelList([ ...res?.data, ...res2?.data]);
+
+      // setting model in filter state
+      const search = window.location.search;
+      const modelFromURL = new URLSearchParams(search).get('model');
+      const type1 = res?.data?.filter((e: any) => e?.model == modelFromURL)[0]
+      const type2 = res2?.data?.filter((e: any) => e?.model == modelFromURL)[0]
+      if(type1) {
+        updateState({
+          filter: {
+            model: type1?.model
+          },
+          ...initialQueryState,
+        });
+        setModel(type1)
+      } else if(type2) {
+          updateState({
+            filter: {
+              model: type2?.model
+            },
+            ...initialQueryState,
+          });
+          setModel(type2)
+      }
     }
   };
+
 
   return (
     <>
@@ -111,15 +137,37 @@ const UsersListFilter = ({state, setState}: any) => {
           {/* end::Input group */}
 
           {/* begin::Input group */}
-          <div className='mb-10'>
+          {/* <div className='mb-10'>
             <label className='form-label fs-6 fw-bold'>Select Model:</label>
               <SelectSubmenu options={options} value={model} setModel={setModel}/>
+          </div> */}
+          <div className="form-group row">
+            <label className='form-label fs-6 fw-bold'>Select Model:</label>
+            <div className="mb-3 ">
+              <select className="form-control select2" onChange={(e) => setModel(allModelList?.filter((el: any) => el?.model == e.target.value)[0])} id="kt_select2_2" name="param">
+                {/* <optgroup label="Alaskan/Hawaiian Time Zone" style={{fontWeight: 'bolder'}}>
+                  <option value="AK">Alaska</option>
+                  <option value="HI">Hawaii</option>
+                </optgroup> */}
+                <option label='Select a model...'></option>
+                {options?.map((item: any, indx) => (
+                  item?.options?.length > 0 && (
+                    <optgroup label={item?.label?.props?.children} style={{fontWeight: 'bolder'}}>
+                      {item?.options?.map((item: any, indx: any) => (
+                        <option value={item?.model} selected={item?.model == model?.model}>{item?.model}</option>
+                      ))}
+                    </optgroup>
+                  )
+                ))}
+                {!allModelList || allModelList?.length == 0 && (<option>No Options</option>)}
+              </select>
+            </div>
           </div>
           {/* end::Input group */}
           <div className='mb-10 position-relative' id='date-range-ref'>
             {/* <label className='form-label fs-6 fw-bold'>Range:</label>
               <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2 callBack={(e: any) => setDate(e)}/>
+              <DateRange2  startDate={''} endDate={''}  callBack={(e: any) => setDate(e)}/>
           </div>
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>
