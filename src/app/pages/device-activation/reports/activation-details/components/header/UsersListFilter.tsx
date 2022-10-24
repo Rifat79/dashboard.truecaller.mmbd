@@ -11,8 +11,9 @@ import { getAuth } from '../../../../../../modules/auth'
 import { createGroup, isDate, reactSelectify } from '../../../../../../modules/helpers/helper'
 import DateRange from '../../../../../../../_metronic/partials/custom-modules/DateRange'
 import SelectSubmenu from '../../../../../../modules/partials/custom-select-with-submenu'
-import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
+// import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
 import moment from 'moment'
+import DateRange2 from '../partials/date-range/date-range'
 
 const UsersListFilter = () => {
   const { updateState, state } = useQueryRequest()
@@ -25,6 +26,10 @@ const UsersListFilter = () => {
   const [role, setRole] = useState<string | undefined>()
   const [lastLogin, setLastLogin] = useState<string | undefined>()
   const [date, setDate] = useState<any>()
+  const [range, setRange] = useState({
+    start: '',
+    end: '',
+  });
   const auth = getAuth();
 
   useEffect(() => {
@@ -33,6 +38,11 @@ const UsersListFilter = () => {
 
   const resetData = () => {
     updateState({ filter: undefined, ...initialQueryState })
+    setModel(null)
+    setRange({
+      start: '',
+      end: '',
+    })
   }
 
   const handleDeviceTypeOptionChange = (selectedOption: any) => {
@@ -167,7 +177,7 @@ const UsersListFilter = () => {
           <div className='mb-10 position-relative' id='date-range-ref'>
             {/* <label className='form-label fs-6 fw-bold'>Range:</label>
               <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2  startDate={''} endDate={''}  callBack={(e: any) => setDate(e)}/>
+              <DateRange2 callBack={(e: any) => setDate(e)} range={range} setRange={setRange}/>
           </div>
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>

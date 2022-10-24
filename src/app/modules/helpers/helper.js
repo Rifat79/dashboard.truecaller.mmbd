@@ -85,7 +85,7 @@ export const createGroup = (groupName, options, setValue) => {
   };
 };
 
-export const getDateRange = (obj) => {
+export const getDateRange = (obj) => { console.log('obj: ', obj)
   if(!obj || !obj?.start_date || !obj?.end_date) {
     return ' LifeTime'
   };
@@ -115,7 +115,18 @@ export const getFilterKeyword = (obj) => {
   `)
 };
 
+export const getFilterGame = (obj) => {
+  if(!obj?.game) {
+    return ''
+  };
+
+  return (`
+    (Keyword: ${obj?.game})
+  `)
+};
+
 export const isDate = (date) => {
+  if(!date) return false; 
   return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
 }
 
