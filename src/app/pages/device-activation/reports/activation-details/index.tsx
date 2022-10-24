@@ -10,6 +10,7 @@ import {Toolbar} from '../../../../../_metronic/layout/components/toolbar/Toolba
 import {useEffect} from 'react'
 import moment from 'moment'
 import ReportSummaryCard from './components/partials/report-summary-card'
+import { getDateRange, getFilterModel } from '../../../../modules/helpers/helper'
 
 const UsersList = () => {
   let bodyStyles = ''
@@ -18,7 +19,7 @@ const UsersList = () => {
   document.body.setAttribute('style', bodyStyles)
 
   const {itemIdForUpdate} = useListView()
-  const {updateState} = useQueryRequest()
+  const {updateState, state} = useQueryRequest()
 
   useEffect(() => {
     const endDate = moment().format('MM-DD-YYYY')
@@ -29,8 +30,6 @@ const UsersList = () => {
     const model = new URLSearchParams(search).get('model')
     updateState({
       filter: {
-        // start_date: `${startDate} 00:00:00`,
-        // end_date: `${endDate} 23:59:59`,
         model: model,
       },
       ...initialQueryState,
@@ -39,7 +38,7 @@ const UsersList = () => {
 
   return (
     <>
-      <Toolbar>
+      <Toolbar title={`Activation Details -- ${getDateRange(state?.filter)} ${getFilterModel(state?.filter)}`}>
         <UsersListHeader />
       </Toolbar>
       <KTCard>

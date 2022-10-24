@@ -42,7 +42,6 @@ const DashBoard = () => {
 
   const data: any = useQueryResponseData()
   const {updateState, state} = useQueryRequest() 
-  console.log('state: ', state)
   // useEffect(() => {
   //   // const endDate = moment().format('MM-DD-YYYY');
   //   // const startDate = moment().subtract(30, 'days').format('MM-DD-YYYY');
@@ -117,7 +116,6 @@ const DashBoard = () => {
       },
     },
   }
-  console.log('state: ', state)
 
   return (
     <>

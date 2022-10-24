@@ -2,10 +2,10 @@ import moment from 'moment'
 import './date-range.css'
 import React, {useState} from 'react'
 
-export default function DateRange2 ({callBack}) {
+export default function DateRange2 ({callBack, startDate, endDate}) {
   const [state, setState] = useState({
-    start:'',
-    end: '',
+    start:startDate,
+    end: endDate,
   });
 
   const { start, end } = state;

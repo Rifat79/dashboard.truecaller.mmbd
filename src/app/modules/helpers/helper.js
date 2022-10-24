@@ -86,7 +86,7 @@ export const createGroup = (groupName, options, setValue) => {
 };
 
 export const getDateRange = (obj) => {
-  if(!obj) {
+  if(!obj || !obj?.start_date || !obj?.end_date) {
     return ' LifeTime'
   };
 
@@ -104,6 +104,20 @@ export const getFilterModel = (obj) => {
     (Model: ${obj?.model})
   `)
 };
+
+export const getFilterKeyword = (obj) => {
+  if(!obj?.keyword) {
+    return ''
+  };
+
+  return (`
+    (Keyword: ${obj?.keyword})
+  `)
+};
+
+export const isDate = (date) => {
+  return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
+}
 
 export const isChartRequired = (obj, device_type_not) => {
   if(!obj?.deviceType) return true;

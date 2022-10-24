@@ -98,7 +98,7 @@ console.log('date: ', date)
 
           {/* begin::Input group */}
           {/* end::Input group */}
-          <DateRange2 callBack={(e: any) => setDate(e)}/>
+          <DateRange2 startDate={''} endDate={''} callBack={(e: any) => setDate(e)}/>
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>
             <button
