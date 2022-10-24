@@ -12,10 +12,11 @@ import { deviceTypeOptions } from '../../../../constants/constants'
 import { getQueryRequest } from '../../../../modules/helpers/api'
 import { GET_MODEL_LIST } from '../../../../constants/api.constants'
 import { getAuth } from '../../../../modules/auth'
-import { createGroup, reactSelectify } from '../../../../modules/helpers/helper'
+import { createGroup, isDate, reactSelectify } from '../../../../modules/helpers/helper'
 import DateRange from '../../../../../_metronic/partials/custom-modules/DateRange'
 import SelectSubmenu from '../../../../modules/partials/custom-select-with-submenu'
-import DateRange2 from '../../../../../_metronic/partials/custom-modules/date-range'
+import DateRange2 from '../partials/date-range/date-range'
+// import DateRange2 from '../../../../../_metronic/partials/custom-modules/date-range'
 
 const UsersListFilter = ({state, setState}: any) => {
   const { updateState } = useQueryRequest()
@@ -27,9 +28,14 @@ const UsersListFilter = ({state, setState}: any) => {
   const [role, setRole] = useState<string | undefined>()
   const [lastLogin, setLastLogin] = useState<string | undefined>()
   const [date, setDate] = useState<any>({
-    start_date: moment().subtract(29, 'days').format('MM-DD-YYYY'),
-    end_date: moment().format('MM-DD-YYYY'),
+    start_date: '',
+    end_date: '',
   })
+
+  const [range, setRange] = useState({
+    start: '',
+    end: '',
+  });
   const auth = getAuth();
 
   useEffect(() => {
@@ -38,6 +44,10 @@ const UsersListFilter = ({state, setState}: any) => {
 
   const resetData = () => {
     updateState({ filter: undefined, ...initialQueryState })
+    setRange({
+      start: '',
+       end: ''
+    })
   }
 
   const handleDeviceTypeOptionChange = (selectedOption: any) => {
@@ -49,11 +59,10 @@ const UsersListFilter = ({state, setState}: any) => {
     // console.log(`Option selected:`, selectedOption);
   };
   const filterData = () => {
-    updateState({
+    if(isDate(date?.start_date) && isDate(date?.end_date)) updateState({
       filter: { 
         start_date: `${date?.start_date} 00:00:00`,
         end_date: `${date?.end_date} 23:59:59`,
-        model: model?.model
       },
       ...initialQueryState,
     })
@@ -98,7 +107,7 @@ console.log('date: ', date)
 
           {/* begin::Input group */}
           {/* end::Input group */}
-          <DateRange2 startDate={''} endDate={''} callBack={(e: any) => setDate(e)}/>
+          <DateRange2 callBack={(e: any) => setDate(e)} range={range} setRange={setRange}/>
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>
             <button

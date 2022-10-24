@@ -15,7 +15,8 @@ import { getAuth } from '../../../../../modules/auth'
 import { createGroup, isDate, reactSelectify } from '../../../../../modules/helpers/helper'
 import DateRange from '../../../../../../_metronic/partials/custom-modules/DateRange'
 import SelectSubmenu from '../../../../../modules/partials/custom-select-with-submenu'
-import DateRange2 from '../../../../../../_metronic/partials/custom-modules/date-range'
+import DateRange2 from '../partials/date-range/date-range'
+// import DateRange2 from '../../../../../../_metronic/partials/custom-modules/date-range'
 
 const UsersListFilter = ({state, setState}: any) => {
   const { updateState } = useQueryRequest()
@@ -28,9 +29,13 @@ const UsersListFilter = ({state, setState}: any) => {
   const [role, setRole] = useState<string | undefined>()
   const [lastLogin, setLastLogin] = useState<string | undefined>()
   const [date, setDate] = useState<any>({
-    start_date: moment().subtract(29, 'days').format('MM-DD-YYYY'),
-    end_date: moment().format('MM-DD-YYYY'),
+    start_date: '',
+    end_date: '',
   })
+  const [range, setRange] = useState({
+    start: '',
+    end: '',
+  });
   const auth = getAuth();
 
   useEffect(() => {
@@ -39,6 +44,11 @@ const UsersListFilter = ({state, setState}: any) => {
 
   const resetData = () => {
     updateState({ filter: undefined, ...initialQueryState })
+    setModel(null)
+    setRange({
+      start: '',
+      end: '',
+    })
   }
 
   const handleDeviceTypeOptionChange = (selectedOption: any) => {
@@ -138,7 +148,7 @@ const UsersListFilter = ({state, setState}: any) => {
                   item?.options?.length > 0 && (
                     <optgroup label={item?.label?.props?.children} style={{fontWeight: 'bolder'}}>
                       {item?.options?.map((item: any, indx: any) => (
-                        <option value={item?.model} >{item?.model}</option>
+                        <option value={item?.model} selected={item?.model == model?.model} >{item?.model}</option>
                       ))}
                     </optgroup>
                   )
@@ -151,7 +161,7 @@ const UsersListFilter = ({state, setState}: any) => {
           <div className='mb-10 position-relative' id='date-range-ref'>
             <label className='form-label fs-6 fw-bold'>Range:</label>
               {/* <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2  startDate={''} endDate={''}  callBack={(e: any) => setDate(e)}/>
+              <DateRange2 callBack={(e: any) => setDate(e)} range={range} setRange={setRange}/>
           </div>
           {/* begin::Actions */}
           <div className='d-flex justify-content-end'>

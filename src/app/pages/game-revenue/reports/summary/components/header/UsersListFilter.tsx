@@ -6,7 +6,9 @@ import { useQueryResponse } from '../../core/QueryResponseProvider'
 import Select from 'react-select'
 import { deviceTypeOptions } from '../../../../../../constants/constants'
 import DateRange from '../../../../../../../_metronic/partials/custom-modules/DateRange'
-import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
+import DateRange2 from '../partials/date-range/date-range'
+import { isDate } from '../../../../../../modules/helpers/helper'
+// import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
 
 const UsersListFilter = () => {
   const [date, setDate] = useState<any>()
@@ -19,6 +21,15 @@ const UsersListFilter = () => {
     models: [{}],
     deviceType: {id: 1, label: 'Smart Phone', value: 1}
   })
+  
+
+  const search = window.location.search;
+  const startDate = new URLSearchParams(search).get("start_date");
+  const endDate = new URLSearchParams(search).get("end_date");
+  const [range, setRange] = useState({
+    start: startDate,
+    end: endDate,
+  });
 
   useEffect(() => {
     MenuComponent.reinitialization()
@@ -26,6 +37,10 @@ const UsersListFilter = () => {
 
   const resetData = () => {
     updateState({ filter: undefined, ...initialQueryState })
+    setRange({
+      start: '',
+      end: '',
+    })
   }
 
   const handleDeviceTypeChange = (selectdOption: any) => {
@@ -36,13 +51,15 @@ const UsersListFilter = () => {
   }
 
   const filterData = () => {
-    updateState({
-      filter: { 
-        start_date: `${date?.start_date} 00:00:00`,
-        end_date: `${date?.end_date} 23:59:59`
-      },
-      ...initialQueryState,
-    })
+    if(isDate(date?.start_date) && isDate(date?.end_date)) {
+      updateState({
+        filter: { 
+          start_date: `${date?.start_date} 00:00:00`,
+          end_date: `${date?.end_date} 23:59:59`
+        },
+        ...initialQueryState,
+      })
+    }
   }
   
   return (
@@ -86,11 +103,21 @@ const UsersListFilter = () => {
           <div className='mb-10 position-relative' id='date-range-ref'>
             {/* <label className='form-label fs-6 fw-bold'>Range:</label>
               <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2  startDate={''} endDate={''} callBack={(e: any) => setDate(e)}/>
+              <DateRange2 callBack={(e: any) => setDate(e)} range={range} setRange={setRange}/>
           </div>
           {/*end::Input group*/}
           {/*begin::Actions*/}
           <div className="d-flex justify-content-end mt-5">
+            <button
+              type='button'
+              disabled={isLoading}
+              onClick={resetData}
+              className='btn btn-light btn-active-light-primary fw-bold me-2 px-6'
+              data-kt-menu-dismiss='true'
+              data-kt-user-table-filter='reset'
+            >
+              Reset
+            </button>
             <button
               type="submit"
               className="btn btn-primary"

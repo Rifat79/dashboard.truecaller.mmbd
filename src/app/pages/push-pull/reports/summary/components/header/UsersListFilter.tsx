@@ -9,8 +9,9 @@ import DateRange from '../../../../../../../_metronic/partials/custom-modules/Da
 import { getQueryRequest } from '../../../../../../modules/helpers/api'
 import { GET_KEYWORDS } from '../../../../../../constants/api.constants'
 import { isDate, reactSelectify } from '../../../../../../modules/helpers/helper'
-import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
+// import DateRange2 from '../../../../../../../_metronic/partials/custom-modules/date-range'
 import moment from 'moment'
+import DateRange2 from '../partials/date-range/date-range'
 
 const UsersListFilter = () => {
   const [date, setDate] = useState<any>()
@@ -29,6 +30,10 @@ const UsersListFilter = () => {
   const search = window.location.search;
   const startDate = new URLSearchParams(search).get("start_date");
   const endDate = new URLSearchParams(search).get("end_date");
+  const [range, setRange] = useState({
+    start: startDate,
+    end: endDate,
+  });
 
   useEffect(() => {
     MenuComponent.reinitialization()
@@ -42,6 +47,11 @@ const UsersListFilter = () => {
 
   const resetData = () => {
     updateState({ filter: undefined, ...initialQueryState })
+    setKeyword(null)
+    setRange({
+      start: '',
+      end: '',
+    })
   }
 
   const handleDeviceTypeChange = (selectdOption: any) => {
@@ -112,14 +122,14 @@ const UsersListFilter = () => {
                <select className='form-control select2' onChange={(e) => setKeyword(keywords?.filter((el: any) => el?.key == e.target.value)[0])}>
                 <option label='Select a keyword...'></option>
                 {keywords?.map((item: any, indx: any) => (
-                  <option>{item?.key}</option>
+                  <option selected={item?.key == keyword?.key}>{item?.key}</option>
                 ))}
                </select>
           </div>
           <div className='mb-10 position-relative' id='date-range-ref'>
             {/* <label className='form-label fs-6 fw-bold'>Range:</label>
               <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2 startDate={startDate} endDate={endDate} callBack={(e: any) => setDate(e)}/>
+              <DateRange2 callBack={(e: any) => setDate(e)} range={range} setRange={setRange}/>
           </div>
           {/*end::Input group*/}
           {/*begin::Actions*/}

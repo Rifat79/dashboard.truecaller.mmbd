@@ -7,7 +7,7 @@ import {UserEditModal} from './user-edit-modal/UserEditModal'
 import {initialQueryState, KTCard} from '../../../../../_metronic/helpers'
 import {PageTitle} from '../../../../../_metronic/layout/core'
 import {Toolbar} from '../../../../../_metronic/layout/components/toolbar/Toolbar'
-import { getDateRangeByMonth } from '../../../../modules/helpers/helper'
+import { getDateRange, getDateRangeByMonth, getFilterGame, getFilterKeyword, isDate } from '../../../../modules/helpers/helper'
 import { useEffect } from 'react'
 import ReportSummaryCard from './components/partials/report-summary-card'
 
@@ -18,28 +18,33 @@ const UsersList = () => {
   document.body.setAttribute('style', bodyStyles)
 
   const {itemIdForUpdate} = useListView()
-  const { updateState } = useQueryRequest()
+  const { updateState, state } = useQueryRequest()
 
   useEffect(() => {
     const search = window.location.search;
     const startDate = new URLSearchParams(search).get("start_date");
     const endDate = new URLSearchParams(search).get("end_date");
     const game = new URLSearchParams(search).get("game");
-    updateState({
-      filter: { 
-        start_date: `${startDate} 00:00:00`,
-        end_date: `${endDate} 23:59:59`,
-        game: game
-      },
-      ...initialQueryState,
-    });
+    
+    if(isDate(startDate) || isDate(endDate) || game) {
+      updateState({
+        filter: isDate(startDate) && isDate(endDate) ? { 
+          start_date: `${startDate} 00:00:00`,
+          end_date: `${endDate} 23:59:59`,
+          game: game
+        } : {
+          game: game
+        },
+        ...initialQueryState,
+      });
+    }
   }, []);
   
   
   
   return (
     <>
-      <Toolbar>
+      <Toolbar title={`Game Revenue -- ${getDateRange(state?.filter)} ${getFilterGame(state?.filter)}`}>
         <UsersListHeader />
       </Toolbar>
       <KTCard>
