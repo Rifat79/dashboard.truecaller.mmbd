@@ -28,13 +28,13 @@ const UsersTable = () => {
           {...getTableProps()}
         >
           <thead>
-            <tr className='text-start text-muted fw-bolder fs-7 text-uppercase gs-0'>
+            <tr className='text-start  fw-bolder fs-7 text-uppercase gs-0'>
               {headers.map((column: ColumnInstance<User>) => (
                 <CustomHeaderColumn key={column.id} column={column} />
               ))}
             </tr>
           </thead>
-          <tbody className='text-gray-600 fw-bold' {...getTableBodyProps()}>
+          <tbody className='text-gray-600' {...getTableBodyProps()}>
             {rows.length > 0 ? (
               rows.map((row: Row<User>, i) => {
                 prepareRow(row)
