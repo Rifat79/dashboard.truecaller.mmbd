@@ -109,7 +109,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Created At'  />
+      <UserCustomHeader tableProps={props} title='Activation Time'  />
     ),
     id: "created_at",
     accessor: 'createdAt',
