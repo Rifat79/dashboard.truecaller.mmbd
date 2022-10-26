@@ -16,6 +16,7 @@ const UsersList = () => {
   document.body.setAttribute('style', bodyStyles);
 
   const { itemIdForUpdate } = useListView()
+  console.log("item id: ", itemIdForUpdate)
   return (
     <>
       <Toolbar>
@@ -24,7 +25,7 @@ const UsersList = () => {
       <KTCard>
         <UsersTable />
       </KTCard>
-      {itemIdForUpdate !== undefined && <UserEditModal />}
+      {itemIdForUpdate !== undefined && typeof(itemIdForUpdate) !== 'object' && <UserEditModal />}
       {itemIdForUpdate !== undefined && itemIdForUpdate != null && typeof(itemIdForUpdate) == 'object' && <UserPasswordChngModal />}
     </>
   )
