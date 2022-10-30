@@ -5,11 +5,11 @@ import {getAuth} from '../../../../../modules/auth'
 import {User, UsersQueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
-const USER_URL = `${BASE_URL}/partnerapi/subscriber/create`
-const GET_USERS_URL = `${BASE_URL}/partnerapi/pushpull/summary`
-const GET_USER_BY_ID = `${BASE_URL}/partnerapi/subscriber/get`
-const UPDATE_USER = `${BASE_URL}/partnerapi/subscriber/update`
-const  DELETE_USER = `${BASE_URL}/partnerapi/subscriber/delete`
+const USER_URL = `${BASE_URL}/api/subscriber/create`
+const GET_USERS_URL = `${BASE_URL}/api/pushpull/summary`
+const GET_USER_BY_ID = `${BASE_URL}/api/subscriber/get`
+const UPDATE_USER = `${BASE_URL}/api/subscriber/update`
+const  DELETE_USER = `${BASE_URL}/api/subscriber/delete`
 
 const auth = getAuth();
 

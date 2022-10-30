@@ -13,7 +13,7 @@ const UserEditModalFormWrapper = () => {
     data: user,
     error,
   } = useQuery(
-    `${BASE_URL}/partnerapi/user/get?id=${itemIdForUpdate?.id}`,
+    `${BASE_URL}/api/user/get?id=${itemIdForUpdate?.id}`,
     () => {
       return getUserById(itemIdForUpdate?.id)
     },
