@@ -36,7 +36,7 @@ console.log('state: ', state, query)
     refetch,
     data: response,
   } = useQuery(
-    `${BASE_URL}/partnerapi/subscriber/searchImei?${query}`,
+    `${BASE_URL}/api/subscriber/searchImei?${query}`,
     () => {
       return isNotEmpty(state?.search) ? getUsers(query) : {}
     },

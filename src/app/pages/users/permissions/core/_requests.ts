@@ -4,11 +4,11 @@ import { BASE_URL } from '../../../../constants/api.constants'
 import {User, UsersQueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
-const USER_URL = `${BASE_URL}/partnerapi/module/create`
-const GET_USERS_URL = `${BASE_URL}/partnerapi/module/search`
-const GET_USER_BY_ID = `${BASE_URL}/partnerapi/module/get`
-const UPDATE_USER = `${BASE_URL}/partnerapi/module/update`
-const  DELETE_USER = `${BASE_URL}/partnerapi/module/delete`
+const USER_URL = `${BASE_URL}/api/module/create`
+const GET_USERS_URL = `${BASE_URL}/api/module/search`
+const GET_USER_BY_ID = `${BASE_URL}/api/module/get`
+const UPDATE_USER = `${BASE_URL}/api/module/update`
+const  DELETE_USER = `${BASE_URL}/api/module/delete`
 
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios

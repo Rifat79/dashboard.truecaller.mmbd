@@ -57,7 +57,7 @@ const UsersTable = () => {
                 ))}
               </tr>
             </thead>
-            <tbody className='text-gray-600 ' {...getTableBodyProps()}>
+            <tbody className='text-gray-600' {...getTableBodyProps()}>
               {rows.length > 0 ? (
                 rows.map((row: Row<User>, i) => {
                   prepareRow(row)

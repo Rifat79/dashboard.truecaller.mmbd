@@ -5,11 +5,11 @@ import {User, UsersQueryResponse} from './_models'
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
 const USER_URL = `${API_URL}/user`
-const GET_USERS_URL = `${BASE_URL}/partnerapi/role/search`
-const CREATE_USER = `${BASE_URL}/partnerapi/role/create`
-const UPDATE_USER = `${BASE_URL}/partnerapi/role/update`
-const GET_USER_BY_ID = `${BASE_URL}/partnerapi/role/get`
-const DELETE_USER = `${BASE_URL}/partnerapi/role/delete`
+const GET_USERS_URL = `${BASE_URL}/api/role/search`
+const CREATE_USER = `${BASE_URL}/api/role/create`
+const UPDATE_USER = `${BASE_URL}/api/role/update`
+const GET_USER_BY_ID = `${BASE_URL}/api/role/get`
+const DELETE_USER = `${BASE_URL}/api/role/delete`
 
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios
