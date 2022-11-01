@@ -4,6 +4,7 @@ import { getAuth } from '../../modules/auth'
 import { GameKeywordsWrapper } from './game keywords'
 import { RevenueListWrapper } from './revenue'
 import { PushpullKeywordsWrapper } from './pushpull keywords'
+import { DeviceKeywordsWrapper } from './device-keywords'
 
 const ConfigurationPage = () => {
     const auth = getAuth()
@@ -16,6 +17,15 @@ const ConfigurationPage = () => {
                         <>
                             <PageTitle description={auth?.user?.organizationName || ''}>Game Keywords</PageTitle>
                             <GameKeywordsWrapper />
+                        </>
+                    }
+                />
+                <Route
+                    path='device'
+                    element={
+                        <>
+                            <PageTitle description={auth?.user?.organizationName || ''}>Device Keywords</PageTitle>
+                            <DeviceKeywordsWrapper />
                         </>
                     }
                 />
