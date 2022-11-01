@@ -141,7 +141,7 @@ console.log('formik: ', formik)
 
 
           <div className=' position-relative' id='date-range-ref'>
-            <label className='form-label fs-6 fw-bold'>Select Range:</label>
+            {/* <label className='form-label fs-6 fw-bold'>Select Range:</label> */}
               {/* <DateRange callBack={(e: any) => setDate(e)}/> */}
               <DateRange  startDate={''} endDate={''}   callBack={(e: any) => setDate(e)}/>
           </div>
