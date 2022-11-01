@@ -41,7 +41,7 @@ export function Login() {
         const {data: auth} = await login(values.email, values.password)
         if (auth && auth.user.access_token) {
           const d = new Date();
-          d.setSeconds(auth.user.expire_in); 
+          d.setSeconds(auth.user.expire_in / 1000); 
 
           saveAuth({ ...auth, expired: d.getTime() })
           setCurrentUser(auth)

@@ -28,6 +28,12 @@ export type User = {
   user?: any
   title?: any
   requestTime?: any
+  createdBy?: any
+  endAt?: any
+  requestAt?: any
+  startAt?: any
+  url?: any
+  status?: any
 }
 
 export type UsersQueryResponse = Response<Array<User>>
