@@ -13,7 +13,7 @@ const UserEditModal = () => {
   return (
     <>
       <div
-        className='modal fade show d-block modal-lg'
+        className='modal fade show d-block'
         id='kt_modal_add_user'
         role='dialog'
         tabIndex={-1}
@@ -23,7 +23,7 @@ const UserEditModal = () => {
         <div className='modal-dialog modal-dialog-centered modal-sm'>
           {/* begin::Modal content */}
           <div className='modal-content'>
-            {/* <UserEditModalHeader /> */}
+            <UserEditModalHeader />
             {/* begin::Modal body */}
             <div className='modal-body scroll-y mx-5'>
               <UserEditModalFormWrapper />
