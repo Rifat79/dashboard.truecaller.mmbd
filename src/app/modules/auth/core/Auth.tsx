@@ -71,7 +71,6 @@ const AuthInit: FC<WithChildren> = ({children}) => {
       try {
         const auth = authHelper.getAuth()
         let data: any = auth;
-
         if (auth && (auth?.expired < new Date().getTime())) {
           if (!didRequest.current) {
             let { data }: any = await getUserByToken(apiToken)

@@ -11,10 +11,11 @@ import { isNotEmpty, toAbsoluteUrl } from '../../../../../../_metronic/helpers'
 import CropperComponents from '../../../../../modules/helpers/cropper/CropperComponents'
 import Select from 'react-select'
 import { getQueryRequest } from '../../../../../modules/helpers/api'
-import { GET_ORGANIZATION_LIST, GET_ROLE_LIST } from '../../../../../constants/api.constants'
+import { GET_ORGANIZATION_LIST, GET_ROLE_LIST, REQUEST_DOWNLOAD } from '../../../../../constants/api.constants'
 import { reactSelectify } from '../../../../../modules/helpers/helper'
 import swal from 'sweetalert'
 import DateRange2 from '../../../../../../_metronic/partials/custom-modules/date-range'
+import DateRange from './DateRange'
 
 const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
 
@@ -29,28 +30,7 @@ type Props = {
 }
 
 const editUserSchema = Yup.object().shape({
-  email: Yup.string()
-    .email('Wrong email format')
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Email is required'),
-  name: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(50, 'Maximum 50 symbols')
-    .required('Name is required'),
-  mobile: Yup.string()
-    .matches(phoneRegExp, 'Phone number is not valid')
-    .required('Phone no. is required'),
-  password: Yup.string()
-    .min(5, 'Password must be of at least 5 characters')
-    .required('Password is required'),
-  confirmPass: Yup.string()
-    .oneOf([Yup.ref('password'), null], 'Passwords must match')
-    .required('Please confirm the password'),
-  address: Yup.string()
-    .min(3, 'Minimum 3 symbols')
-    .max(500, 'Maximum 50 symbols')
-    .required('Address is required'),
+  
 })
 
 const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
@@ -68,16 +48,8 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
 
   const [userForEdit] = useState<User>({
     ...user,
-    avatar: user.avatar || initialUser.avatar,
-    address: user.address || initialUser.address,
-    role: user.role || initialUser.role,
-    position: user.position || initialUser.position,
-    name: user.name || initialUser.name,
-    email: user.email || initialUser.email,
-    mobile: user.mobile || initialUser.mobile,
-    password: user.password || initialUser.password,
-    confirmPass: user.confirmPass || initialUser.confirmPass,
-    organization: user.organization || initialUser.organization,
+    startDate: '',
+    endDate: ''
   })
 
   const cancel = (withRefresh?: boolean) => {
@@ -104,53 +76,44 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
     initialValues: userForEdit,
     validationSchema: editUserSchema,
     onSubmit: async (values, { setSubmitting }) => {
+      console.log('clicked...')
       setSubmitting(true)
       try {
-        if (isNotEmpty(values.id)) {
-          const res: any =  await updateUser({
-            statusActive: 1,
-            address: values.address,
-            email: values.email,
-            id: values.id,
-            image: values.image,
-            mobile: values.mobile,
-            name: values.name,
-            organizationId: values.organization?.id,
-            // password: values.password,
-            role: values.role
-          })
-          if(res?.data?.success) {
+        // if (isNotEmpty(values.id)) {
+        //   const res: any =  await updateUser({
+        //     statusActive: 1,
+        //     address: values.address,
+        //     email: values.email,
+        //     id: values.id,
+        //     image: values.image,
+        //     mobile: values.mobile,
+        //     name: values.name,
+        //     organizationId: values.organization?.id,
+        //     // password: values.password,
+        //     role: values.role
+        //   })
+        //   if(res?.data?.success) {
+        //     cancel(true);
+        //   } else {
+        //     swal({
+        //       title: "Sorry!",
+        //       text: res?.data?.message,
+        //       icon: "error",
+        //     });
+        //   }
+        // } else {
+          const res: any = await getQueryRequest(`${REQUEST_DOWNLOAD}?filter_start_date=${date?.start_date} 00:00:00&filter_end_date=${date?.end_date} 23:59:59`);
+          if(res?.success) {
+            refetch();
             cancel(true);
           } else {
             swal({
               title: "Sorry!",
-              text: res?.data?.message,
+              text: res?.message,
               icon: "error",
             });
           }
-        } else {
-          const res: any = await createUser({
-            statusActive: 1,
-            address: values.address,
-            email: values.email,
-            id: values.id,
-            image: values.image,
-            mobile: values.mobile,
-            name: values.name,
-            organizationId: values.organization?.id,
-            password: values.password,
-            role: values.role
-          });
-          if(res?.data?.success) {
-            cancel(true);
-          } else {
-            swal({
-              title: "Sorry!",
-              text: res?.data?.message,
-              icon: "error",
-            });
-          }
-        }
+        // }
       } catch (ex) {
         console.error(ex)
       } finally {
@@ -159,7 +122,7 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
       }
     },
   }); 
-
+console.log('formik: ', formik)
 
   return (
     <>
@@ -177,17 +140,17 @@ const UserEditModalForm: FC<Props> = ({ user, isUserLoading }) => {
         >
 
 
-          <div className='mb-10 position-relative' id='date-range-ref'>
-            <label className='form-label fs-6 fw-bold'>Range:</label>
+          <div className=' position-relative' id='date-range-ref'>
+            <label className='form-label fs-6 fw-bold'>Select Range:</label>
               {/* <DateRange callBack={(e: any) => setDate(e)}/> */}
-              <DateRange2  startDate={''} endDate={''}   callBack={(e: any) => setDate(e)}/>
+              <DateRange  startDate={''} endDate={''}   callBack={(e: any) => setDate(e)}/>
           </div>
           {/* end::Input group */}
         </div>
         {/* end::Scroll */}
 
         {/* begin::Actions */}
-        <div className='text-center pt-15'>
+        <div className='text-center'>
           <button
             type='reset'
             onClick={() => cancel()}

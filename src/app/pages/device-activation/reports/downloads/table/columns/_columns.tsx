@@ -9,6 +9,7 @@ import {UserCustomHeader} from './UserCustomHeader'
 import {UserSelectionHeader} from './UserSelectionHeader'
 import {User} from '../../core/_models'
 import { UserPermissionCell } from './UserPermissionCell'
+import { DownloadIconCell } from './DownloadIconCell'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
   // {
@@ -21,14 +22,14 @@ const usersColumns: ReadonlyArray<Column<User>> = [
       <UserCustomHeader tableProps={props} title='Start Date'  />
     ),
     id: "startDate",
-    accessor: 'startDate',
+    accessor: 'startAt',
   },
   {
     Header: (props) => (
       <UserCustomHeader tableProps={props} title='End Date'  />
     ),
     id: "endDate",
-    accessor: 'endDate',
+    accessor: 'endAt',
   },
   {
     Header: (props) => (
@@ -42,14 +43,19 @@ const usersColumns: ReadonlyArray<Column<User>> = [
       <UserCustomHeader tableProps={props} title='Request Time'  />
     ),
     id: "requestTime",
-    accessor: 'requestTime',
+    accessor: 'requestAt',
   },
   {
     Header: (props) => (
       <UserCustomHeader tableProps={props} title='User'  />
     ),
     id: "user",
-    accessor: 'user',
+    accessor: 'createdBy',
+  },
+  {
+    Header: (props) => <UserCustomHeader tableProps={props} title='Download'  />,
+    id: 'Role',
+    Cell: ({...props}) => <DownloadIconCell user={props.data[props.row.index]}/>,
   },
 ]
 

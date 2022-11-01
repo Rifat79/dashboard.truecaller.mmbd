@@ -39,7 +39,7 @@ const ReportsPage = () => (
                 path='downloads'
                 element={
                     <>
-                        <PageTitle>Permissions</PageTitle>
+                        <PageTitle>Downloads</PageTitle>
                         <DownloadsWrapper />
                     </>
                 }
