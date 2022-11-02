@@ -29,13 +29,13 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='IMEI' />
+      <UserCustomHeader tableProps={props} title='IMEI 1' />
     ),
     accessor: 'firstImei',
   },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='IMSI' />
+      <UserCustomHeader tableProps={props} title='IMEI 2' />
     ),
     accessor: 'secondImei',
   },
@@ -107,7 +107,7 @@ const usersColumns: ReadonlyArray<Column<User>> = [
   // },
   {
     Header: (props) => (
-      <UserCustomHeader tableProps={props} title='Created At' />
+      <UserCustomHeader tableProps={props} title='Activation Time' />
     ),
     id: "created_at",
     accessor: 'createdAt',
