@@ -36,7 +36,7 @@ const QueryResponseProvider: FC<WithChildren> = ({children}: any) => {
     () => {
       return getUsers(query)
     },
-    {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false}
+    {cacheTime: 0, keepPreviousData: true, refetchOnWindowFocus: false, refetchInterval: 30000}
   )
 
   return (

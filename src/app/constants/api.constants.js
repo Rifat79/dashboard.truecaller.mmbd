@@ -18,3 +18,4 @@ export const GET_PUSHPULL_REPORT_SUMMARY = `${BASE_URL}/api/pushpull/search/summ
 export const GET_GAME_REPORT_SUMMARY = `${BASE_URL}/api/revenue/search/summary`
 export const CHANGE_PASSWORD = `${BASE_URL}/api/user/changePassword`
 export const REQUEST_DOWNLOAD = `${BASE_URL}/api/subscriber/download`
+export const GET_DOWNLOAD_LIST = `${BASE_URL}/api/subscriber/report/search`
