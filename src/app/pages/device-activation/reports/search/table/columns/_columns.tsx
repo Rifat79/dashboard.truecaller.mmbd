@@ -9,6 +9,7 @@ import {UserCustomHeader} from './UserCustomHeader'
 import {UserSelectionHeader} from './UserSelectionHeader'
 import {User} from '../../core/_models'
 import { UserPermissionCell } from './UserPermissionCell'
+import { DetailsIconCell } from './DetailsIconCell'
 
 const usersColumns: ReadonlyArray<Column<User>> = [
   // {
@@ -111,6 +112,11 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     ),
     id: "created_at",
     accessor: 'createdAt',
+  },
+  {
+    Header: (props) => <UserCustomHeader tableProps={props} title='History'  />,
+    id: 'Role',
+    Cell: ({...props}) => <DetailsIconCell activationHistory={props.data[props.row.index].activationHistory}/>,
   },
   // {
   //   Header: (props) => (
