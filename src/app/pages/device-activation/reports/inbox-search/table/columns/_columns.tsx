@@ -36,7 +36,12 @@ const usersColumns: ReadonlyArray<Column<User>> = [
     ),
     accessor: 'brand',
   },
-  
+  {
+    Header: (props) => (
+      <UserCustomHeader tableProps={props} title='shortCode' />
+    ),
+    accessor: 'shortCode',
+  },
   {
     Header: (props) => (
       <UserCustomHeader tableProps={props} title='msisdn' />

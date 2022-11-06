@@ -29,6 +29,7 @@ export type User = {
   operator?: any
   orgMo?: any
   vmsisdn?: any
+  shortCode?: any
 
 }
 
