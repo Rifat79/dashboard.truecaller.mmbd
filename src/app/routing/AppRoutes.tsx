@@ -22,7 +22,6 @@ const {PUBLIC_URL} = process.env
 const AppRoutes: FC = () => {
   const {currentUser} = useAuth();
   const auth = getAuth(); 
-  console.log('auth: ', auth)
   return (
     <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
