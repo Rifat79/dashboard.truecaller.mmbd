@@ -13,9 +13,12 @@ import BusinessOrganizationPage from '../pages/business-organization'
 import GameRevenue from '../pages/game-revenue'
 import PushPullRevenue from '../pages/push-pull'
 import Profile from '../pages/profile'
+import { getAuth } from '../modules/auth'
 
 const PrivateRoutes = () => {
   const Merchants = lazy(() => import('../pages/marchents'))
+  const auth = getAuth()
+  console.log('auth: ', auth)
 
   return (
     <Routes>
@@ -23,7 +26,7 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/' />} /> 
         {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
+        {auth?.user?.permissions?.dashboard && <Route path='dashboard' element={<DashboardWrapper />} />}
         {/* Lazy Modules */}
         <Route
           path='merchants/*'
