@@ -26,7 +26,7 @@ const DashboardPage = () => {
   const {updateState, state} = useQueryRequest()
   // const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
-  const auth = getAuth();
+  const auth = getAuth(); 
 
   // useEffect(() => {
   //   const endDate = moment().format('MM-DD-YYYY');
@@ -65,16 +65,18 @@ const DashboardPage = () => {
     {/* begin::Row */}
     
     <div className='row g-2 g-xl-3'>
-      <div className='col-12'>
-        <div className='card'>
-          <div className='card-header min-h-auto'>
-            <h2 className='card-title fw-bolder lh-1 py-1'>Activation Recap Report -- All Models</h2>
+      {auth?.user?.organizationName !== 'Shiny Corporation' && (
+        <div className='col-12'>
+          <div className='card'>
+            <div className='card-header min-h-auto'>
+              <h2 className='card-title fw-bolder lh-1 py-1'>Activation Recap Report -- All Models</h2>
+            </div>
+            <div className='card-body p-1'>
+              <ActivationDashboardWrapper />
+            </div>
           </div>
-          <div className='card-body p-1'>
-            <ActivationDashboardWrapper />
-          </div>
-        </div>
       </div>
+      )}
       <div className='col-12'>
         <div className='card'>
           <div className='card-header min-h-auto'>
