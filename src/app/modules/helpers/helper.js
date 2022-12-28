@@ -41,7 +41,7 @@ const getMonthLastDate = (month) => {
   }
 };
 
-export const getDateRangeByMonth = (month = '') => { console.log('month: ', month)
+export const getDateRangeByMonth = (month = '') => { 
   if(!month) {
     return undefined;
   }
@@ -56,7 +56,7 @@ export const getDateRangeByMonth = (month = '') => { console.log('month: ', mont
 
   const startDate = `${monthId}-01-${year}`;
   const endDate = `${monthId}-${getMonthLastDate(monthName.toLocaleLowerCase())}-${year}`;
-  console.log(startDate, ': ', endDate)
+  
 
   return ({
     start_date: startDate,
@@ -85,7 +85,7 @@ export const createGroup = (groupName, options, setValue) => {
   };
 };
 
-export const getDateRange = (obj) => { console.log('obj: ', obj)
+export const getDateRange = (obj) => {
   if(!obj || !obj?.start_date || !obj?.end_date) {
     return ' LifeTime'
   };
@@ -148,7 +148,7 @@ export const getDiscrepencyGP = (discrepency, billingFee) => {
   return getBillingShareGP(billingFee) * (1 - discrepency);
 };
 export const getPartnerShareGP = (discrepency, billingFee, partnerShare) => {
-  return getDiscrepencyGP(discrepency, billingFee) * (1 - partnerShare);
+  return getDiscrepencyGP(discrepency, billingFee) * partnerShare;
 };
 export const getAitGP = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareGP(discrepency, billingFee, partnerShare) * (1 - ait);
@@ -169,7 +169,7 @@ export const getDiscrepencyBL = (discrepency, billingFee) => {
   return getBillingShareBL(billingFee) * (1 - discrepency);
 };
 export const getPartnerShareBL = (discrepency, billingFee, partnerShare) => {
-  return getDiscrepencyBL(discrepency, billingFee) * (1 - partnerShare);
+  return getDiscrepencyBL(discrepency, billingFee) * partnerShare;
 };
 export const getAitBL = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareBL(discrepency, billingFee, partnerShare) * (1 - ait);
@@ -190,7 +190,7 @@ export const getDiscrepencyRobi = (discrepency, billingFee) => {
   return getBillingShareRobi(billingFee) * (1 - discrepency);
 };
 export const getPartnerShareRobi = (discrepency, billingFee, partnerShare) => {
-  return getDiscrepencyRobi(discrepency, billingFee) * (1 - partnerShare);
+  return getDiscrepencyRobi(discrepency, billingFee) * partnerShare;
 };
 export const getAitRobi = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareRobi(discrepency, billingFee, partnerShare) * (1 - ait);
@@ -211,7 +211,7 @@ export const getDiscrepencyAirtel = (discrepency, billingFee) => {
   return getBillingShareAirtel(billingFee) * (1 - discrepency);
 };
 export const getPartnerShareAirtel = (discrepency, billingFee, partnerShare) => {
-  return getDiscrepencyAirtel(discrepency, billingFee) * (1 - partnerShare);
+  return getDiscrepencyAirtel(discrepency, billingFee) * partnerShare;
 };
 export const getAitAirtel = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareAirtel(discrepency, billingFee, partnerShare) * (1 - ait);
@@ -232,7 +232,7 @@ export const getDiscrepencyTeletalk = (discrepency, billingFee) => {
   return getBillingShareTeletalk(billingFee) * (1 - discrepency);
 };
 export const getPartnerShareTeletalk = (discrepency, billingFee, partnerShare) => {
-  return getDiscrepencyTeletalk(discrepency, billingFee) * (1 - partnerShare);
+  return getDiscrepencyTeletalk(discrepency, billingFee) * partnerShare;
 };
 export const getAitTeletalk = (discrepency, billingFee, partnerShare, ait) => {
   return getPartnerShareTeletalk(discrepency, billingFee, partnerShare) * (1 - ait);
@@ -246,13 +246,13 @@ export const getGrandShareTeletalk = (values) => {
 
 //
 
-export const getOrgId = (list = [], key='') => { console.log('list: ', list, key)
+export const getOrgId = (list = [], key='') => {
   if(!list || list?.length == 0) {
     return null;
   }
 
   const fil = list.filter(e => e?.organizationName == key);
-  console.log('fil: ', fil)
+  
   if(fil?.length >= 1) {
     return fil[0]?.id;
   } else return null;
