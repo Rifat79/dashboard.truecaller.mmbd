@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react"
+import { stringifyRequestQuery } from "../../../../../../../_metronic/helpers";
 import { GET_ACTIVATION_REPORT_SUMMARY } from "../../../../../../constants/api.constants";
 import { getQueryRequest } from "../../../../../../modules/helpers/api";
+import { useQueryRequest } from "../../core/QueryRequestProvider";
 
 
 export default function ReportSummaryCard() {
+  const { updateState, state } = useQueryRequest()
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({
         today: '...',
@@ -13,11 +16,12 @@ export default function ReportSummaryCard() {
     });
 
     useEffect(() => {
+        setLoading(true);
         callAPI();
-    }, []);
+    }, [state]);
 
     const callAPI = async() => {
-      const res = await getQueryRequest(GET_ACTIVATION_REPORT_SUMMARY);
+      const res = await getQueryRequest(`${GET_ACTIVATION_REPORT_SUMMARY}?${stringifyRequestQuery(state)}`);
 
       setLoading(false);
       if(res?.success) {
