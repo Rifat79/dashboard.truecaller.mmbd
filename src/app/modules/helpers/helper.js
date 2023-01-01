@@ -91,7 +91,7 @@ export const getDateRange = (obj) => {
   };
 
   return (`
-    ${moment(obj?.start_date).format('ll')} to ${moment(obj?.end_date).format('ll')}
+    ${moment(obj?.start_date, 'MM-DD-YYYY').format('ll')} to ${moment(obj?.end_date, 'MM-DD-YYYY').format('ll')}
   `)
 };
 
@@ -127,7 +127,9 @@ export const getFilterGame = (obj) => {
 
 export const isDate = (date) => {
   if(!date) return false; 
-  return (new Date(date) !== "Invalid Date") && !isNaN(new Date(date));
+  const d = date.split('-');
+  if(d?.length < 3) return false;
+  return (new Date(`${d[2]}-${d[0]}-${d[1]} 12:00:00`) !== "Invalid Date") && !isNaN(new Date(`${d[2]}-${d[0]}-${d[1]} 12:00:00`));
 }
 
 export const isChartRequired = (obj, device_type_not) => {
