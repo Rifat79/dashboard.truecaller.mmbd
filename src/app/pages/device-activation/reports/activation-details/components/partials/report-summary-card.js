@@ -36,7 +36,6 @@ export default function ReportSummaryCard() {
     };
 
     if(loading) return <h3 style={{textAlign: 'center'}}>loading...</h3>;
-    console.log('data: ', data)
 
     return (
         <div className='card mb-8'>
