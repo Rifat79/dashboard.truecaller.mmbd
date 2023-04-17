@@ -16,7 +16,7 @@ const AuthLayout = () => {
     console.log('origin: ', window.location.origin)
     const origin = window.location.origin;
 
-    return origin.includes('hanirainternationalltd.com');
+    return origin.includes('anirainternationalltd.com');
   }
 
   return (
