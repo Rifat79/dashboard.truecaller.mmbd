@@ -14,9 +14,9 @@ import { getQueryRequest } from '../../../../modules/helpers/api'
 import { GET_ORGANIZATION_LIST, GET_ROLE_LIST } from '../../../../constants/api.constants'
 import { reactSelectify } from '../../../../modules/helpers/helper'
 import swal from 'sweetalert'
-import { statusOptions } from '../../../../constants/constants'
+import { phoneRegExp, statusOptions } from '../../../../constants/constants'
 
-const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
+// const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
 const websiteRegEx = /^((https?):\/\/)?([w|W]{3}\.)+[a-zA-Z0-9\-\.]{3,}\.[a-zA-Z]{2,}(\.[a-zA-Z]{2,})?$/;
 
 const options = [
