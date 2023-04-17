@@ -17,7 +17,7 @@ import swal from 'sweetalert'
 import DateRange2 from '../../../../../../_metronic/partials/custom-modules/date-range'
 import DateRange from './DateRange'
 
-const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
+// const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
 
 const options = [
   { value: 'approved', label: 'Approved' },

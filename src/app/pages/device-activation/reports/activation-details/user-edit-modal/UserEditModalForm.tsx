@@ -14,8 +14,9 @@ import { getQueryRequest } from '../../../../../modules/helpers/api'
 import { GET_ORGANIZATION_LIST, GET_ROLE_LIST } from '../../../../../constants/api.constants'
 import { reactSelectify } from '../../../../../modules/helpers/helper'
 import swal from 'sweetalert'
+import { phoneRegExp } from '../../../../../constants/constants'
 
-const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
+// const phoneRegExp = /(^(\+88|0088)?(01){1}[3456789]{1}(\d){8})$/;
 
 const options = [
   { value: 'approved', label: 'Approved' },
