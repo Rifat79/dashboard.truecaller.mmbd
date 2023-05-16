@@ -25,14 +25,14 @@ const UsersList = () => {
     const search = window.location.search;
     const startDate = new URLSearchParams(search).get("start_date");
     const endDate = new URLSearchParams(search).get("end_date");
-    const game = new URLSearchParams(search).get("game");
-    if(startDate || endDate || game) updateState({
+    const keyword = new URLSearchParams(search).get("keyword");
+    if(startDate || endDate || keyword) updateState({
       filter: isDate(startDate) && isDate(endDate) ? { 
         start_date: `${startDate} 00:00:00`,
         end_date: `${endDate} 23:59:59`,
-        game: game
+        keyword: keyword
       } : {
-        game: game
+        keyword: keyword
       },
       ...initialQueryState,
     });
