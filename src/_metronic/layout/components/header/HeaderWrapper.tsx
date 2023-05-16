@@ -6,11 +6,13 @@ import { KTSVG, toAbsoluteUrl } from '../../../helpers'
 import { useLayout, usePageData } from '../../core'
 import { Header } from './Header'
 import { Topbar } from './Topbar'
+import { getAuth } from '../../../../app/modules/auth'
 
 export function HeaderWrapper() {
   const { config, classes, attributes } = useLayout()
   const {pageTitle, pageDescription} = usePageData()
   const { header, aside } = config
+  const auth = getAuth();
 
   return (
     <div
@@ -40,7 +42,7 @@ export function HeaderWrapper() {
         {!aside.display && (
           <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
             <Link to='/dashboard' className='d-lg-none'>
-              <img alt='Logo' src={toAbsoluteUrl('/media/logos/default-small.svg')} className='h-30px' />
+              <img alt='Logo' src={auth?.user?.organizationUrl} className='h-30px' />
             </Link>
           </div>
         )}
@@ -49,7 +51,7 @@ export function HeaderWrapper() {
         {aside.display && (
           <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
             <Link to='/' className='d-lg-none'>
-              <img alt='Logo' src={toAbsoluteUrl('/media/logos/default-small.svg')} className='h-30px' />
+              <img alt='Logo' src={auth?.user?.organizationUrl} className='h-30px' />
             </Link>
           </div>
         )}

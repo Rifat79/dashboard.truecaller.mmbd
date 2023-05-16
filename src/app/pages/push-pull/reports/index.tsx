@@ -3,6 +3,7 @@ import { PageTitle } from '../../../../_metronic/layout/core'
 import { ModelListWrapper } from './game-wise'
 import { RevenueSummary } from './revenue-summary'
 import { ReportDetails } from './summary'
+import { KeywordWiseRevenueWrapper } from './keyword-wise';
 
 const ReportsPage = () => (
     <Routes>
@@ -22,6 +23,15 @@ const ReportsPage = () => (
                     <>
                         <PageTitle>Push-Pull Revenue Details</PageTitle>
                         <ReportDetails />
+                    </>
+                }
+            />
+            <Route
+                path='keyword-wise'
+                element={
+                    <>
+                        <PageTitle>Keyword Wise Push-Pull Revenue Details</PageTitle>
+                        <KeywordWiseRevenueWrapper />
                     </>
                 }
             />
