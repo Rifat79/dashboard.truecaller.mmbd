@@ -22,7 +22,7 @@ type Props = {
 
 const editUserSchema = Yup.object().shape({
   brandKeyword: Yup.string()
-    .min(3, 'Minimum 2 symbols')
+    .min(2, 'Minimum 2 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Name is required'),
   organization: Yup.object()
