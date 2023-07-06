@@ -18,7 +18,6 @@ import { getAuth } from '../modules/auth'
 const PrivateRoutes = () => {
   const Merchants = lazy(() => import('../pages/marchents'))
   const auth = getAuth()
-  console.log('auth: ', auth)
 
   return (
     <Routes>
@@ -26,9 +25,9 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/' />} /> 
         {/* Pages */}
-        {auth?.user?.permissions?.dashboard && <Route path='dashboard' element={<DashboardWrapper />} />}
+        <Route path='dashboard' element={<DashboardWrapper />} />
         {/* Lazy Modules */}
-        <Route
+        {/* <Route
           path='merchants/*'
           element={
             <SuspensedView>
@@ -91,7 +90,7 @@ const PrivateRoutes = () => {
               <PushPullRevenue />
             </SuspensedView>
           }
-        />
+        /> */}
         <Route
           path='profile'
           element={

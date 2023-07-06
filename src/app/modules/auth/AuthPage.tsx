@@ -44,26 +44,6 @@ const AuthLayout = () => {
         </div>
         {/* end::Content */}
       </div>
-      <div className={`d-flex flex-column flex-lg-row-auto ${hideBrands() ? '' : 'w-xl-600px' } positon-xl-relative bg-dark`}>
-      {/* <!--begin::Wrapper--> */}
-      {!hideBrands() && (
-          <div className="d-flex flex-column position-xl-fixed top-0 bottom-0 w-xl-600px scroll-y">
-            {/* <!--begin::Content--> */}
-            <div className="d-flex flex-row-fluid flex-column text-center p-10">
-              <h1 className="fw-bolder fs-2qx pb-5 text-white">Our New Brands</h1>
-              {/* <!--begin::Logo--> */}
-              <a href="#" className="py-5">
-                <img alt="Logo" src={toAbsoluteUrl('/media/logos/webmanza-banner.jpeg')} className="img-fluid rounded" />
-              </a>
-              <a href="#" className="py-5">
-                <img alt="Logo" src={toAbsoluteUrl('/media/logos/mkiddo-banner.jpeg')} className="img-fluid rounded" />
-              </a>
-            </div>
-            {/* <!--end::Content--> */}
-          </div>
-      )}
-      {/* <!--end::Wrapper--> */}
-    </div>
     </div>
   )
 }

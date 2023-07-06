@@ -91,9 +91,24 @@ export const getDateRange = (obj) => {
   };
 
   return (`
-    ${moment(obj?.start_date, 'MM-DD-YYYY').format('ll')} to ${moment(obj?.end_date, 'MM-DD-YYYY').format('ll')}
+    ${moment(obj?.start_date, 'YYYY-MM-DD').format('ll')} to ${moment(obj?.end_date, 'YYYY-MM-DD').format('ll')}
   `)
 };
+
+export const getPackage = (obj) => {
+  if(!obj || !obj?.package) {
+    return '';
+  }
+  return ", " + obj?.package;
+}
+
+export const getPaymentStatus = (obj) => {
+  if(!obj || !obj.payment_status) {
+    return ''
+  }
+
+  return ", " + obj?.payment_status;
+}
 
 export const getFilterModel = (obj) => {
   if(!obj?.model) {

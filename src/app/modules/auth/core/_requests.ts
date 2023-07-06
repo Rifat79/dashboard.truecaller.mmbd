@@ -5,7 +5,7 @@ import {AuthModel, UserModel} from './_models'
 const API_URL = BASE_URL;
 
 export const GET_USER_BY_ACCESSTOKEN_URL = `${API_URL}/api/auth/refreshToken`
-export const LOGIN_URL = `${API_URL}/api/auth/login`
+export const LOGIN_URL = `${API_URL}/api/v2/truecaller/dashboard/login`
 export const REGISTER_URL = `${API_URL}/register`
 export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`
 

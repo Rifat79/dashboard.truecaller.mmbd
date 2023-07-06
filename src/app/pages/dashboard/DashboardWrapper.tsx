@@ -16,6 +16,7 @@ import { QueryRequestProvider, useQueryRequest } from './core/QueryRequestProvid
 import { QueryResponseProvider, useQueryResponseData } from './core/QueryResponseProvider'
 import { GameDashboardWrapper } from './game-revenue'
 import { PushpullDashboardWrapper } from './push-pull'
+import { ActivationDetailsWrapper } from './reports/activation-details'
 
 const DashboardPage = () => {
   let bodyStyles = ''
@@ -69,34 +70,14 @@ const DashboardPage = () => {
         <div className='col-12'>
           <div className='card'>
             <div className='card-header min-h-auto'>
-              <h2 className='card-title fw-bolder lh-1 py-1'>Activation Recap Report -- All Models</h2>
+              <h2 className='card-title fw-bolder lh-1 py-1'>Truecaller Subscriptions</h2>
             </div>
             <div className='card-body p-1'>
-              <ActivationDashboardWrapper />
+              <ActivationDetailsWrapper />
             </div>
           </div>
       </div>
       )}
-      <div className='col-12'>
-        <div className='card'>
-          <div className='card-header min-h-auto'>
-            <h2 className='card-title fw-bolder lh-1 py-1'>Game Revenue Report</h2>
-          </div>
-          <div className='card-body p-1'>
-             <GameDashboardWrapper />
-          </div>
-        </div>
-      </div>
-      <div className='col-12'>
-        <div className='card'>
-          <div className='card-header min-h-auto'>
-            <h2 className='card-title fw-bolder lh-1 py-1'>Push-Pull Revenue Report</h2>
-          </div>
-          <div className='card-body p-1'>
-             <PushpullDashboardWrapper />
-          </div>
-        </div>
-      </div>
     </div>
     {/* end::Row */}
     </>
@@ -113,7 +94,7 @@ const DashboardWrapper: FC = () => {
   return (
     <QueryRequestProvider>
       <QueryResponseProvider>
-      <PageTitle description={auth?.user?.organizationName || ''} breadcrumbs={[]}>{intl.formatMessage({ id: 'MENU.DASHBOARD' })}</PageTitle>
+      <PageTitle description={ ''} breadcrumbs={[]}>{intl.formatMessage({ id: 'MENU.DASHBOARD' })}</PageTitle>
       {/* <Toolbar /> */}
       <DashboardPage />
       </QueryResponseProvider>
