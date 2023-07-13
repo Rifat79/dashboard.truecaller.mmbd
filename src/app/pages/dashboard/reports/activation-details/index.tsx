@@ -10,7 +10,7 @@ import {Toolbar} from '../../../../../_metronic/layout/components/toolbar/Toolba
 import {useEffect} from 'react'
 import moment from 'moment'
 import ReportSummaryCard from './components/partials/report-summary-card'
-import { getDateRange, getFilterModel, getPackage, getPaymentStatus } from '../../../../modules/helpers/helper'
+import { getDateRange, getFilterModel, getPackage, getPaymentStatus, getPurchaseType } from '../../../../modules/helpers/helper'
 
 const UsersList = () => {
   let bodyStyles = ''
@@ -20,6 +20,7 @@ const UsersList = () => {
 
   const {itemIdForUpdate} = useListView()
   const {updateState, state} = useQueryRequest()
+  console.log({state})
 
   useEffect(() => {
     const endDate = moment().format('MM-DD-YYYY')
@@ -38,7 +39,7 @@ const UsersList = () => {
 
   return (
     <>
-      <Toolbar title={`Report -- ${getDateRange(state?.filter)} ${getFilterModel(state?.filter)} ${getPackage(state?.filter)} ${getPaymentStatus(state?.filter)}`}>
+      <Toolbar title={`Report -- ${getDateRange(state?.filter)} ${getFilterModel(state?.filter)} ${getPackage(state?.filter)} ${getPaymentStatus(state?.filter)} ${getPurchaseType(state?.filter)}`}>
         <UsersListHeader />
       </Toolbar>
       <KTCard>

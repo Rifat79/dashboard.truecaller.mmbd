@@ -28,6 +28,19 @@ const packages = [
   }
 ];
 
+const purchase_types = [
+  {
+    id: 1,
+    label: 'First Charge',
+    value: 'First Charge',
+  },
+  {
+    id: 2,
+    label: 'Auto Renew',
+    value: 'Auto Renew',
+  }
+]
+
 const payment_status_list = [
   {
     id: 1, 
@@ -59,6 +72,7 @@ const UsersListFilter = () => {
   const [allModelList, setAllModelList] = useState<any>([])
   const [pack, setPackage] = useState<any>(null);
   const [paymentStatus, setPaymentStatus] = useState<any>(null);
+  const [purchaseType, setPurchaseType] = useState<any>(null);
   const [role, setRole] = useState<string | undefined>()
   const [lastLogin, setLastLogin] = useState<string | undefined>()
   const [date, setDate] = useState<any>()
@@ -79,7 +93,8 @@ const UsersListFilter = () => {
     setRange({
       start: '',
       end: '',
-    })
+    });
+    setDate(null)
   }
 
   const handleDeviceTypeOptionChange = (selectedOption: any) => {
@@ -96,10 +111,12 @@ const UsersListFilter = () => {
         start_date: `${date?.start_date} 00:00:00`,
         end_date: `${date?.end_date} 23:59:59`,
         package: pack,
-        payment_status: paymentStatus
+        payment_status: paymentStatus,
+        purchase_type: purchaseType
       } : {
         package: pack,
-        payment_status: paymentStatus
+        payment_status: paymentStatus,
+        purchase_type: purchaseType
       },
       ...initialQueryState,
     })
@@ -168,6 +185,21 @@ const UsersListFilter = () => {
                   )
                 ))} */}
                 {/* {!allModelList || allModelList?.length == 0 && (<option>No Options</option>)} */}
+              </select>
+            </div>
+          </div>
+          <div className="form-group row">
+            <label className='form-label fs-6 fw-bold'>Select Purchase Type:</label>
+            <div className="mb-3 ">
+              <select className="form-control select2" onChange={(e) => setPurchaseType(e.target.value)} id="kt_select2_2" name="param">
+                {/* <optgroup label="Alaskan/Hawaiian Time Zone" style={{fontWeight: 'bolder'}}>
+                  <option value="AK">Alaska</option>
+                  <option value="HI">Hawaii</option>
+                </optgroup> */}
+                <option label='Select option...'></option>
+                {purchase_types.map((item, indx) => (
+                  <option value={item?.label} selected={item?.label === purchaseType}>{item?.label}</option>
+                ))}
               </select>
             </div>
           </div>

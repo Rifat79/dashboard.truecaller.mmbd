@@ -110,6 +110,14 @@ export const getPaymentStatus = (obj) => {
   return ", " + obj?.payment_status;
 }
 
+export const getPurchaseType = (obj) => {
+  if (!obj || !obj.purchase_type) {
+    return ''
+  }
+
+  return ", " + obj?.purchase_type;
+}
+
 export const getFilterModel = (obj) => {
   if(!obj?.model) {
     return ''
