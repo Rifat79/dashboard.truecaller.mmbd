@@ -25,6 +25,11 @@ const packages = [
     id: 2,
     label: 'Weekly Pack',
     value: 'Weekly Pack'
+  },
+  {
+    id: 3,
+    label: 'Monthly Pack',
+    value: 'Monthly Pack'
   }
 ];
 
