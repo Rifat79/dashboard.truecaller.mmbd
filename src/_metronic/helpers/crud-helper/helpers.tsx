@@ -33,6 +33,27 @@ function stringifyRequestQuery(state: QueryState): string {
     .toLowerCase()
 }
 
+function stringifyRequestQueryWithoutPage(state: QueryState): string {
+  const sort = qs.stringify(state, { filter: ['sort', 'order'], skipNulls: true })
+  const search = isNotEmpty(state.search)
+    ? qs.stringify(state, { filter: ['search'], skipNulls: true })
+    : ''
+
+  const filter = state.filter
+    ? Object.entries(state.filter as Object)
+      .filter((obj) => isNotEmpty(obj[1]))
+      .map((obj) => {
+        return `filter_${obj[0]}=${obj[1]}`
+      })
+      .join('&')
+    : ''
+
+  return [sort, search, filter]
+    .filter((f) => f)
+    .join('&')
+    .toLowerCase()
+}
+
 function parseRequestQuery(query: string): QueryState {
   const cache: unknown = qs.parse(query)
   return cache as QueryState
@@ -114,6 +135,7 @@ function useDebounce(value: string | undefined, delay: number) {
 export {
   createResponseContext,
   stringifyRequestQuery,
+  stringifyRequestQueryWithoutPage,
   parseRequestQuery,
   calculatedGroupingIsDisabled,
   calculateIsAllDataSelected,

@@ -4,6 +4,9 @@ export type ID = undefined | null | number | any
 
 export type PaginationState = {
   page: number
+  from?: any
+  to?: any
+  total?: any
   items_per_page: 10 | 30 | 50 | 100 | number
   links?: Array<{label: string; active: boolean; url: string | null; page: number | null}>
 }
@@ -41,7 +44,7 @@ export type QueryRequestContextProps = {
 
 export const initialQueryState: QueryState = {
   page: 1,
-  items_per_page: 10,
+  items_per_page: 25,
 }
 
 export const initialQueryRequest: QueryRequestContextProps = {

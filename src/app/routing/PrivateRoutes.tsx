@@ -2,22 +2,12 @@ import { lazy, FC, Suspense } from 'react'
 import { Route, Routes, Navigate } from 'react-router-dom'
 import { MasterLayout } from '../../_metronic/layout/MasterLayout'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import { DashboardWrapper } from '../pages/dashboard/DashboardWrapper'
 import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils'
 import { WithChildren } from '../../_metronic/helpers'
-import UsersPage from '../pages/users'
-import OrganizationsPage from '../pages/organigetions'
-import ActivationDashboard from '../pages/device-activation'
-import ConfigurationPage from '../pages/configurations'
-import BusinessOrganizationPage from '../pages/business-organization'
-import GameRevenue from '../pages/game-revenue'
-import PushPullRevenue from '../pages/push-pull'
-import Profile from '../pages/profile'
 import { getAuth } from '../modules/auth'
+import OrderPage from '../pages/orders/OrderPage'
 
 const PrivateRoutes = () => {
-  const Merchants = lazy(() => import('../pages/marchents'))
-  const auth = getAuth()
 
   return (
     <Routes>
@@ -25,7 +15,7 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/' />} /> 
         {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
+        <Route path='dashboard' element={<OrderPage />} />
         {/* Lazy Modules */}
         {/* <Route
           path='merchants/*'
@@ -91,14 +81,14 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         /> */}
-        <Route
+        {/* <Route
           path='profile'
           element={
             <SuspensedView>
               <Profile />
             </SuspensedView>
           }
-        />
+        /> */}
         {/* Page Not Found */}
         <Route path='*' element={<Navigate to='/error/404' />} />
       </Route>
