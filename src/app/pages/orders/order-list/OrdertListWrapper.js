@@ -1,6 +1,6 @@
 import { KTCard } from '../../../../_metronic/helpers'
 import { Toolbar } from '../../../../_metronic/layout/components/toolbar/Toolbar'
-import { getDateRange, getFilterModel, getPackage, getPaymentStatus, getPurchaseType } from '../../../modules/helpers/helper'
+import { getDateRange, getFilterModel, getPackage, getPaymentStatus, getPurchaseType, getReferenceValue } from '../../../modules/helpers/helper'
 import { pageBreadCrumbs } from '../helper'
 import { ListViewProvider } from './core/ListViewProvider'
 import { QueryRequestProvider, useQueryRequest } from './core/QueryRequestProvider'
@@ -18,7 +18,7 @@ const OrderList = () => {
 
   return (
     <>
-      <Toolbar breadcrumbs={pageBreadCrumbs('order')} title={`Report -- ${getDateRange(state?.filter)} ${getPackage(state?.filter)} ${getPurchaseType(state?.filter)} ${getPaymentStatus(state?.filter)}`}>
+      <Toolbar breadcrumbs={pageBreadCrumbs('order')} title={`Report -- ${getDateRange(state?.filter)} ${getPackage(state?.filter)} ${getPurchaseType(state?.filter)} ${getPaymentStatus(state?.filter)} ${getReferenceValue(state?.filter)}`}>
         <TableHeader />
       </Toolbar>
       <KTCard>

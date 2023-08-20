@@ -24,7 +24,7 @@ const Toolbar: FC<Props> = ({ children, breadcrumbs, title }) => {
             className={clsx('page-title d-flex', classes.pageTitle.join(' '))}
           >
             {title?.length > 0 && (
-              <div className="d-flex align-items-center" id="kt_header_nav"><span className="d-flex align-items-center  my-1 fs-3">{title}</span></div>
+              <div className="d-flex align-items-center" id="kt_header_nav"><span className="d-flex align-items-center  my-1 fs-5">{title}</span></div>
             )}
             {breadcrumbs &&
               breadcrumbs.length > 0 && (

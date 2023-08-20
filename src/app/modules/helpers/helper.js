@@ -110,6 +110,14 @@ export const getPaymentStatus = (obj) => {
   return ", " + obj?.payment_status;
 }
 
+export const getReferenceValue = (obj) => {
+  if (!obj || !obj.reference) {
+    return ''
+  }
+
+  return ", " + obj?.reference;
+}
+
 export const getPurchaseType = (obj) => {
   if (!obj || !obj.purchase_type) {
     return ''
