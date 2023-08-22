@@ -3,11 +3,11 @@ import {KTSVG} from '../../../../../../_metronic/helpers'
 import {DatatableFilter} from './DatatableFilter'
 import ExcelExport from './excelExport'
 
-const DatatableToolbar = () => {
+const DatatableToolbar = ({ initialState }: any) => {
   return (
     <div className='d-flex justify-content-end'>
       <div data-kt-user-table-toolbar='base'>
-        <DatatableFilter />
+        <DatatableFilter initialState={initialState}/>
       </div>
       {/* begin::Export */}
         <div className='action'>

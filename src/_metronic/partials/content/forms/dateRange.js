@@ -7,14 +7,14 @@ import 'react-date-range/dist/styles.css' // main style file
 import 'react-date-range/dist/theme/default.css' // theme css file
 import { MenuComponent } from '../../../assets/ts/components'
 
-const DateRangeMaker = ({ onChange, hideTitle = false, className = '' }) => {
+const DateRangeMaker = ({ onChange, hideTitle = false, className = '', changed, setChanged }) => {
     const interviewDateRef = useRef()
 
     const [custom, setCustom] = useState(false)
-    const [changed, setChanged] = useState({
-        label: 'Select date range...',
-        custom: false,
-    })
+    // const [changed, setChanged] = useState({
+    //     label: 'Select date range...',
+    //     custom: false,
+    // })
     const [data, setData] = useState({
         startDate: moment(new Date()).format('yyyy-MM-DD'),
         endDate: '',

@@ -177,3 +177,6 @@ export const deleteLocal = (name) => {
         console.error('AUTH LOCAL STORAGE SAVE ERROR', error)
     }
 }
+
+export const formatPrice = (p) => p.toLocaleString("en-IN");
+

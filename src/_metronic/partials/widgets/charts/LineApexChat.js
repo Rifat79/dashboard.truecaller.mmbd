@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import { kFormatter } from "../../../../app/modules/helpers/misc";
 
@@ -135,98 +135,18 @@ export const dataSeries = [
 ];
 
 
-class LineApexChart extends React.Component {
-  constructor(props) {
-    super(props);
-    let ts2 = 0;
-    let dates = [];
+const LineApexChart = (props) => {
 
-    this.props.data &&
-    this.props.data.length &&
-    this.props.data.map((item) => {
-      ts2 = new Date(item.date).toString();
-      dates.push([ts2, item.value]);
-    })
-
-    this.state = {
-      series: this.props.series,
-      // series: [{
-      //   name: this.props.title || 'XYZ',
-      //   data: this.props.data
-      // }],
-      options: {
-        chart: {
-          type: 'area',
-          stacked: false,
-          height: 350,
-          zoom: {
-            type: 'x',
-            enabled: true,
-            autoScaleYaxis: true
-          },
-          toolbar: {
-            autoSelected: 'zoom'
-          }
-        },
-        dataLabels: {
-          enabled: false
-        },
-        markers: {
-          size: 0,
-        },
-        // title: {
-        //   text: 'Stock Price Movement',
-        //   align: 'left'
-        // },
-        fill: {
-          type: 'gradient',
-          gradient: {
-            shadeIntensity: 1,
-            inverseColors: false,
-            opacityFrom: 0.5,
-            opacityTo: 0,
-            stops: [0, 90, 100]
-          },
-        },
-        yaxis: {
-          labels: {
-            formatter: function (val) {
-              return kFormatter(val);
-            },
-          },
-          title: {
-            text: this.props.yaxis || 'Price'
-          },
-        },
-        xaxis: {
-          type: this.props.xaxis || 'datetime',
-          categories: this.props.categories || []
-        },
-        tooltip: {
-          shared: true,
-          y: {
-            formatter: function (val) {
-              return (val).toFixed(2)
-            }
-          },
-          x: {
-            show: true,
-            format: 'dd MMM, yyyy',
-            formatter: undefined,
-          },
-        }
-      },
-    };
-  }
-
-  render() {
-    return (
-      <div className="min-h-auto w-100 ps-4 pe-6" style={{ height: 300 }}>
-        <ReactApexChart options={this.state.options} series={this.state.series} type="area" height={300} />
-      </div>
-
-    );
-  }
+  return (
+    <div className='min-h-auto w-100 ps-4 pe-6' style={{ height: props.height || 300 }}>
+      <ReactApexChart
+        options={props.data.options}
+        series={props.data.series}
+        type='area'
+        height={props.height || 300}
+      />
+    </div>
+  )
 }
 
-export default LineApexChart;
+export default LineApexChart

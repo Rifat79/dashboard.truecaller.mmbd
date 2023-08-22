@@ -1,21 +1,20 @@
 import {useMemo} from 'react'
 import {useTable, ColumnInstance, Row} from 'react-table'
-import {CustomHeaderColumn} from './column/CustomHeaderColumn'
-import {CustomRow} from './column/CustomRow'
+import {CustomHeaderColumn} from '../table/columns/CustomHeaderColumn'
+import {CustomRow} from '../table/columns/CustomRow'
 import {useQueryResponseData, useQueryResponseLoading} from '../core/QueryResponseProvider'
-import {modalColumns} from './column/_columns'
-import {TableModal} from '../core/_models'
-import {DataTableLoading} from '../../../../modules/datatable/loading/DataTableLoading'
-import {KTCardBody} from '../../../../../_metronic/helpers'
-import {DataTablePagination} from './pagination/DataTablePagination'
-import {useListView} from '../core/ListViewProvider'
+import {usersColumns} from './columns/_columns'
+import {User} from '../core/_models'
+import {UsersListLoading} from '../components/loading/UsersListLoading'
+import {UsersListPagination} from '../components/pagination/UsersListPagination'
+import { KTCardBody } from '../../../../_metronic/helpers'
 
-const DataTable = () => {
-  const users = useQueryResponseData()
+const UsersTable = () => {
+  const users = useQueryResponseData();
   const isLoading = useQueryResponseLoading()
-  const {selected} = useListView()
-  const data = useMemo(() => users, [users])
-  const columns = useMemo(() => modalColumns, [])
+  let data = useMemo(() => users, [users])
+  data = data?.length === 2 ? data[0] : data;
+  const columns = useMemo(() => usersColumns, [])
   const {getTableProps, getTableBodyProps, headers, rows, prepareRow} = useTable({
     columns,
     data,
@@ -26,19 +25,19 @@ const DataTable = () => {
       <div className='table-responsive'>
         <table
           id='kt_table_users'
-          className='table align-middle table-row-dashed fs-6 gy-1 dataTable no-footer'
+          className='table align-middle table-row-dashed fs-6 gy-2 dataTable no-footer'
           {...getTableProps()}
         >
           <thead>
             <tr className='text-start fw-bolder fs-7 text-uppercase gs-0'>
-              {headers.map((column: ColumnInstance<TableModal>) => (
+              {headers.map((column: ColumnInstance<User>) => (
                 <CustomHeaderColumn key={column.id} column={column} />
               ))}
             </tr>
           </thead>
-          <tbody className='text-gray-600' {...getTableBodyProps()}>
+          <tbody className='text-gray-600 ' {...getTableBodyProps()}>
             {rows.length > 0 ? (
-              rows.map((row: Row<TableModal>, i) => {
+              rows.map((row: Row<User>, i) => {
                 prepareRow(row)
                 return <CustomRow row={row} key={`row-${i}-${row.id}`} />
               })
@@ -54,10 +53,10 @@ const DataTable = () => {
           </tbody>
         </table>
       </div>
-      <DataTablePagination />
-      {isLoading && <DataTableLoading />}
+      {/* <UsersListPagination /> */}
+      {isLoading && <UsersListLoading />}
     </KTCardBody>
   )
 }
 
-export {DataTable}
+export {UsersTable}

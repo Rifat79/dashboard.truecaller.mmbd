@@ -5,7 +5,8 @@ import TopBarProgress from 'react-topbar-progress-indicator'
 import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils'
 import { WithChildren } from '../../_metronic/helpers'
 import { getAuth } from '../modules/auth'
-import OrderPage from '../pages/orders/OrderPage'
+import OrderPage from '../pages/reports/OrderPage'
+import { DashboardWrapper } from '../pages/dashboard'
 
 const PrivateRoutes = () => {
 
@@ -15,7 +16,8 @@ const PrivateRoutes = () => {
         {/* Redirect to Dashboard after success login/registartion */}
         <Route path='auth/*' element={<Navigate to='/' />} /> 
         {/* Pages */}
-        <Route path='dashboard' element={<OrderPage />} />
+        <Route path='dashboard' element={<DashboardWrapper />} />
+        <Route path='reports/*' element={<OrderPage />} />
         {/* Lazy Modules */}
         {/* <Route
           path='merchants/*'

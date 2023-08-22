@@ -1,35 +1,55 @@
-import {useEffect, useState} from 'react'
-import {MenuComponent} from '../../../../../../_metronic/assets/ts/components'
-import {initialQueryState, KTSVG} from '../../../../../../_metronic/helpers'
+import { useEffect, useState } from 'react'
+import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
+import { initialQueryState, KTSVG } from '../../../../../../_metronic/helpers'
 import DateRange from '../../../../../../_metronic/partials/content/forms/dateRange'
-import {useQueryRequest} from '../../core/QueryRequestProvider'
-import {useQueryResponse} from '../../core/QueryResponseProvider'
+import { useQueryRequest } from '../../core/QueryRequestProvider'
+import { useQueryResponse } from '../../core/QueryResponseProvider'
+import { getQueryRequest } from '../../../../../library/api.helper'
+import { REFERENCE_LIST } from '../../../../../constants/api.constants'
 
-const DatatableFilter = () => {
-  const {updateState} = useQueryRequest()
-  const {isLoading} = useQueryResponse()
+const DatatableFilter = ({ initialState }: any) => {
+  const { updateState } = useQueryRequest()
+  const { isLoading } = useQueryResponse()
   const [pack, setpack] = useState<string | undefined>('')
   const [purchaseType, setPurchaseType] = useState('');
   const [status, setStatus] = useState<string | undefined>('')
-  const [date, setDate] = useState<any>({end_date: '', start_date: ''})
-  const [ref, setRef] = useState('');
+  const [date, setDate] = useState<any>({ end_date: initialState?.date ? `${initialState?.date} 00:00:00` : '', start_date: initialState?.date ? `${initialState?.date} 23:59:59` : '' })
+  const [ref, setRef] = useState(initialState?.ref ? initialState?.ref : '');
+  const [reference_list, setRefList] = useState<any>([]);
+  const [changed, setChanged] = useState({
+    label: 'Select date range...',
+    custom: false,
+  })
 
   useEffect(() => {
-    MenuComponent.reinitialization()
+    MenuComponent.reinitialization();
+
+    getRefList();
   }, [])
+
+  const getRefList = async () => {
+    const res = await getQueryRequest(REFERENCE_LIST);
+    if (res?.data && Array.isArray(res?.data)) {
+      setRefList(res?.data);
+    }
+  }
 
   const resetData = () => {
     setpack('')
     setStatus('')
     setPurchaseType('');
     setRef('');
-    setDate({end_date: '', start_date: ''})
-    updateState({filter: undefined, ...initialQueryState})
+    setDate({ end_date: '', start_date: '' })
+    updateState({ filter: undefined, ...initialQueryState })
+    setChanged({
+      label: 'Select date range...',
+      custom: false,
+    })
   }
 
   const filterData = () => {
     updateState({
-      filter: {package: pack, payment_status: status, purchase_type: purchaseType, reference: ref, ...date},
+      filter: { package: pack, payment_status: status, purchase_type: purchaseType, reference: ref, ...date },
       ...initialQueryState,
     })
   }
@@ -82,29 +102,6 @@ const DatatableFilter = () => {
     },
   ];
 
-  const reference_list = [
-    {
-      id: 1,
-      title: 'MyGP with MSISDN',
-      slug: 'mygp-with-msisdn'
-    },
-    {
-      id: 2,
-      title: 'MyGP without MSISDN',
-      slug: 'mygp-without-msisdn'
-    },
-    {
-      id: 3,
-      title: 'Digitantra',
-      slug: 'digitantra'
-    },
-    {
-      id: 4,
-      title: 'Others',
-      slug: 'unknown'
-    },
-  ]
-
   return (
     <>
       <button
@@ -126,7 +123,7 @@ const DatatableFilter = () => {
 
         <div className='px-7 py-5' data-kt-user-table-filter='form'>
           <div className='mb-5'>
-            <DateRange onChange={(e: any) => setDate(e)} />
+            <DateRange onChange={(e: any) => setDate(e)} changed={changed} setChanged={setChanged}/>
           </div>
           <div className='mb-5'>
             <label className='form-label fs-6 fw-bold'>Package:</label>
@@ -200,7 +197,7 @@ const DatatableFilter = () => {
               value={ref}
             >
               <option value=''>select option</option>
-              {reference_list.map((item, i) => (
+              {reference_list.map((item: any, i: any) => (
                 <option key={i} value={item.slug}>
                   {item.title}
                 </option>
@@ -236,4 +233,4 @@ const DatatableFilter = () => {
   )
 }
 
-export {DatatableFilter}
+export { DatatableFilter }
