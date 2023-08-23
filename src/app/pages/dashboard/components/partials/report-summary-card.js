@@ -15,19 +15,19 @@ export default function ReportSummaryCard() {
   const cards = [
     {
       id: 1,
-      title: 'First Time Subscriptions',
+      title: '1st Time Subscriptions',
       data: prepareTruecallerCardData(data, 'new_success_cnt'),
       backgroundColor: 'rgb(203 244 221)'
     },
     {
       id: 2,
-      title: 'First Attempt Failed',
+      title: '1st Attempt Failed',
       data: prepareTruecallerCardData(data, 'new_fail_cnt'),
       backgroundColor: 'rgb(244 203 203)'
     },
     {
       id: 3,
-      title: 'First Time Subscription Revenue',
+      title: '1st Time Subscription Revenue',
       data: prepareTruecallerCardData(data, 'new_price'),
       backgroundColor: 'rgb(159 202 237)'
     },

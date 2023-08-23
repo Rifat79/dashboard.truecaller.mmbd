@@ -54,7 +54,7 @@ export default function Card({ data = {}, title = '', backgroundColor, hasPrice=
                                 {/*begin::Title*/}
                                 <div>
                                     <div className="fs-2 text-dark fw-bold lh-1">{hasPrice ? formatPrice(daily || 0) : (daily || 0)}</div>
-                                    <div className="fs-7 text-gray-600 fw-bold">Daily Pack</div>
+                                    <div className="fs-7 text-gray-600 fw-bold">Daily </div>
                                 </div>
                                 {/*end::Title*/}
                             </div>
@@ -73,7 +73,7 @@ export default function Card({ data = {}, title = '', backgroundColor, hasPrice=
                                 {/*begin::Title*/}
                                 <div>
                                     <div className="fs-2 text-dark fw-bold lh-1">{hasPrice ? formatPrice(weekly || 0) : (weekly || 0)}</div>
-                                    <div className="fs-7 text-gray-600 fw-bold">Weekly Pack</div>
+                                    <div className="fs-7 text-gray-600 fw-bold">Weekly </div>
                                 </div>
                                 {/*end::Title*/}
                             </div>
@@ -92,7 +92,7 @@ export default function Card({ data = {}, title = '', backgroundColor, hasPrice=
                                 {/*begin::Title*/}
                                 <div>
                                     <div className="fs-2 text-dark fw-bold lh-1">{hasPrice ? formatPrice(monthly || 0) : (monthly || 0)}</div>
-                                    <div className="fs-7 text-gray-600 fw-bold">Monthly Pack</div>
+                                    <div className="fs-7 text-gray-600 fw-bold">Monthly </div>
                                 </div>
                                 {/*end::Title*/}
                             </div>

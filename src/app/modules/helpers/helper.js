@@ -335,6 +335,17 @@ export const prepareTruecallerCardData = (data = [], fieldName = '') => {
   return new_data;
 }
 
+export const prepareMonthlyCountData = (dates, data) => {
+
+}
+
+const getMonthFromDateString = (date_str) => {
+  const date = new Date(date_str);
+  const monthName = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(date);
+
+  return monthName;
+}
+
 export const prepareTruecallerChartData = (data) => {
   const options = {
     chart: {
@@ -415,9 +426,78 @@ export const prepareTruecallerChartData = (data) => {
   const dates = [...new Set(data.map(obj => obj?.rdate))];
   dates.sort();
 
+  const diff = getTimeDifferenceInDay(dates[0], dates[dates.length - 1]);
+  const months = new Set();
+
   const data_daily = [];
   const data_weekly = [];
   const data_monthly = [];
+
+  if (diff > (2 * 30)) {
+    dates.forEach(item => {
+      months.add(getMonthFromDateString(item));
+    });
+    
+    months.forEach(item => {
+      const in_daily = daily.filter(e => getMonthFromDateString(e?.rdate) === item);
+      const in_weekly = weekly.filter(e => getMonthFromDateString(e?.rdate) === item);
+      const in_monthly = monthly.filter(e => getMonthFromDateString(e?.rdate) === item);
+
+      if (in_daily) {
+        const success_cnt = in_daily.reduce((sum, cur) => {
+          return sum + (cur?.new_success_cnt || 0) + (cur?.renew_success_cnt || 0);
+        }, 0);
+
+        data_daily.push(success_cnt);
+      } else {
+        data_daily.push(0)
+      }
+
+      if (in_weekly) {
+        const success_cnt = in_weekly.reduce((sum, cur) => {
+          return sum + (cur?.new_success_cnt || 0) + (cur?.renew_success_cnt || 0);
+        }, 0);
+
+        data_weekly.push(success_cnt);
+      } else {
+        data_weekly.push(0)
+      }
+
+      if (in_monthly) {
+        const success_cnt = in_monthly.reduce((sum, cur) => {
+          return sum + (cur?.new_success_cnt || 0) + (cur?.renew_success_cnt || 0);
+        }, 0);
+
+        data_monthly.push(success_cnt);
+      } else {
+        data_monthly.push(0)
+      }
+    });
+    
+    return {
+      series: [
+        {
+          name: 'Daily',
+          data: data_daily
+        },
+        {
+          name: 'Weekly ',
+          data: data_weekly
+        },
+        {
+          name: 'Monthly ',
+          data: data_monthly
+        }
+      ],
+      options: {
+        ...options,
+        xaxis: {
+          ...options.xaxis,
+          categories: [...months]
+        }
+      }
+    }
+  }
 
   dates.forEach(item => {
     const in_daily = daily.filter(e => e?.rdate === item)[0];
@@ -446,15 +526,15 @@ export const prepareTruecallerChartData = (data) => {
   return {
     series: [
       {
-        name: 'Daily Pack',
+        name: 'Daily',
         data: data_daily
       },
       {
-        name: 'Weekly Pack',
+        name: 'Weekly ',
         data: data_weekly
       },
       {
-        name: 'Monthly Pack',
+        name: 'Monthly ',
         data: data_monthly
       }
     ],
@@ -487,7 +567,7 @@ export const prepareTruecallerRevenueChartData = (data) => {
       dashArray: [0, 0, 0]
     },
     title: {
-      text: 'Revenue Count',
+      text: 'Topline Revenue',
       align: 'left'
     },
     legend: {
@@ -556,10 +636,79 @@ export const prepareTruecallerRevenueChartData = (data) => {
   const dates = [...new Set(data.map(obj => obj?.rdate))];
   dates.sort();
 
+  const diff = getTimeDifferenceInDay(dates[0], dates[dates.length - 1]);
+  const months = new Set();
+
   const data_daily = [];
   const data_weekly = [];
   const data_monthly = [];
   const data_total = [];
+
+  if (diff > (2 * 30)) {
+    dates.forEach(item => {
+      months.add(getMonthFromDateString(item));
+    });
+
+    months.forEach(item => {
+      const in_daily = daily.filter(e => getMonthFromDateString(e?.rdate) === item);
+      const in_weekly = weekly.filter(e => getMonthFromDateString(e?.rdate) === item);
+      const in_monthly = monthly.filter(e => getMonthFromDateString(e?.rdate) === item);
+
+      if (in_daily) {
+        const success_cnt = in_daily.reduce((sum, cur) => {
+          return sum + (cur?.new_price || 0) + (cur?.renew_price || 0);
+        }, 0);
+
+        data_daily.push(success_cnt);
+      } else {
+        data_daily.push(0)
+      }
+
+      if (in_weekly) {
+        const success_cnt = in_weekly.reduce((sum, cur) => {
+          return sum + (cur?.new_price || 0) + (cur?.renew_price || 0);
+        }, 0);
+
+        data_weekly.push(success_cnt);
+      } else {
+        data_weekly.push(0)
+      }
+
+      if (in_monthly) {
+        const success_cnt = in_monthly.reduce((sum, cur) => {
+          return sum + (cur?.new_price || 0) + (cur?.renew_price || 0);
+        }, 0);
+
+        data_monthly.push(success_cnt);
+      } else {
+        data_monthly.push(0)
+      }
+    });
+
+    return {
+      series: [
+        {
+          name: 'Daily',
+          data: data_daily
+        },
+        {
+          name: 'Weekly ',
+          data: data_weekly
+        },
+        {
+          name: 'Monthly ',
+          data: data_monthly
+        }
+      ],
+      options: {
+        ...options,
+        xaxis: {
+          ...options.xaxis,
+          categories: [...months]
+        }
+      }
+    }
+  }
 
   dates.forEach(item => {
     const in_daily = daily.filter(e => e?.rdate === item)[0];
@@ -600,21 +749,17 @@ export const prepareTruecallerRevenueChartData = (data) => {
   return {
     series: [
       {
-        name: 'Daily Pack',
+        name: 'Daily',
         data: data_daily
       },
       {
-        name: 'Weekly Pack',
+        name: 'Weekly',
         data: data_weekly
       },
       {
-        name: 'Monthly Pack',
+        name: 'Monthly',
         data: data_monthly
       },
-      {
-        name: 'Total',
-        data: data_total
-      }
     ],
     options: {
       ...options,
