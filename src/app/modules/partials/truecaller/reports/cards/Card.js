@@ -1,9 +1,11 @@
 import { KTSVG } from "../../../../../../_metronic/helpers";
+import { useQueryResponseLoading } from "../../../../../pages/dashboard/core/QueryResponseProvider";
 import { formatPrice } from "../../../../helpers/misc";
 
 
 export default function Card({ data = {}, title = '', backgroundColor, hasPrice=false}) {
     const {daily, weekly, monthly, total} = data;
+    const loading = useQueryResponseLoading()
 
     return (
         <div className="col-xl-4">
@@ -34,7 +36,7 @@ export default function Card({ data = {}, title = '', backgroundColor, hasPrice=
                                 {/*end::Symbol*/}
                                 {/*begin::Title*/}
                                 <div>
-                                    <div className="fs-1 text-dark fw-bold lh-1">{hasPrice ? formatPrice(total || 0) : (total || 0)}</div>
+                                    <div className="fs-1 text-dark fw-bold lh-1">{loading ? "..." : hasPrice ? formatPrice(total || 0) : (total || 0)}</div>
                                     <div className="fs-7 text-gray-600 fw-bold">Total</div>
                                 </div>
                                 {/*end::Title*/}
@@ -53,7 +55,7 @@ export default function Card({ data = {}, title = '', backgroundColor, hasPrice=
                                 {/*end::Symbol*/}
                                 {/*begin::Title*/}
                                 <div>
-                                    <div className="fs-2 text-dark fw-bold lh-1">{hasPrice ? formatPrice(daily || 0) : (daily || 0)}</div>
+                                    <div className="fs-2 text-dark fw-bold lh-1">{loading ? "..." : hasPrice ? formatPrice(daily || 0) : (daily || 0)}</div>
                                     <div className="fs-7 text-gray-600 fw-bold">Daily </div>
                                 </div>
                                 {/*end::Title*/}
@@ -72,7 +74,7 @@ export default function Card({ data = {}, title = '', backgroundColor, hasPrice=
                                 {/*end::Symbol*/}
                                 {/*begin::Title*/}
                                 <div>
-                                    <div className="fs-2 text-dark fw-bold lh-1">{hasPrice ? formatPrice(weekly || 0) : (weekly || 0)}</div>
+                                    <div className="fs-2 text-dark fw-bold lh-1">{loading ? "..." : hasPrice ? formatPrice(weekly || 0) : (weekly || 0)}</div>
                                     <div className="fs-7 text-gray-600 fw-bold">Weekly </div>
                                 </div>
                                 {/*end::Title*/}
@@ -91,7 +93,7 @@ export default function Card({ data = {}, title = '', backgroundColor, hasPrice=
                                 {/*end::Symbol*/}
                                 {/*begin::Title*/}
                                 <div>
-                                    <div className="fs-2 text-dark fw-bold lh-1">{hasPrice ? formatPrice(monthly || 0) : (monthly || 0)}</div>
+                                    <div className="fs-2 text-dark fw-bold lh-1">{loading ? "..." : hasPrice ? formatPrice(monthly || 0) : (monthly || 0)}</div>
                                     <div className="fs-7 text-gray-600 fw-bold">Monthly </div>
                                 </div>
                                 {/*end::Title*/}

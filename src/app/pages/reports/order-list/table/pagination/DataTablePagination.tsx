@@ -32,7 +32,7 @@ const DataTablePagination = () => {
           </label>
         </div>
         <div className='dataTables_info'>
-          Showing {((pagination.from - 1) * 10) + 1} to{' '}
+          Showing {((pagination.from - 1) * pagination.items_per_page) + 1} to{' '}
           {pagination.to > pagination.total ? pagination.total : pagination.to} of{' '}
           {pagination.total} records
         </div>

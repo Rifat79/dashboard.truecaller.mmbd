@@ -1,16 +1,15 @@
 import React, { useMemo } from "react"
-import { useQueryResponseData, useQueryResponseLoading } from "../../core/QueryResponseProvider";
+import { useQueryResponseData } from "../../core/QueryResponseProvider";
 import { prepareTruecallerCardData } from "../../../../modules/helpers/helper";
 import Card from "../../../../modules/partials/truecaller/reports/cards/Card";
 
 
 export default function ReportSummaryCard() {
   const users = useQueryResponseData();
-  const loading = useQueryResponseLoading()
   let data = useMemo(() => users, [users])
   data = data?.length === 2 ? data[0] : data;
 
-  if (loading) return <h3 style={{ textAlign: 'center' }}>loading...</h3>;
+  // if (loading) return <h3 style={{ textAlign: 'center' }}>loading...</h3>;
 
   const cards = [
     {

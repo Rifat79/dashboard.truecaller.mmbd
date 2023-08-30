@@ -10,16 +10,24 @@ const DashboardChart = () => {
     let data = useMemo(() => users, [users])
     data = data?.length === 2 ? data[0] : data;
 
-    if (loading) return <h3 style={{ textAlign: 'center' }}>loading...</h3>;
+    // if (loading) return <h3 style={{ textAlign: 'center' }}>loading...</h3>;
 
 
     return (
         <div className='card card-flush overflow-hidden h-lg-100'>
             <div className='card-body d-flex align-items-end p-0'>
-                <LineApexChart height={400} data={prepareTruecallerChartData(data)} title='Order' yaxis='Order' />
+                {loading ? <div className='min-h-auto w-100 ps-4 pe-6' style={{ height: 300, textAlign: 'center' }}>
+                    <div>loading data...</div>
+                </div>
+                    : <LineApexChart height={400} data={prepareTruecallerChartData(data)} title='Order' yaxis='Order' />
+                }
             </div>
             <div className='card-body d-flex align-items-end p-0'>
-                <LineApexChart height={400} data={prepareTruecallerRevenueChartData(data)} title='Order' yaxis='Order' />
+                {loading ? <div className='min-h-auto w-100 ps-4 pe-6' style={{ height: 300, textAlign: 'center' }}>
+                    <div>loading data...</div>
+                </div>
+                    : <LineApexChart height={400} data={prepareTruecallerRevenueChartData(data)} title='Order' yaxis='Order' />
+                }
             </div>
         </div>
     )
