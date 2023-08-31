@@ -21,7 +21,7 @@ const UsersList = () => {
 
   return (
     <>
-      <PageTitle>Truecaller Transaction Summary</PageTitle>
+      <PageTitle>Transaction Summary</PageTitle>
       <Toolbar title={`Report Summary -- ${getDateRange(state?.filter)} ${getPackage(state?.filter)}  ${getReferenceValue(state?.filter)}`}>
         <UsersListHeader />
       </Toolbar>

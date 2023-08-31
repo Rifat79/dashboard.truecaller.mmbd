@@ -51,7 +51,7 @@ export default function ReportSummaryCard() {
   ];
 
   return (
-    <div className='card mb-8'>
+    <div className='card mb-8' style={{ marginTop: window && window.innerWidth < 1024 ? '100px' : 'auto'}}>
       <div className='card-body p-4'>
         <div className="row g-5 g-xl-8">
           {cards.map((item, indx) => (
