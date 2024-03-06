@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { MenuComponent } from '../../../../../../_metronic/assets/ts/components'
-import { initialQueryState, KTSVG } from '../../../../../../_metronic/helpers'
+import { KTSVG, initialQueryState } from '../../../../../../_metronic/helpers'
 import DateRange from '../../../../../../_metronic/partials/content/forms/dateRange'
+import { REFERENCE_LIST } from '../../../../../constants/api.constants'
+import { getQueryRequest } from '../../../../../library/api.helper'
 import { useQueryRequest } from '../../core/QueryRequestProvider'
 import { useQueryResponse } from '../../core/QueryResponseProvider'
-import { getQueryRequest } from '../../../../../library/api.helper'
-import { REFERENCE_LIST } from '../../../../../constants/api.constants'
 
 const DatatableFilter = ({ initialState }: any) => {
   const { updateState } = useQueryRequest()
@@ -68,6 +68,16 @@ const DatatableFilter = ({ initialState }: any) => {
       id: 3,
       title: 'Monthly Pack',
       slug: 'Monthly Pack'
+    },
+    {
+      id: 4,
+      title: 'Half Yearly Pack',
+      slug: 'Half Yearly Pack'
+    },
+    {
+      id: 5,
+      title: 'Yearly Pack',
+      slug: 'Yearly Pack'
     },
   ];
 
@@ -234,3 +244,4 @@ const DatatableFilter = ({ initialState }: any) => {
 }
 
 export { DatatableFilter }
+

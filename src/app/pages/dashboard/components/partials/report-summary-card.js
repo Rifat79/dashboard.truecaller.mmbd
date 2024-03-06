@@ -1,7 +1,7 @@
-import React, { useMemo } from "react"
-import { useQueryResponseData } from "../../core/QueryResponseProvider";
+import { useMemo } from "react";
 import { prepareTruecallerCardData } from "../../../../modules/helpers/helper";
 import Card from "../../../../modules/partials/truecaller/reports/cards/Card";
+import { useQueryResponseData } from "../../core/QueryResponseProvider";
 
 
 export default function ReportSummaryCard() {
