@@ -314,20 +314,20 @@ export const prepareTruecallerCardData = (data = [], fieldName = '') => {
     if (col?.package_name === 'Daily Pack') {
       new_data = {
         ...new_data,
-        daily: new_data?.daily + col?.[fieldName],
-        total: new_data?.total + col?.[fieldName]
+        daily: Number(new_data?.daily || 0) + Number(col?.[fieldName] || 0),
+        total: Number(new_data?.total || 0) + Number(col?.[fieldName] || 0)
       }
     } else if (col?.package_name === 'Weekly Pack') {
       new_data = {
         ...new_data,
-        weekly: new_data?.weekly + col?.[fieldName],
-        total: new_data?.total + col?.[fieldName]
+        weekly: Number(new_data?.weekly || 0) + Number(col?.[fieldName] || 0),
+        total: Number(new_data?.total || 0) + Number(col?.[fieldName] || 0)
       }
     } else if (col?.package_name === 'Monthly Pack') {
       new_data = {
         ...new_data,
-        monthly: new_data?.monthly + col?.[fieldName],
-        total: new_data?.total + col?.[fieldName]
+        monthly: Number(new_data?.monthly || 0) + Number(col?.[fieldName] || 0),
+        total: Number(new_data?.total || 0)+ Number(col?.[fieldName] || 0)
       }
     }
   }
