@@ -3,7 +3,6 @@ import {createRoot} from 'react-dom/client'
 import axios from 'axios'
 import {Chart, registerables} from 'chart.js'
 import {QueryClient, QueryClientProvider} from 'react-query'
-import {ReactQueryDevtools} from 'react-query/devtools'
 // Apps
 import {MetronicI18nProvider} from './_metronic/i18n/Metronici18n'
 /**
@@ -11,11 +10,13 @@ import {MetronicI18nProvider} from './_metronic/i18n/Metronici18n'
  *
  * import './_metronic/assets/css/style.rtl.css'
  **/
-import './_metronic/assets/sass/style.scss'
+import {Provider} from 'react-redux'
 import './_metronic/assets/sass/plugins.scss'
 import './_metronic/assets/sass/style.react.scss'
-import {AppRoutes} from './app/routing/AppRoutes'
+import './_metronic/assets/sass/style.scss'
+import {store} from './_metronic/redux/store'
 import {AuthProvider, setupAxios} from './app/modules/auth'
+import {AppRoutes} from './app/routing/AppRoutes'
 /**
  * Creates `axios-mock-adapter` instance for provided `axios` instance, add
  * basic Metronic mocks and returns it.
@@ -34,13 +35,15 @@ const queryClient = new QueryClient()
 const container = document.getElementById('root')
 if (container) {
   createRoot(container).render(
-    <QueryClientProvider client={queryClient}>
-      <MetronicI18nProvider>
-        <AuthProvider>
-          <AppRoutes />
-        </AuthProvider>
-      </MetronicI18nProvider>
-      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <MetronicI18nProvider>
+          <AuthProvider>
+            <AppRoutes />
+          </AuthProvider>
+        </MetronicI18nProvider>
+        {/* <ReactQueryDevtools initialIsOpen={false} /> */}
+      </QueryClientProvider>
+    </Provider>
   )
 }

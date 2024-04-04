@@ -1,7 +1,7 @@
-import axios, {AxiosResponse} from 'axios'
-import {BASE_URL,ORDER_LIST} from '../../../../constants/api.constants'
-import {getAuth, setAuth} from '../../../../modules/auth'
-import {TableModalsQueryResponse} from './_models'
+import axios, { AxiosResponse } from 'axios'
+import { BASE_URL, ORDER_LIST } from '../../../../constants/api.constants'
+import { getAuth, setAuth } from '../../../../modules/auth'
+import { TableModalsQueryResponse } from './_models'
 
 const auth = getAuth()
 
@@ -105,4 +105,5 @@ const getUsers = (query: string): Promise<TableModalsQueryResponse> => {
 
 
 
-export { getUsers}
+export { getUsers }
+

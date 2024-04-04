@@ -1,7 +1,7 @@
-import axios, {AxiosResponse} from 'axios'
-import {BASE_URL} from '../../../../constants/api.constants'
-import {getAuth, setAuth} from '../../../../modules/auth'
-import {TableModalsQueryResponse} from './_models'
+import axios, { AxiosResponse } from 'axios'
+import { BASE_URL } from '../../../../constants/api.constants'
+import { getAuth, setAuth } from '../../../../modules/auth'
+import { TableModalsQueryResponse } from './_models'
 
 const auth = getAuth()
 
@@ -149,6 +149,6 @@ export {
   // deleteUser,
   // getQueryRequest,
   // getRequestById,
-  getUsers,
-  // updateUser,
+  getUsers
 }
+

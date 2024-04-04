@@ -1,23 +1,42 @@
-import { lazy, FC, Suspense } from 'react'
-import { Route, Routes, Navigate } from 'react-router-dom'
-import { MasterLayout } from '../../_metronic/layout/MasterLayout'
+import {FC, Suspense} from 'react'
+import {useSelector} from 'react-redux'
+import {Navigate, Route, Routes} from 'react-router-dom'
 import TopBarProgress from 'react-topbar-progress-indicator'
-import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils'
-import { WithChildren } from '../../_metronic/helpers'
-import { getAuth } from '../modules/auth'
+import {getCSSVariableValue} from '../../_metronic/assets/ts/_utils'
+import {WithChildren} from '../../_metronic/helpers'
+import {MasterLayout} from '../../_metronic/layout/MasterLayout'
+import {RootState} from '../../_metronic/redux/store'
+import {DashboardWrapper} from '../pages/dashboard'
 import OrderPage from '../pages/reports/OrderPage'
-import { DashboardWrapper } from '../pages/dashboard'
+import UsersPage from '../pages/users'
 
 const PrivateRoutes = () => {
+  const response = useSelector(
+    (state: RootState) => state.api.queries['getUserPermissions(undefined)']
+  )
+  const {data}: any = response || {}
+  const {data: userPermission} = data || []
 
   return (
     <Routes>
       <Route element={<MasterLayout />}>
         {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/' />} /> 
+        <Route path='auth/*' element={<Navigate to='/' />} />
         {/* Pages */}
         <Route path='dashboard' element={<DashboardWrapper />} />
         <Route path='reports/*' element={<OrderPage />} />
+        <Route path='users' />
+        {userPermission?.filter((f: any) => f.group_route.includes('users')).length > 0 && (
+          <Route
+            path='users/*'
+            element={
+              <SuspensedView>
+                <UsersPage />
+              </SuspensedView>
+            }
+          />
+        )}
+
         {/* Lazy Modules */}
         {/* <Route
           path='merchants/*'
@@ -98,7 +117,7 @@ const PrivateRoutes = () => {
   )
 }
 
-const SuspensedView: FC<WithChildren> = ({ children }) => {
+const SuspensedView: FC<WithChildren> = ({children}) => {
   const baseColor = getCSSVariableValue('--kt-primary')
   TopBarProgress.config({
     barColors: {
@@ -110,4 +129,4 @@ const SuspensedView: FC<WithChildren> = ({ children }) => {
   return <Suspense fallback={<TopBarProgress />}>{children}</Suspense>
 }
 
-export { PrivateRoutes }
+export {PrivateRoutes}

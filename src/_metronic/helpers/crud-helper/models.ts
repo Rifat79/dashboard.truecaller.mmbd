@@ -20,8 +20,16 @@ export type FilterState = {
   filter?: any
 }
 
+export type HeaderState = {
+  header?: unknown
+}
+
 export type SearchState = {
   search?: string
+}
+
+export type SlugState = {
+  slug?: string
 }
 
 export type Response<T> = {
@@ -81,6 +89,56 @@ export const initialListView: ListViewContextProps = {
   onSelectAll: () => {},
   clearSelected: () => {},
   setItemIdForUpdate: () => {},
+  isAllSelected: false,
+  disabled: false,
+}
+
+export type ProductListViewContextProps = {
+  selected: Array<ID>
+  onSelect: (selectedId: ID) => void
+  onSelectAll: () => void
+  clearSelected: () => void
+  selectedAttribute: ID
+  setSelectedAttribute: Dispatch<SetStateAction<ID>>
+  itemIdForUpdate?: ID
+  setItemIdForUpdate: Dispatch<SetStateAction<ID>>
+  isAllSelected: boolean
+  disabled: boolean
+}
+
+export const productInitialListView: ProductListViewContextProps = {
+  selected: [],
+  onSelect: () => {},
+  onSelectAll: () => {},
+  clearSelected: () => {},
+  setItemIdForUpdate: () => {},
+  selectedAttribute: 0,
+  setSelectedAttribute: () => {},
+  isAllSelected: false,
+  disabled: false,
+}
+
+export type JobListViewContextProps = {
+  selected: Array<ID>
+  onSelect: (selectedId: ID) => void
+  onSelectAll: () => void
+  clearSelected: () => void
+  selectedAttribute: ID
+  setSelectedAttribute: Dispatch<SetStateAction<ID>>
+  itemIdForUpdate?: ID
+  setItemIdForUpdate: Dispatch<SetStateAction<ID>>
+  isAllSelected: boolean
+  disabled: boolean
+}
+
+export const jobInitialListView: JobListViewContextProps = {
+  selected: [],
+  onSelect: () => {},
+  onSelectAll: () => {},
+  clearSelected: () => {},
+  setItemIdForUpdate: () => {},
+  selectedAttribute: 0,
+  setSelectedAttribute: () => {},
   isAllSelected: false,
   disabled: false,
 }

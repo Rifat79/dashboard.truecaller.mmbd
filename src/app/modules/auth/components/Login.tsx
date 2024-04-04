@@ -1,14 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import {useState} from 'react'
-import * as Yup from 'yup'
-import clsx from 'clsx'
-import {Link, useNavigate} from 'react-router-dom'
-import {useFormik} from 'formik'
-import {getUserByToken, login} from '../core/_requests'
-import {toAbsoluteUrl} from '../../../../_metronic/helpers'
-import {useAuth} from '../core/Auth'
-import { setupAxios } from '../core/AuthHelpers'
 import axios from 'axios'
+import clsx from 'clsx'
+import {useFormik} from 'formik'
+import {useState} from 'react'
+import {Link, useNavigate} from 'react-router-dom'
+import * as Yup from 'yup'
+import {useLoginMutation} from '../../../../_metronic/redux/slices/auth'
+import {useAuth} from '../core/Auth'
+import {setupAxios} from '../core/AuthHelpers'
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
@@ -16,10 +15,7 @@ const loginSchema = Yup.object().shape({
     .min(3, 'Minimum 3 symbols')
     .max(50, 'Maximum 50 symbols')
     .required('Email is required'),
-  password: Yup.string()
-    .min(6)
-    .max(50, 'Maximum 50 symbols')
-    .required('Password is required'),
+  password: Yup.string().min(6).max(50, 'Maximum 50 symbols').required('Password is required'),
 })
 
 const initialValues = {
@@ -30,7 +26,9 @@ const initialValues = {
 export function Login() {
   const [loading, setLoading] = useState(false)
   const {saveAuth, setCurrentUser} = useAuth()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
+
+  const [login] = useLoginMutation()
 
   const formik = useFormik({
     initialValues,
@@ -38,15 +36,15 @@ export function Login() {
     onSubmit: async (values, {setStatus, setSubmitting}) => {
       setLoading(true)
       try {
-        const {data: auth} = await login(values.email, values.password)
+        const auth: any = await login(values).unwrap()
         if (auth && auth.user.access_token) {
-          const d = new Date();
-          d.setSeconds(auth.user.expire_in / 1000); 
+          const d = new Date()
+          d.setSeconds(auth.user.expire_in / 1000)
 
-          saveAuth({ ...auth, expired: d.getTime() })
+          saveAuth({...auth, expired: d.getTime()})
           setCurrentUser(auth)
-          setupAxios(axios, auth.user.access_token);
-          navigate("/dashboard");
+          setupAxios(axios, auth.user.access_token)
+          navigate('/dashboard')
           // window.location.reload();
         } else {
           setStatus('The login detail is incorrect')
@@ -62,7 +60,6 @@ export function Login() {
   })
 
   return (
-    
     <form
       className='form w-100'
       onSubmit={formik.handleSubmit}
@@ -101,7 +98,7 @@ export function Login() {
         {formik.touched.email && formik.errors.email && (
           <div className='fv-plugins-message-container'>
             <div className='fv-help-block'>
-            <span role='alert'>{formik.errors.email}</span>
+              <span role='alert'>{formik.errors.email}</span>
             </div>
           </div>
         )}
@@ -166,7 +163,6 @@ export function Login() {
             </span>
           )}
         </button>
-
       </div>
       {/* end::Action */}
     </form>

@@ -1,19 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {FC, useContext, useState, useEffect, useMemo} from 'react'
+import {FC, useContext, useEffect, useMemo, useState} from 'react'
 import {useQuery} from 'react-query'
 import {
+  PaginationState,
+  WithChildren,
   createResponseContext,
   initialQueryResponse,
   initialQueryState,
-  PaginationState,
-  QUERIES,
   stringifyRequestQuery,
-  WithChildren,
 } from '../../../../_metronic/helpers'
-import {getUsers} from './_requests'
-import {User} from './_models'
+import {BASE_URL} from '../../../constants/api.constants'
 import {useQueryRequest} from './QueryRequestProvider'
-import { BASE_URL } from '../../../constants/api.constants'
+import {User} from './_models'
+import {getUsers} from './_requests'
 
 const QueryResponseContext = createResponseContext<User>(initialQueryResponse)
 const QueryResponseProvider: FC<WithChildren> = ({children}: any) => {
@@ -80,6 +79,6 @@ export {
   QueryResponseProvider,
   useQueryResponse,
   useQueryResponseData,
-  useQueryResponsePagination,
   useQueryResponseLoading,
+  useQueryResponsePagination,
 }

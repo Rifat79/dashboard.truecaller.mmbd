@@ -1,6 +1,6 @@
-import axios from 'axios'
-import { BASE_URL } from '../../../constants/api.constants'
-import {AuthModel, UserModel} from './_models'
+import axios from 'axios';
+import { BASE_URL, USER_SIGN_IN } from '../../../constants/api.constants';
+import { AuthModel, UserModel } from './_models';
 
 const API_URL = BASE_URL;
 
@@ -11,7 +11,7 @@ export const REQUEST_PASSWORD_URL = `${API_URL}/forgot_password`
 
 // Server should return AuthModel
 export function login(email: string, password: string) {
-  return axios.post<AuthModel>(LOGIN_URL, {
+  return axios.post<AuthModel>(USER_SIGN_IN, {
     email,
     password,
   })

@@ -1,12 +1,9 @@
-
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
-import { PageTitle } from '../../../_metronic/layout/core'
-import { OrdertListWrapper } from './order-list/OrdertListWrapper'
-
-
+import {Navigate, Outlet, Route, Routes} from 'react-router-dom'
+import {PageTitle} from '../../../_metronic/layout/core'
+import {BTSReport} from './BedtimeStories/OrdertListWrapper'
+import {OrdertListWrapper} from './order-list/OrdertListWrapper'
 
 const OrderPage = () => {
-
   return (
     <Routes>
       <Route element={<Outlet />}>
@@ -16,6 +13,15 @@ const OrderPage = () => {
             <>
               <PageTitle>Truecaller Charge List</PageTitle>
               <OrdertListWrapper />
+            </>
+          }
+        />
+        <Route
+          path='/bts'
+          element={
+            <>
+              <PageTitle>BedtimeStories</PageTitle>
+              <BTSReport />
             </>
           }
         />

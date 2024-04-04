@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {FC, createContext, useContext, useEffect, useState} from 'react'
+import {FC, createContext, useContext, useEffect, useState} from 'react'
 import {WithChildren} from '../../helpers'
 
 export interface PageLink {
@@ -9,7 +9,14 @@ export interface PageLink {
   isSeparator?: boolean
 }
 
+export interface BackLink {
+  title: string
+  path: string
+}
+
 export interface PageDataContextModel {
+  backLink?: Array<BackLink>
+  setBackLink?: (_back: Array<BackLink>) => void
   pageTitle?: string
   setPageTitle: (_title: string) => void
   pageDescription?: string
@@ -28,6 +35,8 @@ const PageDataProvider: FC<WithChildren> = ({children}) => {
   const [pageTitle, setPageTitle] = useState<string>('')
   const [pageDescription, setPageDescription] = useState<string>('')
   const [pageBreadcrumbs, setPageBreadcrumbs] = useState<Array<PageLink>>([])
+  const [backLink, setBackLink] = useState<Array<BackLink>>([])
+
   const value: PageDataContextModel = {
     pageTitle,
     setPageTitle,
@@ -35,6 +44,8 @@ const PageDataProvider: FC<WithChildren> = ({children}) => {
     setPageDescription,
     pageBreadcrumbs,
     setPageBreadcrumbs,
+    backLink,
+    setBackLink,
   }
   return <PageDataContext.Provider value={value}>{children}</PageDataContext.Provider>
 }
@@ -44,12 +55,13 @@ function usePageData() {
 }
 
 type Props = {
+  backLink?: Array<BackLink>
   description?: string
   breadcrumbs?: Array<PageLink>
 }
 
-const PageTitle: FC<Props & WithChildren> = ({children, description, breadcrumbs}) => {
-  const {setPageTitle, setPageDescription, setPageBreadcrumbs} = usePageData()
+const PageTitle: FC<Props & WithChildren> = ({children, description, breadcrumbs, backLink}) => {
+  const {setPageTitle, setPageDescription, setPageBreadcrumbs, setBackLink} = usePageData()
   useEffect(() => {
     if (children) {
       setPageTitle(children.toString())
@@ -77,6 +89,15 @@ const PageTitle: FC<Props & WithChildren> = ({children, description, breadcrumbs
     }
   }, [breadcrumbs])
 
+  useEffect(() => {
+    if (backLink && setBackLink) {
+      setBackLink(backLink)
+    }
+    return () => {
+      setBackLink && setBackLink([])
+    }
+  }, [backLink])
+
   return <></>
 }
 
@@ -93,4 +114,4 @@ const PageDescription: FC<WithChildren> = ({children}) => {
   return <></>
 }
 
-export {PageDescription, PageTitle, PageDataProvider, usePageData}
+export {PageDataProvider, PageDescription, PageTitle, usePageData}
