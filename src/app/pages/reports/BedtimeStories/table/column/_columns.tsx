@@ -14,6 +14,10 @@ const modalColumns: ReadonlyArray<Column<TableModal>> = [
     accessor: 'date',
   },
   {
+    Header: (props) => <CustomHeader tableProps={props} title='payment channel' />,
+    accessor: 'payment_channel',
+  },
+  {
     Header: (props) => <CustomHeader tableProps={props} title='Total Success Count' />,
     id: 'total_success',
     accessor: 'total_success',
