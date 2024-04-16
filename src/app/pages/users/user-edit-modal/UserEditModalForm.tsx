@@ -6,9 +6,7 @@ import {useListView} from '../core/ListViewProvider'
 // import {UsersListLoading} from '../components/loading/UsersListLoading'
 import {Form} from 'react-bootstrap'
 import Select from 'react-select'
-import SelectSearch from 'react-select-search'
 import {toast} from 'react-toastify'
-import {Can} from '../../../../_metronic/redux/ability'
 import {
   authApi,
   useAddUserMutation,
@@ -245,7 +243,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
             )}
             {/* end::Input */}
           </div>
-          <Can access='permission' group='users'>
+          {/* <Can access='permission' group='users'>
             <Form.Group className='mb-3' controlId='route'>
               <Form.Label>Store</Form.Label>
               <SelectSearch
@@ -258,7 +256,7 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
                 placeholder='Search your Store'
               />
             </Form.Group>
-          </Can>
+          </Can> */}
           <Form.Group className='mb-3' controlId='route'>
             <Form.Label>Role</Form.Label>
             <Select

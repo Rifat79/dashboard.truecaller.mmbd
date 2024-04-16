@@ -1,6 +1,6 @@
 import {Formik} from 'formik'
 import {Accordion, Form} from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import {toast} from 'react-toastify'
 import slugify from 'react-url-slugify'
 import * as yup from 'yup'
@@ -44,6 +44,7 @@ const RoleAdd = () => {
   const {data: userPermissions, isLoading} = useGetUserPermissionsQuery(undefined)
   const [addRole] = useAddRoleMutation()
   const {auth} = useAuth()
+  const navigate = useNavigate()
 
   const handleFormSubmit = async (values: any, {setSubmitting}: any) => {
     setSubmitting(true)
@@ -54,7 +55,7 @@ const RoleAdd = () => {
       }
       const res = await addRole(values).unwrap()
       if (res.success && res.status_code === 200) {
-        toast.success(res.message)
+        navigate('/users/roles')
       } else {
         toast.error(res.message)
       }
@@ -117,7 +118,7 @@ const RoleAdd = () => {
                     {errors['description']}
                   </Form.Control.Feedback>
                 </div>
-                {auth?.user?.role_id_string?.includes('1') && (
+                {/* {auth?.user?.role_id_string?.includes('1') && (
                   <div className='mb-5 fv-row'>
                     <Form.Label>Store Category</Form.Label>
                     <Form.Select
@@ -136,7 +137,7 @@ const RoleAdd = () => {
                       {errors['description']}
                     </Form.Control.Feedback>
                   </div>
-                )}
+                )} */}
                 <Accordion defaultActiveKey='0'>
                   {userPermissions &&
                     userPermissions.data &&

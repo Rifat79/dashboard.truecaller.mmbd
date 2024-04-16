@@ -64,7 +64,7 @@ const PageTitle: FC<Props & WithChildren> = ({children, description, breadcrumbs
   const {setPageTitle, setPageDescription, setPageBreadcrumbs, setBackLink} = usePageData()
   useEffect(() => {
     if (children) {
-      setPageTitle(children.toString())
+      setPageTitle(children)
     }
     return () => {
       setPageTitle('')

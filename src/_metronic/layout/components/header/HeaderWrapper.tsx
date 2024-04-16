@@ -9,7 +9,7 @@ import {Topbar} from './Topbar'
 
 export function HeaderWrapper() {
   const {config, classes, attributes} = useLayout()
-  const {pageTitle, pageDescription} = usePageData()
+  const {pageTitle, pageDescription, backLink} = usePageData()
   const {header, aside} = config
   const auth = getAuth()
 
@@ -69,6 +69,16 @@ export function HeaderWrapper() {
               {/* <DefaultTitle />
                */}
               <h1 className='d-flex align-items-center text-dark fw-bolder my-1 fs-3'>
+                {backLink && (
+                  <div className='me-3'>
+                    {Array.from(backLink).map((item, index) => (
+                      <Link to={item.path} key={index} className='btn btn-sm btn-light'>
+                        <i className='fas fa-arrow-left'></i>
+                        <span className='d-none d-lg-inline'>{item.title}</span>
+                      </Link>
+                    ))}
+                  </div>
+                )}
                 {pageTitle}
                 {pageDescription && (
                   <>
