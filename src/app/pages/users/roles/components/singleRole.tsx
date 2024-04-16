@@ -7,8 +7,9 @@ import {useAbility} from '../../../../../_metronic/redux/ability'
 import {useDeleteRoleMutation, useGetRoleQuery} from '../../../../../_metronic/redux/slices/auth'
 import {Link} from '../../../../modules/helpers/linkHandler'
 
-const CustomToggle = React.forwardRef(({children, onClick}: any) => (
+const CustomToggle = React.forwardRef(({children, onClick}: any, ref: any) => (
   <button
+    ref={ref}
     className='btn-action rounded fw-bold bg-transparent border-transparent min-w-25px'
     onClick={(e) => {
       e.preventDefault()

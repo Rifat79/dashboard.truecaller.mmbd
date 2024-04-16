@@ -35,6 +35,7 @@ const RoleView = () => {
   }
 
   const {role} = roleRes
+
   return (
     <>
       <PageTitle backLink={PageBack}>

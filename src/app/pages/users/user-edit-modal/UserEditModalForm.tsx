@@ -117,8 +117,8 @@ const UserEditModalForm: FC<Props> = ({user, isUserLoading}) => {
 
   const roleOptions = () => {
     const lists: any = []
-    if (rolesData?.roles && rolesData?.roles.length > 0) {
-      rolesData?.roles.map((role: any) => {
+    if (rolesData?.data && rolesData?.data.length > 0) {
+      rolesData?.data.map((role: any) => {
         lists.push({
           ...role,
           label: role.name,

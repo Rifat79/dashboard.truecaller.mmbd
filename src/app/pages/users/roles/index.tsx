@@ -17,9 +17,9 @@ const RoleManagement = () => {
       <RoleHeader />
       <div className='row row-cols-1 row-cols-md-2 row-cols-xl-4 g-5 g-xl-6 mt-4'>
         {rolesData &&
-          rolesData.roles &&
-          rolesData.roles.length > 0 &&
-          rolesData.roles.map((role: any, i: number) => (
+          rolesData.data &&
+          rolesData.data.length > 0 &&
+          rolesData.data.map((role: any, i: number) => (
             <div className='col' key={i}>
               <SingleRole role={role} />
             </div>

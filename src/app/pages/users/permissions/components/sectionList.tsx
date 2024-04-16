@@ -36,9 +36,9 @@ const SectionList = ({section: selectedSection, setSection}: {section: any; setS
     <KTCardBody>
       <ListGroup variant='flush'>
         {data &&
-          data?.permission_groups &&
-          data?.permission_groups.length > 0 &&
-          data?.permission_groups.map((section: any, i: any) => (
+          data?.data &&
+          data?.data.length > 0 &&
+          data?.data.map((section: any, i: any) => (
             <ListGroup.Item
               className='cursor-pointer rounded'
               key={i}

@@ -18,27 +18,29 @@ const PrivateRoutes = () => {
   const {data: userPermission} = data || []
 
   return (
-    <Routes>
-      <Route element={<MasterLayout />}>
-        {/* Redirect to Dashboard after success login/registartion */}
-        <Route path='auth/*' element={<Navigate to='/' />} />
-        {/* Pages */}
-        <Route path='dashboard' element={<DashboardWrapper />} />
-        <Route path='reports/*' element={<OrderPage />} />
-        <Route path='users' />
-        {userPermission?.filter((f: any) => f.group_route.includes('users')).length > 0 && (
-          <Route
-            path='users/*'
-            element={
-              <SuspensedView>
-                <UsersPage />
-              </SuspensedView>
-            }
-          />
-        )}
+    userPermission &&
+    userPermission.length > 0 && (
+      <Routes>
+        <Route element={<MasterLayout />}>
+          {/* Redirect to Dashboard after success login/registartion */}
+          <Route path='auth/*' element={<Navigate to='/' />} />
+          {/* Pages */}
+          <Route path='dashboard' element={<DashboardWrapper />} />
+          <Route path='reports/*' element={<OrderPage />} />
+          {/* <Route path='users' /> */}
+          {userPermission?.filter((f: any) => f.group_route.includes('users')).length > 0 && (
+            <Route
+              path='users/*'
+              element={
+                <SuspensedView>
+                  <UsersPage />
+                </SuspensedView>
+              }
+            />
+          )}
 
-        {/* Lazy Modules */}
-        {/* <Route
+          {/* Lazy Modules */}
+          {/* <Route
           path='merchants/*'
           element={
             <SuspensedView>
@@ -102,7 +104,7 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         /> */}
-        {/* <Route
+          {/* <Route
           path='profile'
           element={
             <SuspensedView>
@@ -110,10 +112,11 @@ const PrivateRoutes = () => {
             </SuspensedView>
           }
         /> */}
-        {/* Page Not Found */}
-        <Route path='*' element={<Navigate to='/error/404' />} />
-      </Route>
-    </Routes>
+          {/* Page Not Found */}
+          <Route path='*' element={<Navigate to='/error/404' />} />
+        </Route>
+      </Routes>
+    )
   )
 }
 

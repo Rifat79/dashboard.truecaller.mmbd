@@ -1,7 +1,7 @@
 export interface AuthModel {
   access_token?: string
-  user?: any,
-  expired?: any,
+  user?: any
+  expired?: any
   refresh_token?: string
 }
 
@@ -66,4 +66,6 @@ export interface UserModel {
   communication?: UserCommunicationModel
   address?: UserAddressModel
   socialNetworks?: UserSocialNetworksModel
+  logo?: any
+  user?: any
 }

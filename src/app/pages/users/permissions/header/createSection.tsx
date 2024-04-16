@@ -23,9 +23,9 @@ const CreateSection = () => {
 
   const APIsOptions = () => {
     let lists: any = []
-    if (APIs?.api_uri_ids) {
+    if (APIs?.data) {
       // eslint-disable-next-line array-callback-return
-      APIs?.api_uri_ids.map((item: any) => {
+      APIs?.data?.map((item: any) => {
         lists.push({
           ...item,
           label: `${item.http_method}:${item.base_route}${item.api_route}`,

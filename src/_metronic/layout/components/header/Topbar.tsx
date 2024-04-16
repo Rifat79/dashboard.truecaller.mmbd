@@ -1,11 +1,8 @@
 import clsx from 'clsx'
-import React, {FC} from 'react'
-import { getAuth } from '../../../../app/modules/auth'
+import {FC} from 'react'
+import {getAuth} from '../../../../app/modules/auth'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
-import {
-  HeaderUserMenu,
-  ThemeModeSwitcher,
-} from '../../../partials'
+import {HeaderUserMenu, ThemeModeSwitcher} from '../../../partials'
 import {useLayout} from '../../core'
 
 const toolbarButtonMarginClass = 'ms-1 ms-lg-3',
@@ -18,7 +15,6 @@ const Topbar: FC = () => {
 
   return (
     <div className='d-flex align-items-stretch flex-shrink-0'>
-      
       {/* begin::Theme mode */}
       <div className={clsx('d-flex align-items-center', toolbarButtonMarginClass)}>
         <ThemeModeSwitcher

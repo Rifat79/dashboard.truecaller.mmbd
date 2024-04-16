@@ -56,8 +56,8 @@ const SubsectionList = ({section}: {section: any}) => {
   if (isLoading) return <></>
 
   const subsections = getSections?.data
-    ? getSections?.data?.permissions
-      ? getSections?.data?.permissions
+    ? getSections?.data?.data
+      ? getSections?.data?.data
       : []
     : []
 

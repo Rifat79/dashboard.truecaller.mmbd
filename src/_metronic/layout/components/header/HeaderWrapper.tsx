@@ -1,18 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import clsx from 'clsx'
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { KTSVG, toAbsoluteUrl } from '../../../helpers'
-import { useLayout, usePageData } from '../../core'
-import { Header } from './Header'
-import { Topbar } from './Topbar'
-import { getAuth } from '../../../../app/modules/auth'
+import {Link} from 'react-router-dom'
+import {getAuth} from '../../../../app/modules/auth'
+import {KTSVG} from '../../../helpers'
+import {useLayout, usePageData} from '../../core'
+import {Header} from './Header'
+import {Topbar} from './Topbar'
 
 export function HeaderWrapper() {
-  const { config, classes, attributes } = useLayout()
+  const {config, classes, attributes} = useLayout()
   const {pageTitle, pageDescription} = usePageData()
-  const { header, aside } = config
-  const auth = getAuth();
+  const {header, aside} = config
+  const auth = getAuth()
 
   return (
     <div

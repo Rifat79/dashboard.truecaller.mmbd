@@ -6,11 +6,14 @@
  */
 
 import {FC} from 'react'
-import {Routes, Route, BrowserRouter, Navigate} from 'react-router-dom'
-import {PrivateRoutes} from './PrivateRoutes'
-import {ErrorsPage} from '../modules/errors/ErrorsPage'
-import {Logout, AuthPage, useAuth, getAuth} from '../modules/auth'
+import {useSelector} from 'react-redux'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
+import {RootState} from '../../_metronic/redux/store'
 import {App} from '../App'
+import {AuthPage, Logout, useAuth} from '../modules/auth'
+import {ErrorsPage} from '../modules/errors/ErrorsPage'
+import AccessDenied from '../modules/errors/accessDenied'
+import {PrivateRoutes} from './PrivateRoutes'
 
 /**
  * Base URL of the website.
@@ -20,8 +23,14 @@ import {App} from '../App'
 const {PUBLIC_URL} = process.env
 
 const AppRoutes: FC = () => {
-  const {currentUser} = useAuth();
-  const auth = getAuth(); 
+  const {currentUser} = useAuth()
+
+  const response = useSelector(
+    (state: RootState) => state.api.queries['getUserPermissions(undefined)']
+  )
+  const {data}: any = response || {}
+  const {data: userPermission} = data || []
+
   return (
     <BrowserRouter basename={PUBLIC_URL}>
       <Routes>
@@ -30,8 +39,12 @@ const AppRoutes: FC = () => {
           <Route path='logout' element={<Logout />} />
           {currentUser ? (
             <>
+              <Route
+                path='/access-denied'
+                element={<AccessDenied userPermission={userPermission} />}
+              />
               <Route path='/*' element={<PrivateRoutes />} />
-              <Route index element={<Navigate to={"/dashboard"} />} />
+              <Route index element={<Navigate to={'/dashboard'} />} />
             </>
           ) : (
             <>
