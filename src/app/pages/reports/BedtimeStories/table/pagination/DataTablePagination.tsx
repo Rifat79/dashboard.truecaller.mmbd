@@ -24,15 +24,23 @@ const DataTablePagination = () => {
               className='form-select form-select-sm form-select-solid'
               onChange={(e: any) => updatePage(1, e.target.value)}
             >
-              <option value='10' selected={pagination.items_per_page === 10}>10</option>
-              <option value='25' selected={pagination.items_per_page === 25}>25</option>
-              <option value='50' selected={pagination.items_per_page === 50}>50</option>
-              <option value='100' selected={pagination.items_per_page === 100}>100</option>
+              <option value='10' selected={pagination.items_per_page === 10}>
+                10
+              </option>
+              <option value='25' selected={pagination.items_per_page === 25}>
+                25
+              </option>
+              <option value='50' selected={pagination.items_per_page === 50}>
+                50
+              </option>
+              <option value='100' selected={pagination.items_per_page === 100}>
+                100
+              </option>
             </select>
           </label>
         </div>
         <div className='dataTables_info'>
-          Showing {((pagination.from - 1) * pagination.items_per_page) + 1} to{' '}
+          Showing {(pagination.from - 1) * pagination.items_per_page + 1} to{' '}
           {pagination.to > pagination.total ? pagination.total : pagination.to} of{' '}
           {pagination.total} records
         </div>
@@ -44,7 +52,7 @@ const DataTablePagination = () => {
               <li
                 key={`${link.label}d-${i}`}
                 className={clsx('page-item', {
-                  active: pagination.page === link.page,
+                  active: Number(pagination.page) === Number(link.page),
                   disabled: isLoading,
                   previous: link.label === '&laquo; Previous',
                   next: link.label === 'Next &raquo;',
