@@ -26,9 +26,9 @@ const EditSubsection = ({subsection}: {subsection: any}) => {
 
   const APIsOptions = () => {
     let lists: any = []
-    if (APIs?.api_uri_ids) {
+    if (APIs?.data) {
       // eslint-disable-next-line array-callback-return
-      APIs?.api_uri_ids.map((item: any) => {
+      APIs?.data.map((item: any) => {
         lists.push({
           ...item,
           label: `${item.http_method}:${item.base_route}${item.api_route}`,
@@ -41,9 +41,9 @@ const EditSubsection = ({subsection}: {subsection: any}) => {
   }
   const sectionsOptions = () => {
     let lists: any = []
-    if (sectionsData.permission_groups) {
+    if (sectionsData.data) {
       // eslint-disable-next-line array-callback-return
-      sectionsData?.permission_groups.map((item: any) => {
+      sectionsData?.data.map((item: any) => {
         lists.push({
           ...item,
           label: item.name,

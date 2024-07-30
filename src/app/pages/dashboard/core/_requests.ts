@@ -1,17 +1,17 @@
 import axios, {AxiosResponse} from 'axios'
+import {ID, Response} from '../../../../_metronic/helpers'
+import {BASE_URL, GET_DASHBOARD_SUMMARY} from '../../../constants/api.constants'
+import {getAuth} from '../../../modules/auth'
 import {User, UsersQueryResponse} from './_models'
-import { BASE_URL } from '../../../constants/api.constants'
-import { getAuth } from '../../../modules/auth'
-import { ID, Response } from '../../../../_metronic/helpers'
 
 const API_URL = process.env.REACT_APP_THEME_API_URL
 const USER_URL = `${BASE_URL}/api/subscriber/create`
-const GET_USERS_URL = `${BASE_URL}/api/v2/truecaller/dashboard/summary`
+const GET_USERS_URL = GET_DASHBOARD_SUMMARY
 const GET_USER_BY_ID = `${BASE_URL}/api/subscriber/get`
 const UPDATE_USER = `${BASE_URL}/api/subscriber/update`
-const  DELETE_USER = `${BASE_URL}/api/subscriber/delete`
+const DELETE_USER = `${BASE_URL}/api/subscriber/delete`
 
-const auth = getAuth();
+const auth = getAuth()
 
 const getUsers = (query: string): Promise<UsersQueryResponse> => {
   return axios
@@ -49,4 +49,4 @@ const deleteSelectedUsers = (userIds: Array<ID>): Promise<void> => {
   return axios.all(requests).then(() => {})
 }
 
-export {getUsers, deleteUser, deleteSelectedUsers, getUserById, createUser, updateUser}
+export {createUser, deleteSelectedUsers, deleteUser, getUserById, getUsers, updateUser}

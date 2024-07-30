@@ -66,6 +66,15 @@ export function AsideMenuMain() {
                 <Can access='BT Report' group={'reports'}>
                   <AsideMenuItem to={'/reports/bts'} title={'BedtimeStories'} hasBullet={true} />
                 </Can>
+                <Can access='Ubundle Reports' group={'reports'}>
+                  <AsideMenuItem to={'/reports/ubundle'} title={'Ubundle'} hasBullet={true} />
+                </Can>
+                <Can access='Art Deep Filter Reports' group={'reports'}>
+                  <AsideMenuItem to={'/reports/adf'} title={'ArtDeepFilters'} hasBullet={true} />
+                </Can>
+                <Can access='AI HIstory Reports' group={'reports'}>
+                  <AsideMenuItem to={'/reports/aih'} title={'AIHistory'} hasBullet={true} />
+                </Can>
               </AsideMenuItemWithSub>
             ) : (
               <></>

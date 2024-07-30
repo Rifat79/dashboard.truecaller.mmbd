@@ -1,13 +1,10 @@
-import moment from 'moment'
-import { useEffect, useRef, useState } from 'react'
-import {  CSVLink } from 'react-csv'
-import slugify from 'react-url-slugify'
-import { isNotEmpty, stringifyRequestQuery, stringifyRequestQueryWithoutPage } from '../../../../../../_metronic/helpers'
-import { ORDER_LIST } from '../../../../../constants/api.constants'
-import { getQueryRequest } from '../../../../../library/api.helper'
-import { dateReadable, dateUnixReadable } from '../../../../../modules/helpers/misc'
-import { useQueryRequest } from '../../core/QueryRequestProvider'
-import { TableModal } from '../../core/_models'
+import {useEffect, useRef, useState} from 'react'
+import {CSVLink} from 'react-csv'
+import {isNotEmpty, stringifyRequestQueryWithoutPage} from '../../../../../../_metronic/helpers'
+import {BTS_REPORT} from '../../../../../constants/api.constants'
+import {getQueryRequest} from '../../../../../library/api.helper'
+import {useQueryRequest} from '../../core/QueryRequestProvider'
+import {TableModal} from '../../core/_models'
 
 const CSVDownload = (props: any) => {
   const btnRef: any = useRef(null)
@@ -22,11 +19,9 @@ const CSVDownload = (props: any) => {
 const ExcelExport = () => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState<any>([])
-  const { state } = useQueryRequest()
+  const {state} = useQueryRequest()
 
-  const [filename] = useState<string>(
-    `truecaller-charge-histories.csv`
-  )
+  const [filename] = useState<string>(`truecaller-charge-histories.csv`)
 
   useEffect(() => {
     if (data.length > 0)
@@ -40,14 +35,14 @@ const ExcelExport = () => {
     // console.log('state', state)
     let filter = state.filter
       ? Object.entries(state.filter as Object)
-        .filter((obj) => isNotEmpty(obj[1]))
-        .map((obj) => {
-          return `${obj[0]}=${obj[1]}`
-        })
-        .join('&')
+          .filter((obj) => isNotEmpty(obj[1]))
+          .map((obj) => {
+            return `${obj[0]}=${obj[1]}`
+          })
+          .join('&')
       : ''
     let query = `page=1&items_per_page=100000&${stringifyRequestQueryWithoutPage(state)}`
-    const res: any = await getQueryRequest(`${ORDER_LIST}?${query}`)
+    const res: any = await getQueryRequest(`${BTS_REPORT}?${query}`)
     setLoading(false)
 
     if (res.success && res.status_code === 200) {
@@ -63,15 +58,13 @@ const ExcelExport = () => {
           // st_address = st_address.trim().replace(/\n/g, '')
 
           lists.push({
-            'Mobile': item?.msisdn,
-            'Purchase Type': item?.request_type,
-            'Customer Name': item?.customer_name,
-            'Package': item?.name,
-            'Price:': item?.price,
-            'Status': item?.payment_status,
-            'Reference': item?.reference,
-            'Subscription Time': dateReadable(item?.created_at),
-            'Next Renewal': dateReadable(item?.next_renew_date)
+            date: item?.date,
+            total_success: item?.total_success,
+            price: item?.price_point,
+            topline_revenue: item?.topline_revenue,
+            payment_channel: item?.payment_channel,
+            momagic_income: item?.momagic_income,
+            partner_share: item?.partner_share,
           })
         })
       }
@@ -81,7 +74,8 @@ const ExcelExport = () => {
   }
 
   // console.log(data)
-  if (data.length > 0 && !loading) return <CSVDownload target='_self' filename={"Truecaller_charge_histories.csv"} data={data} />
+  if (data.length > 0 && !loading)
+    return <CSVDownload target='_self' filename={'BedtimeStoriesReport.csv'} data={data} />
 
   return (
     <div className='menu-item px-3'>
@@ -89,7 +83,6 @@ const ExcelExport = () => {
         {loading ? 'Loading...' : 'CSV'}
       </div>
     </div>
-
   )
 }
 
