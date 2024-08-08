@@ -44,7 +44,8 @@ export function Login() {
           saveAuth({...auth, expired: d.getTime()})
           setCurrentUser(auth)
           setupAxios(axios, auth.user.access_token)
-          navigate('/dashboard')
+          // navigate('/dashboard')
+          window.location.href = '/dashboard'
           // window.location.reload();
         } else {
           setStatus('The login detail is incorrect')
