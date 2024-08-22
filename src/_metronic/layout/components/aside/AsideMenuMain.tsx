@@ -22,6 +22,13 @@ const menuItems = [
     icon_type: 'svg',
     route: '/reports',
   },
+  {
+    menu_name: 'Developer',
+    icon: '/media/icons/duotune/art/art002.svg',
+    icon_select: '/media/icons/duotune/art/art002.svg',
+    icon_type: 'svg',
+    route: '/developer',
+  },
 ]
 
 export function AsideMenuMain() {
@@ -76,12 +83,23 @@ export function AsideMenuMain() {
                   <AsideMenuItem to={'/reports/aih'} title={'AIHistory'} hasBullet={true} />
                 </Can>
               </AsideMenuItemWithSub>
+            ) : menuItem.route.includes('developer') ? (
+              <AsideMenuItemWithSub
+                to='/developer'
+                icon='/media/icons/duotune/art/art005.svg'
+                title='Developer'
+                hasBullet={false}
+              >
+                <Can access='Developer Page' group={'developer'}>
+                  <AsideMenuItem to={'/developer/index'} title={`API & Docs`} hasBullet={true} />
+                </Can>
+              </AsideMenuItemWithSub>
             ) : (
               <></>
             ))
           )
         })}
-      {auth?.user?.role_id_string?.includes('1') && (
+      {auth?.user?.role_id_string === '1' && (
         <AsideMenuItemWithSub
           to={'/users'}
           title={'Users'}

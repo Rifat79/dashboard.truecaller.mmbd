@@ -7,6 +7,7 @@ import {WithChildren} from '../../_metronic/helpers'
 import {MasterLayout} from '../../_metronic/layout/MasterLayout'
 import {RootState} from '../../_metronic/redux/store'
 import {DashboardWrapper} from '../pages/dashboard'
+import DevelopersPage from '../pages/Developer'
 import OrderPage from '../pages/reports/OrderPage'
 import UsersPage from '../pages/users'
 
@@ -16,6 +17,7 @@ const PrivateRoutes = () => {
   )
   const {data}: any = response || {}
   const {data: userPermission} = data || []
+  console.log('🚀 ~ PrivateRoutes ~ userPermission:', userPermission)
 
   return (
     userPermission &&
@@ -34,6 +36,17 @@ const PrivateRoutes = () => {
               element={
                 <SuspensedView>
                   <UsersPage />
+                </SuspensedView>
+              }
+            />
+          )}
+
+          {userPermission?.filter((f: any) => f.group_route.includes('developer')).length > 0 && (
+            <Route
+              path='developer/*'
+              element={
+                <SuspensedView>
+                  <DevelopersPage />
                 </SuspensedView>
               }
             />
