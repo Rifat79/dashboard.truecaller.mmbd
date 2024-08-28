@@ -339,7 +339,7 @@ export const makeDateString = (str) => {
 }
 
 export const prepareTruecallerCardData = (data = [], fieldName = '') => {
-  let new_data = {daily: 0, weekly: 0, monthly: 0, total: 0}
+  let new_data = {daily: 0, weekly: 0, monthly: 0, half_yearly: 0, yearly: 0, total: 0}
 
   for (let i = 0; i < data?.length; i++) {
     const col = data[i]
@@ -360,6 +360,18 @@ export const prepareTruecallerCardData = (data = [], fieldName = '') => {
       new_data = {
         ...new_data,
         monthly: Number(new_data?.monthly || 0) + Number(col?.[fieldName] || 0),
+        total: Number(new_data?.total || 0) + Number(col?.[fieldName] || 0),
+      }
+    } else if (col?.package_name === 'Half Yearly Pack') {
+      new_data = {
+        ...new_data,
+        half_yearly: Number(new_data?.half_yearly || 0) + Number(col?.[fieldName] || 0),
+        total: Number(new_data?.total || 0) + Number(col?.[fieldName] || 0),
+      }
+    } else if (col?.package_name === 'Yearly Pack') {
+      new_data = {
+        ...new_data,
+        yearly: Number(new_data?.yearly || 0) + Number(col?.[fieldName] || 0),
         total: Number(new_data?.total || 0) + Number(col?.[fieldName] || 0),
       }
     }
@@ -390,7 +402,7 @@ export const prepareTruecallerChartData = (data) => {
       enabled: false,
     },
     stroke: {
-      width: [1, 2, 3],
+      width: [1, 1.5, 2, 2.5, 3],
       curve: 'straight',
       dashArray: [0, 0, 0],
     },
@@ -448,6 +460,12 @@ export const prepareTruecallerChartData = (data) => {
 
   const monthly = Array.isArray(data) ? data.filter((e) => e?.package_name === 'Monthly Pack') : []
 
+  const half_yearly = Array.isArray(data)
+    ? data.filter((e) => e?.package_name === 'Half Yearly Pack')
+    : []
+
+  const yearly = Array.isArray(data) ? data.filter((e) => e?.package_name === 'Yearly Pack') : []
+
   const dates = [...new Set(data.map((obj) => obj?.rdate))]
   dates.sort()
 
@@ -457,6 +475,8 @@ export const prepareTruecallerChartData = (data) => {
   const data_daily = []
   const data_weekly = []
   const data_monthly = []
+  const data_half_yearly = []
+  const data_yearly = []
 
   if (diff > 2 * 30) {
     dates.forEach((item) => {
@@ -467,6 +487,8 @@ export const prepareTruecallerChartData = (data) => {
       const in_daily = daily.filter((e) => getMonthFromDateString(e?.rdate) === item)
       const in_weekly = weekly.filter((e) => getMonthFromDateString(e?.rdate) === item)
       const in_monthly = monthly.filter((e) => getMonthFromDateString(e?.rdate) === item)
+      const in_half_yearly = half_yearly.filter((e) => getMonthFromDateString(e?.rdate) === item)
+      const in_yearly = yearly.filter((e) => getMonthFromDateString(e?.rdate) === item)
 
       if (in_daily) {
         const success_cnt = in_daily.reduce((sum, cur) => {
@@ -497,6 +519,26 @@ export const prepareTruecallerChartData = (data) => {
       } else {
         data_monthly.push(0)
       }
+
+      if (in_half_yearly) {
+        const success_cnt = in_half_yearly.reduce((sum, cur) => {
+          return sum + (Number(cur?.new_success_cnt) || 0) + (Number(cur?.renew_success_cnt) || 0)
+        }, 0)
+
+        data_half_yearly.push(success_cnt)
+      } else {
+        data_half_yearly.push(0)
+      }
+
+      if (in_yearly) {
+        const success_cnt = in_yearly.reduce((sum, cur) => {
+          return sum + (Number(cur?.new_success_cnt) || 0) + (Number(cur?.renew_success_cnt) || 0)
+        }, 0)
+
+        data_yearly.push(success_cnt)
+      } else {
+        data_yearly.push(0)
+      }
     })
 
     return {
@@ -513,6 +555,14 @@ export const prepareTruecallerChartData = (data) => {
           name: 'Monthly ',
           data: data_monthly,
         },
+        {
+          name: 'Half Yearly ',
+          data: data_half_yearly,
+        },
+        {
+          name: 'Yearly ',
+          data: data_yearly,
+        },
       ],
       options: {
         ...options,
@@ -528,6 +578,8 @@ export const prepareTruecallerChartData = (data) => {
     const in_daily = daily.filter((e) => e?.rdate === item)[0]
     const in_weekly = weekly.filter((e) => e?.rdate === item)[0]
     const in_monthly = monthly.filter((e) => e?.rdate === item)[0]
+    const in_half_yearly = half_yearly.filter((e) => e?.rdate === item)[0]
+    const in_yearly = yearly.filter((e) => e?.rdate === item)[0]
 
     if (in_daily) {
       data_daily.push(
@@ -552,6 +604,23 @@ export const prepareTruecallerChartData = (data) => {
     } else {
       data_monthly.push(0)
     }
+
+    if (in_half_yearly) {
+      data_half_yearly.push(
+        (Number(in_half_yearly?.new_success_cnt) || 0) +
+          (Number(in_half_yearly?.renew_success_cnt) || 0)
+      )
+    } else {
+      data_half_yearly.push(0)
+    }
+
+    if (in_yearly) {
+      data_yearly.push(
+        (Number(in_yearly?.new_success_cnt) || 0) + (Number(in_yearly?.renew_success_cnt) || 0)
+      )
+    } else {
+      data_yearly.push(0)
+    }
   })
 
   return {
@@ -567,6 +636,14 @@ export const prepareTruecallerChartData = (data) => {
       {
         name: 'Monthly ',
         data: data_monthly,
+      },
+      {
+        name: 'Half Yearly ',
+        data: data_half_yearly,
+      },
+      {
+        name: 'Yearly ',
+        data: data_yearly,
       },
     ],
     options: {
@@ -588,12 +665,12 @@ export const prepareTruecallerRevenueChartData = (data) => {
         enabled: false,
       },
     },
-    colors: ['#008FFB', '#00E396', '#FEB019', '#FFF200'],
+    colors: ['#008FFB', '#00E396', '#FEB019', '#FF4560', '#775DD0'],
     dataLabels: {
       enabled: false,
     },
     stroke: {
-      width: [1, 2, 3, 4],
+      width: [1, 1.5, 2, 2.5, 3],
       curve: 'straight',
       dashArray: [0, 0, 0],
     },
@@ -658,6 +735,12 @@ export const prepareTruecallerRevenueChartData = (data) => {
 
   const monthly = Array.isArray(data) ? data.filter((e) => e?.package_name === 'Monthly Pack') : []
 
+  const half_yearly = Array.isArray(data)
+    ? data.filter((e) => e?.package_name === 'Half Yearly Pack')
+    : []
+
+  const yearly = Array.isArray(data) ? data.filter((e) => e?.package_name === 'Yearly Pack') : []
+
   const dates = [...new Set(data.map((obj) => obj?.rdate))]
   dates.sort()
 
@@ -667,6 +750,8 @@ export const prepareTruecallerRevenueChartData = (data) => {
   const data_daily = []
   const data_weekly = []
   const data_monthly = []
+  const data_half_yearly = []
+  const data_yearly = []
   const data_total = []
 
   if (diff > 2 * 30) {
@@ -678,6 +763,8 @@ export const prepareTruecallerRevenueChartData = (data) => {
       const in_daily = daily.filter((e) => getMonthFromDateString(e?.rdate) === item)
       const in_weekly = weekly.filter((e) => getMonthFromDateString(e?.rdate) === item)
       const in_monthly = monthly.filter((e) => getMonthFromDateString(e?.rdate) === item)
+      const in_half_yearly = half_yearly.filter((e) => getMonthFromDateString(e?.rdate) === item)
+      const in_yearly = yearly.filter((e) => getMonthFromDateString(e?.rdate) === item)
 
       if (in_daily) {
         const success_cnt = in_daily.reduce((sum, cur) => {
@@ -708,6 +795,26 @@ export const prepareTruecallerRevenueChartData = (data) => {
       } else {
         data_monthly.push(0)
       }
+
+      if (in_half_yearly) {
+        const success_cnt = in_half_yearly.reduce((sum, cur) => {
+          return sum + (cur?.new_price || 0) + (cur?.renew_price || 0)
+        }, 0)
+
+        data_half_yearly.push(success_cnt)
+      } else {
+        data_half_yearly.push(0)
+      }
+
+      if (in_yearly) {
+        const success_cnt = in_yearly.reduce((sum, cur) => {
+          return sum + (cur?.new_price || 0) + (cur?.renew_price || 0)
+        }, 0)
+
+        data_yearly.push(success_cnt)
+      } else {
+        data_yearly.push(0)
+      }
     })
 
     return {
@@ -724,6 +831,14 @@ export const prepareTruecallerRevenueChartData = (data) => {
           name: 'Monthly ',
           data: data_monthly,
         },
+        {
+          name: 'Half Yearly ',
+          data: data_half_yearly,
+        },
+        {
+          name: 'Yearly ',
+          data: data_yearly,
+        },
       ],
       options: {
         ...options,
@@ -739,10 +854,14 @@ export const prepareTruecallerRevenueChartData = (data) => {
     const in_daily = daily.filter((e) => e?.rdate === item)[0]
     const in_weekly = weekly.filter((e) => e?.rdate === item)[0]
     const in_monthly = monthly.filter((e) => e?.rdate === item)[0]
+    const in_half_yearly = half_yearly.filter((e) => e?.rdate === item)[0]
+    const in_yearly = yearly.filter((e) => e?.rdate === item)[0]
 
     let daily_price = 0
     let weekly_price = 0
     let monthly_price = 0
+    let half_yearly_price = 0
+    let yearly_price = 0
     let total = 0
 
     if (in_daily) {
@@ -766,7 +885,21 @@ export const prepareTruecallerRevenueChartData = (data) => {
       data_monthly.push(0)
     }
 
-    total = daily_price + weekly_price + monthly_price
+    if (in_half_yearly) {
+      half_yearly_price = (in_half_yearly?.new_price || 0) + (in_half_yearly?.renew_price || 0)
+      data_half_yearly.push(half_yearly_price)
+    } else {
+      data_half_yearly.push(0)
+    }
+
+    if (in_yearly) {
+      yearly_price = (in_yearly?.new_price || 0) + (in_yearly?.renew_price || 0)
+      data_yearly.push(yearly_price)
+    } else {
+      data_yearly.push(0)
+    }
+
+    total = daily_price + weekly_price + monthly_price + half_yearly_price + yearly_price
     data_total.push(total)
   })
 
@@ -783,6 +916,14 @@ export const prepareTruecallerRevenueChartData = (data) => {
       {
         name: 'Monthly',
         data: data_monthly,
+      },
+      {
+        name: 'Half Yearly',
+        data: data_half_yearly,
+      },
+      {
+        name: 'Yearly',
+        data: data_yearly,
       },
     ],
     options: {

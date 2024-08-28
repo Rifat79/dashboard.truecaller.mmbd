@@ -12,8 +12,6 @@ const DashboardChart = () => {
   let data = useMemo(() => users, [users])
   data = data?.length === 2 ? data[0] : data
 
-  console.log(prepareTruecallerChartData(data))
-
   // if (loading) return <h3 style={{ textAlign: 'center' }}>loading...</h3>;
 
   return (
