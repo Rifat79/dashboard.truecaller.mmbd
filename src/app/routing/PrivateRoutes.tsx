@@ -17,7 +17,6 @@ const PrivateRoutes = () => {
   )
   const {data}: any = response || {}
   const {data: userPermission} = data || []
-  console.log('🚀 ~ PrivateRoutes ~ userPermission:', userPermission)
 
   return (
     userPermission &&

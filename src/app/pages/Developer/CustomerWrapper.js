@@ -1,6 +1,7 @@
 import {KTCard} from '../../../_metronic/helpers'
 import PageToolbar from '../../../_metronic/layout/components/toolbar/PageToolbar'
 import {PUBLIC_KEY_DOWNLOAD} from '../../constants/api.constants'
+import {getAuth} from '../../modules/auth'
 import {ListViewProvider, useListView} from './core/ListViewProvider'
 import {QueryRequestProvider} from './core/QueryRequestProvider'
 import {QueryResponseProvider} from './core/QueryResponseProvider'
@@ -45,6 +46,8 @@ const DeveloperPageWrapper = () => {
   bodyStyles += '--kt-toolbar-height-tablet-and-mobile: 5px;'
   document.body.setAttribute('style', bodyStyles)
 
+  const {user} = getAuth()
+
   return (
     <div>
       <div className='row mt-4'>
@@ -58,7 +61,7 @@ const DeveloperPageWrapper = () => {
               style={{width: '350px', display: 'inline-block'}}
               type='button'
               onClick={() => {
-                const partnerId = 1001
+                const partnerId = user?.partner_id
                 window.location.href = `${PUBLIC_KEY_DOWNLOAD}/${partnerId}`
               }}
             >
@@ -74,7 +77,7 @@ const DeveloperPageWrapper = () => {
               style={{width: '350px', display: 'inline-block'}}
               type='button'
               onClick={() => {
-                const filePath = '/files/Truecaller Bundle API(Robi).pdf'
+                const filePath = '/files/MoMagic Truecaller Bundle APIs.pdf'
                 window.location.href = filePath
               }}
             >
