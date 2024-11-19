@@ -9,6 +9,8 @@ import {RootState} from '../../_metronic/redux/store'
 import {DashboardWrapper} from '../pages/dashboard'
 import DevelopersPage from '../pages/Developer'
 import OrderPage from '../pages/reports/OrderPage'
+import SubscribersPage from '../pages/Subscribers/SubscribersPage'
+import TruecallerBundlePage from '../pages/Truecaller Bundle'
 import UsersPage from '../pages/users'
 
 const PrivateRoutes = () => {
@@ -46,6 +48,30 @@ const PrivateRoutes = () => {
               element={
                 <SuspensedView>
                   <DevelopersPage />
+                </SuspensedView>
+              }
+            />
+          )}
+
+          {userPermission?.filter((f: any) => f.group_route.includes('dob-subscribers')).length >
+            0 && (
+            <Route
+              path='dob-subscribers/*'
+              element={
+                <SuspensedView>
+                  <SubscribersPage />
+                </SuspensedView>
+              }
+            />
+          )}
+
+          {userPermission?.filter((f: any) => f.group_route.includes('truecaller-bundle')).length >
+            0 && (
+            <Route
+              path='truecaller-bundle/*'
+              element={
+                <SuspensedView>
+                  <TruecallerBundlePage />
                 </SuspensedView>
               }
             />

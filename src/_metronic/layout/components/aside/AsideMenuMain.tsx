@@ -29,6 +29,20 @@ const menuItems = [
     icon_type: 'svg',
     route: '/developer',
   },
+  {
+    menu_name: 'Truecaller Bundle',
+    icon: '/media/icons/duotune/art/art005.svg',
+    icon_select: '/media/icons/duotune/art/art005.svg',
+    icon_type: 'svg',
+    route: '/truecaller-bundle',
+  },
+  {
+    menu_name: 'DOB Subscribers',
+    icon: '/media/icons/duotune/art/art007.svg',
+    icon_select: '/media/icons/duotune/art/art007.svg',
+    icon_type: 'svg',
+    route: '/dob-subscribers',
+  },
 ]
 
 export function AsideMenuMain() {
@@ -92,6 +106,39 @@ export function AsideMenuMain() {
               >
                 <Can access='Developer Page' group={'developer'}>
                   <AsideMenuItem to={'/developer/index'} title={`API & Docs`} hasBullet={true} />
+                </Can>
+              </AsideMenuItemWithSub>
+            ) : menuItem.route.includes('truecaller-bundle') ? (
+              <AsideMenuItemWithSub
+                to='/truecaller-bundle'
+                icon='/media/icons/duotune/art/art006.svg'
+                title='Truecaller Bundle'
+                hasBullet={false}
+              >
+                <Can access='Truecaller Bundle Dashboard' group={'truecaller-bundle'}>
+                  <AsideMenuItem
+                    to={'/truecaller-bundle/dashboard'}
+                    title={`Dashboard`}
+                    hasBullet={true}
+                  />
+                </Can>
+                <Can access='Truecaller Bundle Redeem Histories' group={'truecaller-bundle'}>
+                  <AsideMenuItem
+                    to={'/truecaller-bundle/charge-histories'}
+                    title={`Redeem Histories`}
+                    hasBullet={true}
+                  />
+                </Can>
+              </AsideMenuItemWithSub>
+            ) : menuItem.route.includes('subscribers') ? (
+              <AsideMenuItemWithSub
+                to='/dob-subscribers'
+                icon='/media/icons/duotune/art/art008.svg'
+                title='Subscribers'
+                hasBullet={false}
+              >
+                <Can access='Get Dob Subscribers' group={'dob-subscribers'}>
+                  <AsideMenuItem to={'/dob-subscribers/index'} title={`All DCB`} hasBullet={true} />
                 </Can>
               </AsideMenuItemWithSub>
             ) : (
