@@ -10,7 +10,7 @@ import {useQueryResponse} from '../../core/QueryResponseProvider'
 import {cancelSubscription} from '../../core/_requests'
 
 const ActionsCell = ({item}) => {
-  const {query, refetch} = useQueryResponse()
+  const {query, refetch, isLoading} = useQueryResponse()
   const queryClient = useQueryClient()
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const ActionsCell = ({item}) => {
     }, 500)
 
     return () => clearTimeout(timer)
-  }, [query])
+  }, [query, isLoading])
 
   useEffect(() => {
     setTimeout(() => {
