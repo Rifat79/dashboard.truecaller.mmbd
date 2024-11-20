@@ -15,7 +15,7 @@ const ActionsCell = ({item}) => {
 
   useEffect(() => {
     MenuComponent.reinitialization()
-  }, [])
+  }, [query])
 
   const unsubscription = useMutation(() => cancelSubscription(item), {
     onSuccess: () => {
