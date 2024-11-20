@@ -11,7 +11,6 @@ import {cancelSubscription} from '../../core/_requests'
 
 const ActionsCell = ({item}) => {
   const {query, refetch} = useQueryResponse()
-  console.log('🚀 ~ ActionsCell ~ query:', query)
   const queryClient = useQueryClient()
 
   useEffect(() => {
@@ -21,6 +20,12 @@ const ActionsCell = ({item}) => {
 
     return () => clearTimeout(timer)
   }, [query])
+
+  useEffect(() => {
+    setTimeout(() => {
+      MenuComponent.reinitialization()
+    }, 500)
+  }, [])
 
   const unsubscription = useMutation(() => cancelSubscription(item), {
     onSuccess: () => {
